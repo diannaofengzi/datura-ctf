@@ -16,7 +16,7 @@ bash -c "$(curl -fsSL https://gef.blah.cat/sh)"
 
 	Decompiler for binary files, usefull for static analysis.
 
-Automaticaly create a ghidra project from a binary file:
+Automaticaly create a ghidra project from a binary file using [this script](./Tools/ghidra.py):
 ```bash
 ghidra.py <file>
 ```

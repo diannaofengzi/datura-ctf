@@ -390,7 +390,16 @@ Tools that will help you to exploit a binary:
 	Decompiler for binary files, usefull for **static** analysis.
 	See [Reverse Engineering](#reverse%20engineering) for more info.
 
+* [---x--x--x root root]()
 
+    To exfiltrate or read a binary when you only have **execution rights**, you can load it with a library and use the library to read it.
+
+    This needs that the binary is **dynamically linked**, and is easier if you know the name of the function you want to extract.
+
+    Code for this libary is provided [here](Binary%20Exploitation/Tools/exec_only_dumper).
+
+    [CTF time WU](https://ctftime.org/writeup/7670)<br>
+    [DGHack 2022 WU](https://remyoudompheng.github.io/ctf/dghack2022/wanna_more_features.html)
 
 ## ELF
 

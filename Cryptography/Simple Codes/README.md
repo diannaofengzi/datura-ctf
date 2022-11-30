@@ -191,3 +191,12 @@ Base91:
 * "Unflattening" Base64 in lowercase or uppercase
 
 	Some time ago we needed to recover the original Base64 string from one that is in all lowercase or all uppercase. Caleb wrote a good script to smartly do this: [https://pastebin.com/HprZcHrY](https://pastebin.com/HprZcHrY)
+
+* [Enigma](https://en.wikipedia.org/wiki/Enigma_machine)
+
+	Machine used by the Germans during World War II to encrypt messages. Still takes a lot of time to crack today, but some tricks can be used to speed up the process.
+
+	[404CTF WU](https://remyoudompheng.github.io/ctf/404ctf/enigma.html)
+
+
+	

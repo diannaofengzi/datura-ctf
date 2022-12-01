@@ -828,6 +828,12 @@ In Linux:
 * [`mount`]
 
     Mount a disk image. I recommand to use a virtual machine to mount the disk image. This way you can browse the filesystem and extract files without risking to damage your system.
+
+## Docker
+
+* [Dive](https://github.com/wagoodman/dive)
+
+    Explore layers of a docker image.
 <br><br>
 
 # Cryptography
@@ -1415,7 +1421,9 @@ printf "$s\n" "${anything[@]}"
 
 # Android
 
+* [Android Studio](https://developer.android.com/studio)
 
+    Main IDE for Android development. Java and Kotlin can be used.
 
 ## APK Forensics
 
@@ -1618,7 +1626,11 @@ Whisper my world
 
 # Signal processing
 
+* [Scipy](https://scipy.org/install/)
 
+    Can be used for signal processing.
+
+    Exemple is provided in [process_signal.ipynb](Signal%20processing/Tools/process_signal.ipynb)
 <br><br>
 
 # Chemistry

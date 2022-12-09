@@ -891,6 +891,40 @@ In Linux:
 
 	Forensically is free online tool to analysis image this tool has many features like  Magnifier, Clone Detection, Error Level analysis, Noise Analusis, level Sweep, Meta Data, Geo tags, Thumbnail Analysis , JPEG Analysis, Strings Extraction.
 
+
+## Logs
+
+Looking at logs takes time but can lead to valuable information.
+
+* [Windows Event Logs](https://en.wikipedia.org/wiki/Event_Viewer)
+
+    Windows logs a *lot* of information. It can be read using `mmc.exe`, under "Windows Logs".
+
+    The categories are:
+    | Category | Description |
+    | --- | --- |
+    | Application | Programs (started, stopped ...) |
+    | Security | Security events (login, logout, ...) |
+    | System | Changes to system (boot, shutdown, peripherals ...) |
+    | Setup | System maintainance (update logs, ...) |
+
+* [Linux logs](https://fr.wikipedia.org/wiki/Syslog)
+
+    Linux logs are stored in `/var/log/`. The most important ones are:
+    | File | Description |
+    | --- | --- |
+    | `auth.log` or `secure` | Authentication events (login, logout, ...) |
+    | `syslog` or `messages` | General messages (system wide) |
+    | `dpkg.log` | Package managment |
+    | `kern.log` | Kernel messages |
+    | `btmp` | Failed login attempts |
+    | `wtmp` | Login/logout history |
+    | `lastlog` | Last login for each user |
+
+    `btmp`, `wtmp` and `lastlog` can be read using `last <file>`
+
+    Other applications can have their own logs in /var/logs.
+
 <br><br>
 
 # Cryptography
@@ -993,17 +1027,6 @@ Some code for this attack can be found [here](https://github.com/mimoo/RSA-and-L
 
 	ROT but using the keyboard layout.
 
-* Bit Shift
-
-	Characters can be shifted by a fixed number of bits.
-
-
-* DNA Codes
-
-    A DNA sequence can be used to encode a message.
-
-    ![Cryptography/_img/dna_codes.png](Cryptography/_img/dna_codes.png)
-    ![../_img/genome_coding.jpg](Cryptography/_img/genome-coding.jpg)
 
 * XOR
 
@@ -1014,7 +1037,7 @@ Some code for this attack can be found [here](https://github.com/mimoo/RSA-and-L
 
 * [Caesar Cipher](https://www.dcode.fr/caesar-cipher)
 
-	Shift cipher using the alphabet. Different alphabets can also be used. Vulnerable to frequency analysis.
+	Shift cipher using the alphabet. Different alphabets can also be used. Vulnerable to **frequency analysis**.
 
 
 * [Atbash Cipher](https://en.wikipedia.org/wiki/Atbash) 
@@ -1046,9 +1069,9 @@ Some code for this attack can be found [here](https://github.com/mimoo/RSA-and-L
 
         [Online tool](http://rumkin.com/tools/cipher/baconian.php)
 
-* Python random module cracker/predictor
+* [Python random module cracker/predictor](https://github.com/tna0y/Python-random-module-cracker)
 
-	[https://github.com/tna0y/Python-random-module-cracker](https://github.com/tna0y/Python-random-module-cracker)... helps attack the Mersenne Twister used in Python's random module.
+	Python's `random` module can be predicted from previous values. This tool can be used to predict the next value from a list of previous results.
 
 * Transposition Cipher
 

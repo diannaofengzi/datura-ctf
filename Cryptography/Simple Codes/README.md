@@ -11,17 +11,6 @@
 
 	ROT but using the keyboard layout.
 
-* Bit Shift
-
-	Characters can be shifted by a fixed number of bits.
-
-
-* DNA Codes
-
-    A DNA sequence can be used to encode a message.
-
-    ![../_img/dna_codes.png](../_img/dna_codes.png)
-    ![../_img/genome_coding.jpg](../_img/genome-coding.jpg)
 
 * XOR
 
@@ -32,7 +21,7 @@
 
 * [Caesar Cipher](https://www.dcode.fr/caesar-cipher)
 
-	Shift cipher using the alphabet. Different alphabets can also be used. Vulnerable to frequency analysis.
+	Shift cipher using the alphabet. Different alphabets can also be used. Vulnerable to **frequency analysis**.
 
 
 * [Atbash Cipher](https://en.wikipedia.org/wiki/Atbash) 
@@ -64,9 +53,9 @@
 
         [Online tool](http://rumkin.com/tools/cipher/baconian.php)
 
-* Python random module cracker/predictor
+* [Python random module cracker/predictor](https://github.com/tna0y/Python-random-module-cracker)
 
-	[https://github.com/tna0y/Python-random-module-cracker](https://github.com/tna0y/Python-random-module-cracker)... helps attack the Mersenne Twister used in Python's random module.
+	Python's `random` module can be predicted from previous values. This tool can be used to predict the next value from a list of previous results.
 
 * Transposition Cipher
 

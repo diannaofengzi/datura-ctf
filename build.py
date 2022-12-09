@@ -2,7 +2,7 @@ import os
 import sys
 import re
 
-topics = ["Scanning", "Services and Ports", "Reverse Shell", "Privilege Escalation", "Binary Exploitation", "Classic Exploits", "Reverse Engineering", "Forensics",  "Cryptography", "Steganography", "PDF Files", "ZIP Files", "Hashes", "OSINT", "Network", "Jail Break", "Android", "Esoteric Languages", "Data Science", "Signal processing", "Chemistry", "Other CheatSheets"]
+topics = ["Scanning", "Services and Ports", "Reverse Shell", "Privilege Escalation", "Binary Exploitation", "Classic Exploits", "Reverse Engineering", "Forensics",  "Cryptography", "Steganography", "PDF Files", "ZIP Files", "Hashes", "OSINT", "Network", "Jail Break", "Android", "Esoteric Languages", "Data Science", "Signal processing", "Wireless", "Other CheatSheets"]
 output_markdown_file = "./README.md"
 
 # Parse the makrdown content and update the links

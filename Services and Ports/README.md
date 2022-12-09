@@ -42,10 +42,10 @@ scp <user>@<ip>:<path> <file> # Remote to local
 scp -r <dir> <user>@<ip>:<path> # whole directory
 ```
 
-DNS - Domain Name System - 53/tcp
+DNS - Domain Name System - 53/udp
 ---------------------------------
 
-DNS is used to resolve domain names to IP addresses.
+DNS is used to resolve domain names to IP addresses. `BIND` is the most common DNS implementation.
 
 * [`nslookup`](https://en.wikipedia.org/wiki/Nslookup)
 
@@ -55,10 +55,26 @@ DNS is used to resolve domain names to IP addresses.
 
 	Query a DNS server for information about a domain name.
 
+* [Zone transfer attack](https://en.wikipedia.org/wiki/DNS_zone_transfer)
+
+	Zone transfer is a method of transferring a copy of a DNS zone from a DNS server to another DNS server. This can be used to enumerate DNS records of a hidden zone if we know one of it's domain.
+
+To perform a zone transfer, use `dig` with the `axfr` option.
+```bash
+dig axfr @<dns-server> <domain>
+```
+
 HTTP(S) - Hypertext Transfer Protocol - 80/tcp 443/tcp
 ------------------------------------------------------
 
 See [Web](../Web/README.md) for more information.
+
+
+POP3 - Post Office Protocol - 110/all
+-------------------------------------
+
+POP3 is used to retrieve emails from a server.
+
 
 SMB - Samba - 445/tcp
 ---------------------
@@ -115,6 +131,38 @@ smbclient -m SMB2 -N //10.10.10.125/Reports
 ```
 
 You will see a `smb: \>` prompt, and you can use `ls` and `get` to retrieve files or even `put` if you need to place files there.
+
+LDAP - Lightweight Directory Access Protocol 389/all ldaps 636/all
+-----------------------------------------------------------------
+
+LDAP is used to store information about **users**, computers, and other resources. It is used by Active Directory.
+
+A ldap DN (distinguished name) is a string that identifies a resource in the LDAP directory. It is composed of a series of RDNs (Relative Distinguished Names) separated by commas. Each RDN is composed of an attribute name and a value. For example, the DN `CN=John Doe,OU=Users,DC=example,DC=com` identifies the user `John Doe` in the `Users` organizational unit of the `example.com` domain.
+
+The different attribute names are :
+
+| Attribute | Description |
+|-----------|-------------|
+| `CN` | Common name |
+| `L` | Locality name |
+| `ST` | State or province name |
+| `O` | Organization name |
+| `OU` | Organizational unit name |
+| `C` | Country name |
+| `STREET` | Street address |
+| `DC` | Domain component |
+| `UID` | User ID |
+
+
+* [`ldapsearch`](https://linux.die.net/man/1/ldapsearch)
+
+	`ldapsearch` is a command line tool for querying LDAP servers.
+
+Anonymously query a LDAP server for information about a domain name.
+```bash
+ldapsearch -H ldap://<ip>:<port> -x -s base '' "(objectClass=*)" "*" + # Without DN
+ldapsearch -H ldap://<ip>:<port> -x -b <DN> # With DN
+```
 
 
 SQL - Structured Query Language

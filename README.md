@@ -31,7 +31,7 @@ This file is auto generated using [build.py](build.py). To update it, update the
 * [Esoteric Languages](#esoteric-languages)
 * [Data Science](#data-science)
 * [Signal processing](#signal-processing)
-* [Chemistry](#chemistry)
+* [Wireless](#wireless)
 * [Other CheatSheets](#other-cheatsheets)
 
 <br><br>
@@ -41,6 +41,41 @@ This file is auto generated using [build.py](build.py). To update it, update the
 
 
 
+
+## Website Scanning
+
+
+See [Web Enumeration](#web)
+
+
+## Network Scanning
+
+* [`nmap`](https://nmap.org/)
+
+    `nmap` is a utility for network discovery.
+
+Classic scan
+```	
+nmap -sC -sV -O 192.168.0.0/24
+```
+
+SYN scan : Only send SYN (faster but no service detection)
+```
+nmap -sS 192.168.0.0/24
+```
+
+* [Nmap scripts](https://nmap.org/nsedoc/scripts/)
+  
+  `nmap` has a lot of scripts that can be used to scan for specific vulnerabilities. They are called with the `--script` option.
+
+Run all dns scripts
+```
+nmap -sV --script dns-* <ip>
+```
+
+* [`traceroute`](https://en.wikipedia.org/wiki/Traceroute)
+
+    See the path packets take to reach a host.
 
 ## File Scanning
 
@@ -65,32 +100,6 @@ This file is auto generated using [build.py](build.py). To update it, update the
 
     Scan a file with Yara rules.
 
-
-
-## Network Scanning
-
-* [`nmap`](https://nmap.org/)
-
-    `nmap` is a utility for network discovery.
-
-Classic scan
-```	
-nmap -sC -sV -O 192.168.0.0/24
-```
-
-SYN scan : Only send SYN (faster but no service detection)
-```
-nmap -sS 192.168.0.0/24
-```
-
-* [`traceroute`](https://en.wikipedia.org/wiki/Traceroute)
-
-    See the path packets take to reach a host.
-
-## Website Scanning
-
-
-See [Web Enumeration](#web)
 
 <br><br>
 
@@ -140,10 +149,10 @@ scp <user>@<ip>:<path> <file> # Remote to local
 scp -r <dir> <user>@<ip>:<path> # whole directory
 ```
 
-DNS - Domain Name System - 53/tcp
+DNS - Domain Name System - 53/udp
 ---------------------------------
 
-DNS is used to resolve domain names to IP addresses.
+DNS is used to resolve domain names to IP addresses. `BIND` is the most common DNS implementation.
 
 * [`nslookup`](https://en.wikipedia.org/wiki/Nslookup)
 
@@ -153,10 +162,26 @@ DNS is used to resolve domain names to IP addresses.
 
 	Query a DNS server for information about a domain name.
 
+* [Zone transfer attack](https://en.wikipedia.org/wiki/DNS_zone_transfer)
+
+	Zone transfer is a method of transferring a copy of a DNS zone from a DNS server to another DNS server. This can be used to enumerate DNS records of a hidden zone if we know one of it's domain.
+
+To perform a zone transfer, use `dig` with the `axfr` option.
+```bash
+dig axfr @<dns-server> <domain>
+```
+
 HTTP(S) - Hypertext Transfer Protocol - 80/tcp 443/tcp
 ------------------------------------------------------
 
 See [Web](#web) for more information.
+
+
+POP3 - Post Office Protocol - 110/all
+-------------------------------------
+
+POP3 is used to retrieve emails from a server.
+
 
 SMB - Samba - 445/tcp
 ---------------------
@@ -213,6 +238,38 @@ smbclient -m SMB2 -N //10.10.10.125/Reports
 ```
 
 You will see a `smb: \>` prompt, and you can use `ls` and `get` to retrieve files or even `put` if you need to place files there.
+
+LDAP - Lightweight Directory Access Protocol 389/all ldaps 636/all
+-----------------------------------------------------------------
+
+LDAP is used to store information about **users**, computers, and other resources. It is used by Active Directory.
+
+A ldap DN (distinguished name) is a string that identifies a resource in the LDAP directory. It is composed of a series of RDNs (Relative Distinguished Names) separated by commas. Each RDN is composed of an attribute name and a value. For example, the DN `CN=John Doe,OU=Users,DC=example,DC=com` identifies the user `John Doe` in the `Users` organizational unit of the `example.com` domain.
+
+The different attribute names are :
+
+| Attribute | Description |
+|-----------|-------------|
+| `CN` | Common name |
+| `L` | Locality name |
+| `ST` | State or province name |
+| `O` | Organization name |
+| `OU` | Organizational unit name |
+| `C` | Country name |
+| `STREET` | Street address |
+| `DC` | Domain component |
+| `UID` | User ID |
+
+
+* [`ldapsearch`](https://linux.die.net/man/1/ldapsearch)
+
+	`ldapsearch` is a command line tool for querying LDAP servers.
+
+Anonymously query a LDAP server for information about a domain name.
+```bash
+ldapsearch -H ldap://<ip>:<port> -x -s base '' "(objectClass=*)" "*" + # Without DN
+ldapsearch -H ldap://<ip>:<port> -x -b <DN> # With DN
+```
 
 
 SQL - Structured Query Language
@@ -401,6 +458,25 @@ Tools that will help you to exploit a binary:
     [CTF time WU](https://ctftime.org/writeup/7670)<br>
     [DGHack 2022 WU](https://remyoudompheng.github.io/ctf/dghack2022/wanna_more_features.html)
 
+## ELF
+
+
+* [`checksec`](https://docs.pwntools.com/en/stable/commandline.html)
+
+    A command-line tool that will check the security mechanisms of a binary.
+    
+* [`pwntools`](https://docs.pwntools.com/en/stable/about.html)
+
+    A python library that can be used to interact with a binary.
+
+* [`ROPgadget`](https://pypi.org/project/ROPGadget/)
+
+    A command-line tool that can be used to find gadgets in a binary.
+
+* [`ropper`](https://github.com/sashs/Ropper)
+
+    A command-line tool that can be used to find gadgets in a binary.
+
 ## Windows
 
 
@@ -454,25 +530,6 @@ $ x86_64-w64-mingw32-gdb myprogram.exe
 * [AutoIt](https://www.autoitscript.com/site/autoit/)
 
 	Scripting language for Windows.
-
-## ELF
-
-
-* [`checksec`](https://docs.pwntools.com/en/stable/commandline.html)
-
-    A command-line tool that will check the security mechanisms of a binary.
-    
-* [`pwntools`](https://docs.pwntools.com/en/stable/about.html)
-
-    A python library that can be used to interact with a binary.
-
-* [`ROPgadget`](https://pypi.org/project/ROPGadget/)
-
-    A command-line tool that can be used to find gadgets in a binary.
-
-* [`ropper`](https://github.com/sashs/Ropper)
-
-    A command-line tool that can be used to find gadgets in a binary.
 <br><br>
 
 # Classic Exploits
@@ -742,36 +799,11 @@ sudo apt install foremost
 
 
 
-## Images
+## Docker
 
+* [Dive](https://github.com/wagoodman/dive)
 
-* `pngcheck`
-
-	Check if a **PNG** file is valid. If it is not, displays the error.
-
-
-* [`pngcsum`](http://www.schaik.com/png/pngcsum/pngcsum-v01.tar.gz)
-
-	Correct the CRCs present in a **PNG** file.
-
-
-* [https://github.com/sherlly/PCRT](https://github.com/sherlly/PCRT)
-
-	Correct a corrupted PNG file.
-
-	Utility to try and correct a **PNG** file. 
-	Need to press enter to show the file.
-
-* Repair image online tool
-
-    Good low-hanging fruit to throw any image at: [https://online.officerecovery.com/pixrecovery/](https://online.officerecovery.com/pixrecovery/)
-
-
-
-* [Analysis Image] ['https://29a.ch/photo-forensics/#forensic-magnifier']
-
-	Forensically is free online tool to analysis image this tool has many features like  Magnifier, Clone Detection, Error Level analysis, Noise Analusis, level Sweep, Meta Data, Geo tags, Thumbnail Analysis , JPEG Analysis, Strings Extraction.
-
+    Explore layers of a docker image.
 
 ## Memory Dump
 
@@ -829,11 +861,36 @@ In Linux:
 
     Mount a disk image. I recommand to use a virtual machine to mount the disk image. This way you can browse the filesystem and extract files without risking to damage your system.
 
-## Docker
+## Images
 
-* [Dive](https://github.com/wagoodman/dive)
 
-    Explore layers of a docker image.
+* `pngcheck`
+
+	Check if a **PNG** file is valid. If it is not, displays the error.
+
+
+* [`pngcsum`](http://www.schaik.com/png/pngcsum/pngcsum-v01.tar.gz)
+
+	Correct the CRCs present in a **PNG** file.
+
+
+* [https://github.com/sherlly/PCRT](https://github.com/sherlly/PCRT)
+
+	Correct a corrupted PNG file.
+
+	Utility to try and correct a **PNG** file. 
+	Need to press enter to show the file.
+
+* Repair image online tool
+
+    Good low-hanging fruit to throw any image at: [https://online.officerecovery.com/pixrecovery/](https://online.officerecovery.com/pixrecovery/)
+
+
+
+* [Analysis Image] ['https://29a.ch/photo-forensics/#forensic-magnifier']
+
+	Forensically is free online tool to analysis image this tool has many features like  Magnifier, Clone Detection, Error Level analysis, Noise Analusis, level Sweep, Meta Data, Geo tags, Thumbnail Analysis , JPEG Analysis, Strings Extraction.
+
 <br><br>
 
 # Cryptography
@@ -841,14 +898,6 @@ In Linux:
 * [SageMath](https://www.sagemath.org/)
 
     Powerful mathematics software, very useful for crypto and number theory.
-
-## AES
-
-[AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) A.K.A. Rijndael is a **symmetric** cryptographic algorithm. It uses the same key for encryption and decryption.
-
-* AES ECB
-
-	The "blind SQL" of cryptography... leak the flag out by testing for characters just one byte away from the block length.
 
 ## RSA
 
@@ -1133,6 +1182,14 @@ Base91:
 
 
 	
+
+## AES
+
+[AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) A.K.A. Rijndael is a **symmetric** cryptographic algorithm. It uses the same key for encryption and decryption.
+
+* AES ECB
+
+	The "blind SQL" of cryptography... leak the flag out by testing for characters just one byte away from the block length.
 <br><br>
 
 # Steganography
@@ -1633,9 +1690,11 @@ Whisper my world
     Exemple is provided in [process_signal.ipynb](Signal%20processing/Tools/process_signal.ipynb)
 <br><br>
 
-# Chemistry
+# Wireless
 
+* [`gnuradio`](https://wiki.gnuradio.org/index.php/InstallingGR)
 
+    `gnuradio` and it's GUI `gnuradio-companion` are used to create or analyse RF (Radio Frequency) signals.
 <br><br>
 
 # Other CheatSheets

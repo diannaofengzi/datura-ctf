@@ -183,39 +183,41 @@ POP3 - Post Office Protocol - 110/all
 POP3 is used to retrieve emails from a server.
 
 
-SMB - Samba - 445/tcp
+SMB - Samba - 445/all
 ---------------------
+
+Samba is a free and open-source implementation of the SMB/CIFS network protocol. It allows file and printer sharing between Linux and Windows machines.
+
+A smb server can have multiple **shares** (~partition) with their own permissions. They can be listed with `smbmap` or `enum4linux` and accessed with `smbclient`.
 
 * [`smbmap`](https://github.com/ShawnDEvans/smbmap)
 
-	`smbmap` tells you permissions and access, which `smbclient` does _not_ do!
+	Emumerate SMB shares and their permissions.
 
-	To try and list shares as the anonymous user **DO THIS** (this doesn't always work for some weird reason)
 
+List shares as anonymous user:
 ```
-smbmap -H 10.10.10.125 -u anonymous
-```
-
-Or you can attempt just:
-
-```
-smbmap -H 10.10.10.125
+smbmap -H <ip> -u anonymous
 ```
 
-And you can specify a domain like so:
-
+Logged in as a user:
 ```
-smbmap -H 10.10.10.125 -u anonymous -d HTB.LOCAL
+smbmap -H 10.10.10.125 -u <user> -p <password>
 ```
 
-Worth trying `localhost` as a domain, if that gets "NO_LOGON_SERVERS"
-
+List recursively everything on the server.
 ```
-smbmap -H 10.10.10.125 -u anonymous -d localhost
+smbmap -H 10.10.10.125 -u <user> -p <password> -r
+```
+
+The `-d` option specifies a domain. For exemple with the `localhost` domain (useful when NO_LOGON_SERVERS is returned)
+```
+smbmap -H 10.10.10.125 -u <user> -d localhost
 ```
 
 * `enum4linux`
 
+	Enumerate SMB shares and their permissions.
 
 ```
 enum4linux 10.10.10.125
@@ -223,21 +225,13 @@ enum4linux 10.10.10.125
 
 * `smbclient`
 
-	**NOTE: DEPENDING ON THE VERSION OF SMBCLIENT YOU ARE USING, you may need to SPECIFY the use of S<B version 1 or SMB version 2. You can dp this with `-m SMB2`. Older versions of SMBclient (latest being 4.10 at the time of writing) use SMB1 _by default_.**
+	Access SMB shares. You can use the `-m SMB2` option to force SMB2 protocol on weird servers.
 
-	You can use `smbclient` to look through files shared with SMB. To _list_ available shares:
-
+Connect a share and enter the smb CLI:
 ```
-smbclient -m SMB2 -N -L //10.10.10.125/
+smbclient \\\\10.10.139.198\\admins -U "ubuntu%S@nta2022"
 ```
-
-Once you find a share you want to/can access, you can connect to shares by using the name following the locator:
-
-```
-smbclient -m SMB2 -N //10.10.10.125/Reports
-```
-
-You will see a `smb: \>` prompt, and you can use `ls` and `get` to retrieve files or even `put` if you need to place files there.
+Here you can use regular linux commands to navigate and `get`, `put` to transfer data.
 
 LDAP - Lightweight Directory Access Protocol 389/all ldaps 636/all
 -----------------------------------------------------------------
@@ -925,6 +919,36 @@ Looking at logs takes time but can lead to valuable information.
 
     Other applications can have their own logs in /var/logs.
 
+* [Apache logs](https://httpd.apache.org/docs/2.4/logs.html)
+  
+    Apache logs are often stored in `/var/log/apache2/`. The most important ones are:
+    | File | Description |
+    | --- | --- |
+    | `access.log` | HTTP requests |
+    | `error.log` | HTTP errors |
+    | `other_vhosts_access.log` | HTTP requests from other virtual hosts |
+
+    `access.log` can be read using `tail -f <file>` or with `grep` to filter the logs.
+
+    It can also be imported into a [pandas dataframe](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html) using this snippet:
+    ```python
+    # Read access.log file
+    df = pd.read_csv(filename,
+                sep=r'\s(?=(?:[^"]*"[^"]*")*[^"]*$)(?![^\[]*\])',
+                engine='python',
+                usecols=[0, 3, 4, 5, 6, 7, 8],
+                names=['ip', 'datetime', 'request', 'status', 'size', 'referer', 'user_agent'],
+                na_values='-',
+                header=None
+                    )
+
+    # Extract the date from the datetime column
+    df['date'] = df['datetime'].str.extract(r'\[(.*?):', expand=True)
+
+    # Extract the time from the datetime column
+    df['time'] = df['datetime'].str.extract(r':(.*?)\s', expand=True)
+    ```
+
 <br><br>
 
 # Cryptography
@@ -1010,7 +1034,18 @@ Some code for this attack can be found [here](https://github.com/mimoo/RSA-and-L
 
 	These challenges can be spotted when given  mutiple `c` cipher texts and multiple `n` moduli. `e` must be the same number of given `c` and `n` pairs. Some handmade code here: [https://pastebin.com/qypwc6wH](https://pastebin.com/qypwc6wH)
 
-* RSA: Fixed Point
+* [RSA: Fixed Point](https://crypto.stackexchange.com/questions/81128/fixed-point-in-rsa-encryption)
+
+    These challenges can be spotted when the input is not changed with encrypted/decrypted.
+
+    There are 6 non-trivial fixed points in RSA encryption, caracterized by $m$ mod $p \in \{0, 1, -1\}$ **and** $m$ mod $q \in \{0, 1, -1\}$.
+
+    It is possible to deduce one of the prime factors of $n$ from the fixed point, since $\text{gcd}(m−1,n),\ \text{gcd}(m,n),\ \text{gcd}(m+1,n)$ are $1, p, q$ in a different order depending on the values of $m$ mod $p$ and $m$ mod $q$.
+
+    To find the other prime factor, you can simply use the Euclidean algorithm : 
+    ```python
+    q = n//p # in python
+    ```
 
 ## Simple Codes
 

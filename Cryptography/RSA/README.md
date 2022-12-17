@@ -73,4 +73,15 @@ Some code for this attack can be found [here](https://github.com/mimoo/RSA-and-L
 
 	These challenges can be spotted when given  mutiple `c` cipher texts and multiple `n` moduli. `e` must be the same number of given `c` and `n` pairs. Some handmade code here: [https://pastebin.com/qypwc6wH](https://pastebin.com/qypwc6wH)
 
-* RSA: Fixed Point
+* [RSA: Fixed Point](https://crypto.stackexchange.com/questions/81128/fixed-point-in-rsa-encryption)
+
+    These challenges can be spotted when the input is not changed with encrypted/decrypted.
+
+    There are 6 non-trivial fixed points in RSA encryption, caracterized by $m$ mod $p \in \{0, 1, -1\}$ **and** $m$ mod $q \in \{0, 1, -1\}$.
+
+    It is possible to deduce one of the prime factors of $n$ from the fixed point, since $\text{gcd}(m−1,n),\ \text{gcd}(m,n),\ \text{gcd}(m+1,n)$ are $1, p, q$ in a different order depending on the values of $m$ mod $p$ and $m$ mod $q$.
+
+    To find the other prime factor, you can simply use the Euclidean algorithm : 
+    ```python
+    q = n//p # in python
+    ```

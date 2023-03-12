@@ -50,6 +50,16 @@ def updateLinks(content, topic_path):
 
 def addTopic(topic):
 
+    # List directories in the current directory
+    directories = [d for d in os.listdir(topic) if os.path.isdir(os.path.join(topic, d))]
+
+    # Add links to the directories in a rectangle
+    with open(output_markdown_file, "a", encoding='utf-8') as output_fd:
+        for directory in directories:
+            if not directory.startswith(".") and not directory.startswith("_") and not directory == "Tools":
+                output_fd.write("⇨ [" + directory + "](#" + directory.lower().replace(" ", "-") + ")<br>")
+        output_fd.write("\n\n")
+        
     files = os.listdir(topic)
 
     if "README.md" in files:

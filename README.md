@@ -1,3 +1,5 @@
+
+
 <p align="center">
   <img src="Introduction/_img/datura.jpg" />
 </p>
@@ -38,17 +40,59 @@ This file is auto generated using [build.py](build.py). To update it, update the
 
 # Scanning
 
+⇨ [File Scanning](#file-scanning)<br>⇨ [Network Scanning](#network-scanning)<br>⇨ [Website Scanning](#website-scanning)<br>
 
 
 
 
-## Website Scanning
+
+## File Scanning
 
 
-See [Web Enumeration](#web)
+
+* `file`
+
+    Deduce the file type from the headers.
+
+* `binwalk`
+
+    Look for embedded files in other files.
+
+    
+    ```bash
+    binwalk <file>            # List embedded files
+    binwalk -e <file>         # Extract embedded files
+    binwalk --dd=".*" <file>  # Extract all embedded files
+    ```
+
+* `strings`
+
+    Extract strings from a file.
+
+* `grep`
+
+    Search for a string in a file.
+
+
+* `yara`
+
+    Scan a file with Yara rules.
+
+* [`file signatures`](https://en.wikipedia.org/wiki/List_of_file_signatures)
+
+    A list of file signatures. The most common ones are :
+
+    | Hex signature | File type | Description |
+    | --- | --- | --- |
+    | `FF D8 FF` (???) | JPEG | [JPEG](https://en.wikipedia.org/wiki/JPEG) image |
+    | `89 50 4E 47 0D 0A 1A 0A` (?PNG) | PNG | [PNG](https://en.wikipedia.org/wiki/Portable_Network_Graphics) image |
+    | `50 4B` (PK) | ZIP | [ZIP](https://en.wikipedia.org/wiki/Zip_(file_format)) archive |
+
 
 
 ## Network Scanning
+
+
 
 * [`nmap`](https://nmap.org/)
 
@@ -77,33 +121,18 @@ nmap -sV --script dns-* <ip>
 
     See the path packets take to reach a host.
 
-## File Scanning
-
-* `file`
-
-    Deduce the file type from the headers.
-
-* `binwalk`
-
-    Look for embedded files in other files.
-
-* `strings`
-
-    Extract strings from a file.
-
-* `grep`
-
-    Search for a string in a file.
+## Website Scanning
 
 
-* `yara`
 
-    Scan a file with Yara rules.
 
+See [Web Enumeration](#web)
 
 <br><br>
 
 # Services and Ports
+
+
 
 Assigned port numbers by IANA can be found at [IANA Port Numbers](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml). But other services can also run on these ports.
 
@@ -326,6 +355,8 @@ snmp-check 10.10.10.125
 
 
 
+
+
 * [PayloadAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)
 
     Compilation of useful payloads and bypass for Web Application Security and Pentest/CTF.
@@ -355,6 +386,8 @@ python -c 'import pty; pty.spawn("/bin/bash")'
 <br><br>
 
 # Privilege Escalation
+
+
 
 * `sudo`
 
@@ -400,6 +433,8 @@ $ find / -perm -u=s -type f 2>/dev/null
 <br><br>
 
 # Binary Exploitation
+
+⇨ [ELF](#elf)<br>⇨ [Windows](#windows)<br>
 
 Different types of exploit exists, the most common are:
 
@@ -455,6 +490,8 @@ Tools that will help you to exploit a binary:
 ## ELF
 
 
+
+
 * [`checksec`](https://docs.pwntools.com/en/stable/commandline.html)
 
     A command-line tool that will check the security mechanisms of a binary.
@@ -472,6 +509,8 @@ Tools that will help you to exploit a binary:
     A command-line tool that can be used to find gadgets in a binary.
 
 ## Windows
+
+
 
 
 * [`winchecksec`](https://github.com/trailofbits/winchecksec)
@@ -528,6 +567,8 @@ $ x86_64-w64-mingw32-gdb myprogram.exe
 
 # Classic Exploits
 
+
+
 * Heartbleed
 
 	Metasploit module: `auxiliary/scanner/ssl/openssl_heartbleed`
@@ -556,6 +597,8 @@ $ x86_64-w64-mingw32-gdb myprogram.exe
 <br><br>
 
 # Reverse Engineering
+
+⇨ [Virtualisation](#virtualisation)<br>⇨ [Python](#python)<br>
 
 
 * [ltrace](http://man7.org/linux/man-pages/man1/ltrace.1.html) and [strace](https://strace.io)
@@ -699,9 +742,13 @@ ghidra.py <file>
 
 ## Virtualisation
 
+
+
 In order to run some system, it is nessesary to use virtualisation.
 
 ## Python
+
+
 
 
 * [`uncompyle6`](https://github.com/rocky/python-uncompyle6/)
@@ -728,6 +775,8 @@ python3 pyinstxtractor.py <filename>
 <br><br>
 
 # Forensics
+
+⇨ [Disk Image](#disk-image)<br>⇨ [Logs](#logs)<br>⇨ [Images](#images)<br>⇨ [Memory Dump](#memory-dump)<br>⇨ [Docker](#docker)<br>
 
 
 * `binwalk`
@@ -793,59 +842,9 @@ sudo apt install foremost
 
 
 
-## Docker
-
-* [Dive](https://github.com/wagoodman/dive)
-
-    Explore layers of a docker image.
-
-## Memory Dump
-
-Memory dumps are captures of the state of the memory at a given time. It contains all the loaded files, processes and data that was used at this moment.
-
-Memory dumps can be analyzed using the [Volatility Framework](https://www.volatilityfoundation.org/)
-
-I recommand using **volatility 3** so you do not have to bother with profiles (finding it was often a pain in vol2)
-
-The documentation can be found [here](https://volatility3.readthedocs.io)
-
-* [Online Cheat Sheet](https://blog.onfvp.com/post/volatility-cheatsheet/)
-
-* [Windows Memory Forensics](https://volatility3.readthedocs.io/en/latest/getting-started-windows-tutorial.html#)
-
-* [Linux Memory Forensics](https://volatility3.readthedocs.io/en/latest/getting-started-linux-tutorial.html)
-
-* Most useful plugins
-
-| Plugin | Description |
-| --- | --- |
-| `pslist` | List all processes |
-| `filescan` | List all files |
-| `filedump` | Dump a file from memory |
-| `netscan` | List all network connections |
-
-* Browser profile
-
-    The browser profile contains a lot of information about the user, such as bookmarks, history, cookies, stored passwords, etc.
-
-In Windows:
-| Browser | Location |
-| --- | --- |
-| Chrome | `C:\Users\<username>\AppData\Local\Google\Chrome\User Data\Default` |
-| [Firefox](https://support.mozilla.org/en-US/kb/profiles-where-firefox-stores-user-data) | `C:\Users\<username>\AppData\Roaming\Mozilla\Firefox\Profiles\<profile>` |
-| Edge | `C:\Users\<username>\AppData\Local\Microsoft\Edge\User Data\Default` |
-
-In Linux:
-| Browser | Location |
-| --- | --- |
-| Chrome | `~/.config/google-chrome/Default` |
-| [Firefox](https://support.mozilla.org/en-US/kb/profiles-where-firefox-stores-user-data) | `~/.mozilla/firefox/<profile>` |
-
-
-
-
-
 ## Disk Image
+
+
 
 * [Autopsy](https://www.autopsy.com/download/)
 
@@ -855,38 +854,9 @@ In Linux:
 
     Mount a disk image. I recommand to use a virtual machine to mount the disk image. This way you can browse the filesystem and extract files without risking to damage your system.
 
-## Images
-
-
-* `pngcheck`
-
-	Check if a **PNG** file is valid. If it is not, displays the error.
-
-
-* [`pngcsum`](http://www.schaik.com/png/pngcsum/pngcsum-v01.tar.gz)
-
-	Correct the CRCs present in a **PNG** file.
-
-
-* [https://github.com/sherlly/PCRT](https://github.com/sherlly/PCRT)
-
-	Correct a corrupted PNG file.
-
-	Utility to try and correct a **PNG** file. 
-	Need to press enter to show the file.
-
-* Repair image online tool
-
-    Good low-hanging fruit to throw any image at: [https://online.officerecovery.com/pixrecovery/](https://online.officerecovery.com/pixrecovery/)
-
-
-
-* [Analysis Image] ['https://29a.ch/photo-forensics/#forensic-magnifier']
-
-	Forensically is free online tool to analysis image this tool has many features like  Magnifier, Clone Detection, Error Level analysis, Noise Analusis, level Sweep, Meta Data, Geo tags, Thumbnail Analysis , JPEG Analysis, Strings Extraction.
-
-
 ## Logs
+
+
 
 Looking at logs takes time but can lead to valuable information.
 
@@ -949,105 +919,118 @@ Looking at logs takes time but can lead to valuable information.
     df['time'] = df['datetime'].str.extract(r':(.*?)\s', expand=True)
     ```
 
+
+## Images
+
+
+
+
+* `pngcheck`
+
+	Check if a **PNG** file is valid. If it is not, displays the error.
+
+
+* [`pngcsum`](http://www.schaik.com/png/pngcsum/pngcsum-v01.tar.gz)
+
+	Correct the CRCs present in a **PNG** file.
+
+
+* [https://github.com/sherlly/PCRT](https://github.com/sherlly/PCRT)
+
+	Correct a corrupted PNG file.
+
+	Utility to try and correct a **PNG** file. 
+	Need to press enter to show the file.
+
+* Repair image online tool
+
+    Good low-hanging fruit to throw any image at: [https://online.officerecovery.com/pixrecovery/](https://online.officerecovery.com/pixrecovery/)
+
+
+
+* [Analysis Image] ['https://29a.ch/photo-forensics/#forensic-magnifier']
+
+	Forensically is free online tool to analysis image this tool has many features like  Magnifier, Clone Detection, Error Level analysis, Noise Analusis, level Sweep, Meta Data, Geo tags, Thumbnail Analysis , JPEG Analysis, Strings Extraction.
+
+
+## Memory Dump
+
+
+
+Memory dumps are captures of the state of the memory at a given time. It contains all the loaded files, processes and data that was used at this moment.
+
+Memory dumps can be analyzed using the [Volatility Framework](https://www.volatilityfoundation.org/)
+
+I recommand using **volatility 3** so you do not have to bother with profiles (finding it was often a pain in vol2)
+
+The documentation can be found [here](https://volatility3.readthedocs.io)
+
+* [Online Cheat Sheet](https://blog.onfvp.com/post/volatility-cheatsheet/)
+
+* [Windows Memory Forensics](https://volatility3.readthedocs.io/en/latest/getting-started-windows-tutorial.html#)
+
+* [Linux Memory Forensics](https://volatility3.readthedocs.io/en/latest/getting-started-linux-tutorial.html)
+
+* Most useful plugins
+
+| Plugin | Description |
+| --- | --- |
+| `pslist` | List all processes |
+| `filescan` | List all files |
+| `filedump` | Dump a file from memory |
+| `netscan` | List all network connections |
+
+* Browser profile
+
+    The browser profile contains a lot of information about the user, such as bookmarks, history, cookies, stored passwords, etc.
+
+In Windows:
+| Browser | Location |
+| --- | --- |
+| Chrome | `C:\Users\<username>\AppData\Local\Google\Chrome\User Data\Default` |
+| [Firefox](https://support.mozilla.org/en-US/kb/profiles-where-firefox-stores-user-data) | `C:\Users\<username>\AppData\Roaming\Mozilla\Firefox\Profiles\<profile>` |
+| Edge | `C:\Users\<username>\AppData\Local\Microsoft\Edge\User Data\Default` |
+
+In Linux:
+| Browser | Location |
+| --- | --- |
+| Chrome | `~/.config/google-chrome/Default` |
+| [Firefox](https://support.mozilla.org/en-US/kb/profiles-where-firefox-stores-user-data) | `~/.mozilla/firefox/<profile>` |
+
+
+
+
+
+## Docker
+
+
+
+* [Dive](https://github.com/wagoodman/dive)
+
+    Explore layers of a docker image.
 <br><br>
 
 # Cryptography
+
+⇨ [AES](#aes)<br>⇨ [Simple Codes](#simple-codes)<br>⇨ [RSA](#rsa)<br>
 
 * [SageMath](https://www.sagemath.org/)
 
     Powerful mathematics software, very useful for crypto and number theory.
 
-## RSA
-
-[RSA](https://en.wikipedia.org/wiki/RSA_(cryptosystem)) is an **asymetric** cryptographic algorithm. A **public key** is used to encrypt data and a **private key** is used to decrypt data.
-
-The variables of textbook RSA are:
-- **N**: the product of two large primes
-- **e**: the public exponent
-- **d**: the private exponent
-
-The public key is (N, e) and the private key is (N, d).
-
-### Key generation
-1. Choose two large primes **p** and **q**.
-2. Compute **N = p * q**.
-3. Compute **phi = (p - 1) * (q - 1)**.
-4. Choose an integer **e** such that **1 < e < phi** and **gcd(e, phi) = 1** (usually **e = 65537**).
-5. Compute **d** such that **d * e = 1 mod phi** i.e. **d = e^-1 mod phi**. (for exemple with the [Extended Euclidean algorithm](https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm))
-
-### Encryption
-To encrypt a message **m** with the public key **(N, e)**, compute $c = m^e \mod N$.
-
-c is the ciphertext.
-
-### Decryption
-To decrypt a ciphertext **c** with the private key **(N, d)**, compute $m = c^d \mod N$.
-
-m is the deciphered message.
-
-Several attacks exist on RSA depending on the circumstances.
-
-* [RSA CTF Tool](https://github.com/RsaCtfTool/RsaCtfTool)
-
-    Performs several attacks on RSA keys. Very useful for CTFs.
+## AES
 
 
-* RSA: Classic RSA
 
-	Variables typically given: `n`, `c`, `e`. _ALWAYS_ try and give to [http://factordb.com](http://factordb.com). If `p` and `q` are able to be determined, use some RSA decryptor; handmade code available here: [https://pastebin.com/ERAMhJ1v](https://pastebin.com/ERAMhJ1v)
+[AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) A.K.A. Rijndael is a **symmetric** cryptographic algorithm. It uses the same key for encryption and decryption.
 
-__If FactorDB cannot find factors, try [alpertron](https://www.alpertron.com.ar/ECM.HTM)__
+* AES ECB
 
-* RSA: Multi-prime RSA
-
-	When you see multi-prime RSA, you can use calculate `phi` by still using all the factors.
-
-```
-phi = (a - 1) * (b - 1) * (c - 1)    # ... etcetera
-```
-
-
-* RSA: `e` is 3 (or small)
-
-	If `e` is 3, you can try the cubed-root attack. If you the cubed root of `c`, and if that is smaller than the cubed root of `n`, then your plaintext message `m` is just the cubed root of `c`! Here is [Python](https://www.python.org/) code to take the cubed root:
-
-```
-def root3rd(x):
-    y, y1 = None, 2
-    while y!=y1:
-        y = y1
-        y3 = y**3
-        d = (2*y3+x)
-        y1 = (y*(y3+2*x)+d//2)//d
-    return y
-```
-
-* RSA: Wiener's Little D Attack
-
-	The telltale sign for this kind of challenge is an enormously large `e` value. Typically `e` is either 65537 (0x10001) or `3` (like for a Chinese Remainder Theorem challenge). Some stolen code available here: [https://pastebin.com/VKjYsDqD](https://pastebin.com/VKjYsDqD)
-
-* RSA:  Boneh-Durfee Attack
-	The tellgate sign for this kind of challenge is also an enormously large `e` value (`e` and `n` have similar size).
-Some code for this attack can be found [here](https://github.com/mimoo/RSA-and-LLL-attacks/blob/master/boneh_durfee.sage)
-
-* RSA: Chinese Remainder Attack
-
-	These challenges can be spotted when given  mutiple `c` cipher texts and multiple `n` moduli. `e` must be the same number of given `c` and `n` pairs. Some handmade code here: [https://pastebin.com/qypwc6wH](https://pastebin.com/qypwc6wH)
-
-* [RSA: Fixed Point](https://crypto.stackexchange.com/questions/81128/fixed-point-in-rsa-encryption)
-
-    These challenges can be spotted when the input is not changed with encrypted/decrypted.
-
-    There are 6 non-trivial fixed points in RSA encryption, caracterized by $m$ mod $p \in \{0, 1, -1\}$ **and** $m$ mod $q \in \{0, 1, -1\}$.
-
-    It is possible to deduce one of the prime factors of $n$ from the fixed point, since $\text{gcd}(m−1,n),\ \text{gcd}(m,n),\ \text{gcd}(m+1,n)$ are $1, p, q$ in a different order depending on the values of $m$ mod $p$ and $m$ mod $q$.
-
-    To find the other prime factor, you can simply use the Euclidean algorithm : 
-    ```python
-    q = n//p # in python
-    ```
+	The "blind SQL" of cryptography... leak the flag out by testing for characters just one byte away from the block length.
 
 ## Simple Codes
+
+
 
 * [DCode](https://www.dcode.fr)
 
@@ -1241,16 +1224,102 @@ Base91:
 
 	
 
-## AES
+## RSA
 
-[AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) A.K.A. Rijndael is a **symmetric** cryptographic algorithm. It uses the same key for encryption and decryption.
 
-* AES ECB
 
-	The "blind SQL" of cryptography... leak the flag out by testing for characters just one byte away from the block length.
+[RSA](https://en.wikipedia.org/wiki/RSA_(cryptosystem)) is an **asymetric** cryptographic algorithm. A **public key** is used to encrypt data and a **private key** is used to decrypt data.
+
+The variables of textbook RSA are:
+- **N**: the product of two large primes
+- **e**: the public exponent
+- **d**: the private exponent
+
+The public key is (N, e) and the private key is (N, d).
+
+### Key generation
+1. Choose two large primes **p** and **q**.
+2. Compute **N = p * q**.
+3. Compute **phi = (p - 1) * (q - 1)**.
+4. Choose an integer **e** such that **1 < e < phi** and **gcd(e, phi) = 1** (usually **e = 65537**).
+5. Compute **d** such that **d * e = 1 mod phi** i.e. **d = e^-1 mod phi**. (for exemple with the [Extended Euclidean algorithm](https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm))
+
+### Encryption
+To encrypt a message **m** with the public key **(N, e)**, compute $c = m^e \mod N$.
+
+c is the ciphertext.
+
+### Decryption
+To decrypt a ciphertext **c** with the private key **(N, d)**, compute $m = c^d \mod N$.
+
+m is the deciphered message.
+
+Several attacks exist on RSA depending on the circumstances.
+
+* [RSA CTF Tool](https://github.com/RsaCtfTool/RsaCtfTool)
+
+    Performs several attacks on RSA keys. Very useful for CTFs.
+
+
+* RSA: Classic RSA
+
+	Variables typically given: `n`, `c`, `e`. _ALWAYS_ try and give to [http://factordb.com](http://factordb.com). If `p` and `q` are able to be determined, use some RSA decryptor; handmade code available here: [https://pastebin.com/ERAMhJ1v](https://pastebin.com/ERAMhJ1v)
+
+__If FactorDB cannot find factors, try [alpertron](https://www.alpertron.com.ar/ECM.HTM)__
+
+* RSA: Multi-prime RSA
+
+	When you see multi-prime RSA, you can use calculate `phi` by still using all the factors.
+
+```
+phi = (a - 1) * (b - 1) * (c - 1)    # ... etcetera
+```
+
+
+* RSA: `e` is 3 (or small)
+
+	If `e` is 3, you can try the cubed-root attack. If you the cubed root of `c`, and if that is smaller than the cubed root of `n`, then your plaintext message `m` is just the cubed root of `c`! Here is [Python](https://www.python.org/) code to take the cubed root:
+
+```
+def root3rd(x):
+    y, y1 = None, 2
+    while y!=y1:
+        y = y1
+        y3 = y**3
+        d = (2*y3+x)
+        y1 = (y*(y3+2*x)+d//2)//d
+    return y
+```
+
+* RSA: Wiener's Little D Attack
+
+	The telltale sign for this kind of challenge is an enormously large `e` value. Typically `e` is either 65537 (0x10001) or `3` (like for a Chinese Remainder Theorem challenge). Some stolen code available here: [https://pastebin.com/VKjYsDqD](https://pastebin.com/VKjYsDqD)
+
+* RSA:  Boneh-Durfee Attack
+	The tellgate sign for this kind of challenge is also an enormously large `e` value (`e` and `n` have similar size).
+Some code for this attack can be found [here](https://github.com/mimoo/RSA-and-LLL-attacks/blob/master/boneh_durfee.sage)
+
+* RSA: Chinese Remainder Attack
+
+	These challenges can be spotted when given  mutiple `c` cipher texts and multiple `n` moduli. `e` must be the same number of given `c` and `n` pairs. Some handmade code here: [https://pastebin.com/qypwc6wH](https://pastebin.com/qypwc6wH)
+
+* [RSA: Fixed Point](https://crypto.stackexchange.com/questions/81128/fixed-point-in-rsa-encryption)
+
+    These challenges can be spotted when the input is not changed with encrypted/decrypted.
+
+    There are 6 non-trivial fixed points in RSA encryption, caracterized by $m$ mod $p \in \{0, 1, -1\}$ **and** $m$ mod $q \in \{0, 1, -1\}$.
+
+    It is possible to deduce one of the prime factors of $n$ from the fixed point, since $\text{gcd}(m−1,n),\ \text{gcd}(m,n),\ \text{gcd}(m+1,n)$ are $1, p, q$ in a different order depending on the values of $m$ mod $p$ and $m$ mod $q$.
+
+    To find the other prime factor, you can simply use the Euclidean algorithm : 
+    ```python
+    q = n//p # in python
+    ```
 <br><br>
 
 # Steganography
+
+
 
 WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY PASSWORD!
 
@@ -1392,6 +1461,8 @@ exiftool -b -ThumbnailImage my_image.jpg > my_thumbnail.jpg
 # PDF Files
 
 
+
+
 * [`pdfinfo`](https://poppler.freedesktop.org/)
 
 	A command-line tool to get a basic synopsis of what the [PDF](https://en.wikipedia.org/wiki/Portable_Document_Format) file is.
@@ -1411,6 +1482,8 @@ exiftool -b -ThumbnailImage my_image.jpg > my_thumbnail.jpg
 
 # ZIP Files
 
+
+
 * `zip2john`
 
     Brute force password protected zip files.
@@ -1428,6 +1501,8 @@ $ john --wordlist=/usr/share/wordlists/rockyou.txt protected.john
 <br><br>
 
 # Hashes
+
+
 
 * [Hash types](https://hashcat.net/wiki/doku.php?id=example_hashes)
 
@@ -1462,6 +1537,8 @@ $ john --wordlist=/usr/share/wordlists/rockyou.txt protected.john
 
 # OSINT
 
+
+
 * [`Sherlock`](https://github.com/sherlock-project/sherlock)
 
     Python script to search for usernames across social networks.
@@ -1472,6 +1549,8 @@ $ john --wordlist=/usr/share/wordlists/rockyou.txt protected.john
 <br><br>
 
 # Network
+
+⇨ [DNS Exfiltration](#dns-exfiltration)<br>
 
 
 * [Wireshark](https://www.wireshark.org/) 
@@ -1505,9 +1584,31 @@ ls -1t | head -5 # see the last 5 recently modified files
 * [iodine](https://github.com/yarrick/iodine)
 
 	DNS tunel, used to bypass firewalls. Can be decipherd with [this script](Network/Tools/iodine/exploit.py)
+
+## DNS Exfiltration
+
+
+
+DNS can be used to exfiltrate data, for example to bypass firewalls.
+
+* [iodine](https://github.com/yarrick/iodine)
+
+    Can be identifed by the presence of the "Aaahhh-Drink-mal-ein-Jägermeister" or "La flûte naïve française est retirée à Crête".<br>
+    Can be decipherd with [this script](Network/Tools/iodine/exploit.py)<br>
+    [Hack.lu CTF WU](http://blog.stalkr.net/2010/10/hacklu-ctf-challenge-9-bottle-writeup.html)
+
+* [DNScat2](https://github.com/iagox86/dnscat2)
+
+    Can be identified when [file signatures](#file%20scanning) are present in the DNS queries.
+    Data can be extracted with [this script](Network/Tools/dnscat2/exploit.py) and fies can be extracted with [binwalk](#file%20scanning).
+
+
+
 <br><br>
 
 # Jail Break
+
+
 
 * Missing `ls` or `dir` commands
 
@@ -1536,11 +1637,15 @@ printf "$s\n" "${anything[@]}"
 
 # Android
 
+⇨ [APK Forensics](#apk-forensics)<br>
+
 * [Android Studio](https://developer.android.com/studio)
 
     Main IDE for Android development. Java and Kotlin can be used.
 
 ## APK Forensics
+
+
 
 * [`jadx`](https://github.com/skylot/jadx)
 
@@ -1568,6 +1673,8 @@ apktool d <file.apk>
 <br><br>
 
 # Esoteric Languages
+
+
 
 Tools
 -----
@@ -1671,6 +1778,8 @@ Whisper my world
 
 # Data Science
 
+⇨ [Supervised Classification](#supervised-classification)<br>⇨ [Unsupervised Clasification](#unsupervised-clasification)<br>
+
 
 
 * [SciKit Lean](https://scikit-learn.org/)
@@ -1685,22 +1794,9 @@ Whisper my world
 
     Very useful book that was used to create this section.
 
-## Unsupervised Clasification
-
-### Models
-
-* [K-Means Clustering]()
-
-    Simple clustering algorithm that groups data points into a specified number of clusters.
-
-* [Gaussian Mixture Model (GMM)]()
-
-    A probabilistic model that assumes that the data was generated from a finite sum of Gaussian distributions.
-
-
-
-
 ## Supervised Classification
+
+
 
 #### Models
 
@@ -1737,9 +1833,28 @@ Whisper my world
     A neural network model that can learn non-linear decision boundaries.
 
     Good for **large** datasets.
+
+## Unsupervised Clasification
+
+
+
+### Models
+
+* [K-Means Clustering]()
+
+    Simple clustering algorithm that groups data points into a specified number of clusters.
+
+* [Gaussian Mixture Model (GMM)]()
+
+    A probabilistic model that assumes that the data was generated from a finite sum of Gaussian distributions.
+
+
+
 <br><br>
 
 # Signal processing
+
+
 
 * [Scipy](https://scipy.org/install/)
 
@@ -1750,12 +1865,16 @@ Whisper my world
 
 # Wireless
 
+
+
 * [`gnuradio`](https://wiki.gnuradio.org/index.php/InstallingGR)
 
     `gnuradio` and it's GUI `gnuradio-companion` are used to create or analyse RF (Radio Frequency) signals.
 <br><br>
 
 # Other CheatSheets
+
+
 
 
 * [CTF-Katana](https://github.com/JohnHammond/ctf-katana)

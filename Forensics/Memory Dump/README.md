@@ -43,8 +43,6 @@ The documentation can be found [here](https://volatility3.readthedocs.io)
     sudo vol -f $DUMP_NAME windows.registry.hivescan > out/hivescan.txt # List all registry hives
     sudo vol -f $DUMP_NAME windows.registry.hivelist > out/hivelist.txt # List all registry hives
     sudo vol -f $DUMP_NAME windows.registry.printkey.PrintKey --key 'Software\Microsoft\Windows\CurrentVersion\Run' > out/autoruns.txt # List all autoruns
-
-
     ```
 
 
@@ -55,18 +53,18 @@ The documentation can be found [here](https://volatility3.readthedocs.io)
 
     The browser profile contains a lot of information about the user, such as bookmarks, history, cookies, stored passwords, etc.
 
-In Windows:
-| Browser | Location |
-| --- | --- |
-| Chrome | `C:\Users\<username>\AppData\Local\Google\Chrome\User Data\Default` |
-| [Firefox](https://support.mozilla.org/en-US/kb/profiles-where-firefox-stores-user-data) | `C:\Users\<username>\AppData\Roaming\Mozilla\Firefox\Profiles\<profile>` |
-| Edge | `C:\Users\<username>\AppData\Local\Microsoft\Edge\User Data\Default` |
+    In Windows:
+    | Browser | Location |
+    | --- | --- |
+    | Chrome | `C:\Users\<username>\AppData\Local\Google\Chrome\User Data\Default` |
+    | [Firefox](https://support.mozilla.org/en-US/kb/profiles-where-firefox-stores-user-data) | `C:\Users\<username>\AppData\Roaming\Mozilla\Firefox\Profiles\<profile>` |
+    | Edge | `C:\Users\<username>\AppData\Local\Microsoft\Edge\User Data\Default` |
 
-In Linux:
-| Browser | Location |
-| --- | --- |
-| Chrome | `~/.config/google-chrome/Default` |
-| [Firefox](https://support.mozilla.org/en-US/kb/profiles-where-firefox-stores-user-data) | `~/.mozilla/firefox/<profile>` |
+    In Linux:
+    | Browser | Location |
+    | --- | --- |
+    | Chrome | `~/.config/google-chrome/Default` |
+    | [Firefox](https://support.mozilla.org/en-US/kb/profiles-where-firefox-stores-user-data) | `~/.mozilla/firefox/<profile>` |
 
 
 

@@ -959,9 +959,9 @@ Looking at logs takes time but can lead to valuable information.
 
 Memory dumps are captures of the state of the memory at a given time. It contains all the loaded files, processes and data that was used at this moment.
 
-Memory dumps can be analyzed using the [Volatility Framework](https://www.volatilityfoundation.org/)
+Memory dumps can be analyzed using the [Volatility Framework](https://www.volatilityfoundation.org/).
 
-I recommand using **volatility 3** so you do not have to bother with profiles (finding it was often a pain in vol2)
+I recommand using **volatility 3** so you do not have to bother with profiles (finding it was often a pain in vol2).
 
 The documentation can be found [here](https://volatility3.readthedocs.io)
 
@@ -973,29 +973,57 @@ The documentation can be found [here](https://volatility3.readthedocs.io)
 
 * Most useful plugins
 
-| Plugin | Description |
-| --- | --- |
-| `pslist` | List all processes |
-| `filescan` | List all files |
-| `filedump` | Dump a file from memory |
-| `netscan` | List all network connections |
+    | Plugin | Description |
+    | --- | --- |
+    | `pslist` | List all processes |
+    | `filescan` | List all files |
+    | `filedump` | Dump a file from memory |
+    | `netscan` | List all network connections |
+
+    Some usefull windows commands:
+    ```bash
+    # Utility
+    export DUMP_NAME=memory.dmp
+    mkdir out
+
+    # General information
+    sudo vol -f $DUMP_NAME windows.info # Get windows version
+    sudo vol -f $DUMP_NAME windows.filescan > out/filescan.txt # List all files
+    sudo vol -f $DUMP_NAME windows.pslist > out/pslist.txt # List all running processes
+    sudo vol -f $DUMP_NAME windows.pstree > out/pstree.txt # List all running processes as a tree
+    sudo vol -f $DUMP_NAME windows.netscan > out/netscan.txt # List all network connections
+    sudo vol -f $DUMP_NAME windows.cmdlines > ./out/cmdlines.txt # List all commands executed and their arguments (arguments are usually very interesting)
+    
+    # Specific information
+    sudo vol -f $DUMP_NAME windows.dumpfiles ‑‑virtaddr <addr> # Dump a file from memory
+    sudo vol -f $DUMP_NAME windows.handles --pid <pid> # List all handles of a process (files opened, etc...)
+    
+    # Registry
+    sudo vol -f $DUMP_NAME windows.registry.hivescan > out/hivescan.txt # List all registry hives
+    sudo vol -f $DUMP_NAME windows.registry.hivelist > out/hivelist.txt # List all registry hives
+    sudo vol -f $DUMP_NAME windows.registry.printkey.PrintKey --key 'Software\Microsoft\Windows\CurrentVersion\Run' > out/autoruns.txt # List all autoruns
+    ```
+
+
+
+
 
 * Browser profile
 
     The browser profile contains a lot of information about the user, such as bookmarks, history, cookies, stored passwords, etc.
 
-In Windows:
-| Browser | Location |
-| --- | --- |
-| Chrome | `C:\Users\<username>\AppData\Local\Google\Chrome\User Data\Default` |
-| [Firefox](https://support.mozilla.org/en-US/kb/profiles-where-firefox-stores-user-data) | `C:\Users\<username>\AppData\Roaming\Mozilla\Firefox\Profiles\<profile>` |
-| Edge | `C:\Users\<username>\AppData\Local\Microsoft\Edge\User Data\Default` |
+    In Windows:
+    | Browser | Location |
+    | --- | --- |
+    | Chrome | `C:\Users\<username>\AppData\Local\Google\Chrome\User Data\Default` |
+    | [Firefox](https://support.mozilla.org/en-US/kb/profiles-where-firefox-stores-user-data) | `C:\Users\<username>\AppData\Roaming\Mozilla\Firefox\Profiles\<profile>` |
+    | Edge | `C:\Users\<username>\AppData\Local\Microsoft\Edge\User Data\Default` |
 
-In Linux:
-| Browser | Location |
-| --- | --- |
-| Chrome | `~/.config/google-chrome/Default` |
-| [Firefox](https://support.mozilla.org/en-US/kb/profiles-where-firefox-stores-user-data) | `~/.mozilla/firefox/<profile>` |
+    In Linux:
+    | Browser | Location |
+    | --- | --- |
+    | Chrome | `~/.config/google-chrome/Default` |
+    | [Firefox](https://support.mozilla.org/en-US/kb/profiles-where-firefox-stores-user-data) | `~/.mozilla/firefox/<profile>` |
 
 
 
@@ -1581,9 +1609,7 @@ ls -1t | head -5 # see the last 5 recently modified files
 	A GUI tool to visualize network traffic.
 	
 
-* [iodine](https://github.com/yarrick/iodine)
 
-	DNS tunel, used to bypass firewalls. Can be decipherd with [this script](Network/Tools/iodine/exploit.py)
 
 ## DNS Exfiltration
 

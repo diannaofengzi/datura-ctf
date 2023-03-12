@@ -7,7 +7,7 @@
 
 * Mac / Macintosh / Apple Hidden Files `.DS_Store` [DS_Store_crawler](https://github.com/anantshri/DS_Store_crawler_parser)
 
-	On Mac computers, there is a hidden index file `.DS_Store`. Useful if you have a **LFI** vulnerability.
+	On Mac, there is a hidden index file `.DS_Store` listing the content of the directory. Useful if you have a **LFI** vulnerability.
 
 ```bash
 python3 dsstore_crawler.py -i <url>
@@ -34,3 +34,18 @@ bzr branch <url> <out-dir>
 gitdumper <url>/.git/ <out-dir>
 ```
 
+* Mac AutoLogin Password Cracking with `/etc/kcpassword`
+
+	`/etc/kcpassword` is a file that contains the password for the Mac OS X auto-login user. It is encrypted with a key that is stored in the kernel, but sometimes it can be decrypted with the following python script:
+
+``` python
+def kcpasswd(ciphertext):
+    key = '7d895223d2bcddeaa3b91f'
+    while len(key) < (len(ciphertext)*2):
+        key = key + key
+    key = binasciiunhexlify(key)
+    result = ''
+    for i in range(len(ciphertext)):
+        result += chr(ord(ciphertext[i]) ^ (key[i]))
+    return result
+```

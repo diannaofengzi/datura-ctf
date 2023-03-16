@@ -4,6 +4,10 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 
 	Hide data in various kinds of image- and audio-files using a passphrase.
 
+* [AperiSolve](https://www.aperisolve.com/) :heart:
+
+	Online tool that run several steganography tools.
+
 * [StegCracker](https://github.com/Paradoxis/StegCracker)
 
 	Brute force passphrases for steghide encrypted files. Different data can have different passphrases.
@@ -20,7 +24,7 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 
 	This is similar to `stegcracker`.
 
-* [`Stegsolve.jar`](http://www.caesum.com/handbook/stego.htm)
+* [`Stegsolve.jar`](http://www.caesum.com/handbook/stego.htm) :heart:
 
 	View the image in different colorspaces and alpha channels.
 
@@ -57,7 +61,7 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 
 	[https://github.com/DominicBreuker/stego-toolkit](https://github.com/DominicBreuker/stego-toolkit)
 
-* [`zsteg`](https://github.com/zed-0xff/zsteg)
+* [`zsteg`](https://github.com/zed-0xff/zsteg) :heart:
 
 	Command-line tool for **PNG** and **BMP** steganography.
 
@@ -85,7 +89,7 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 
 	A command-line tool for whitespace steganography.
 
-* [`exiftool`](https://exiftool.org/)
+* [`exiftool`](https://exiftool.org/) :heart:
 
 	Tool to view and edit metadata in files.
 
@@ -93,9 +97,9 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 
 	If you have an image where the data you need is covered, try viewing the thumbnail:
 
-```
-exiftool -b -ThumbnailImage my_image.jpg > my_thumbnail.jpg
-```
+	```
+	exiftool -b -ThumbnailImage my_image.jpg > my_thumbnail.jpg
+	```
 
 * [spectrogram](https://en.wikipedia.org/wiki/Spectrogram)
 

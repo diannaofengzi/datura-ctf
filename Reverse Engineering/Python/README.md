@@ -17,6 +17,6 @@
 
 	Extracts the python bytecode from pyinstaller windows executables. Can be decomplied  after.
 
-```bash
-python3 pyinstxtractor.py <filename>
-```
+	```bash
+	python3 pyinstxtractor.py <filename>
+	```

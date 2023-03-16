@@ -3,16 +3,16 @@
 
 	If you need to script or automate against a page that uses the I'm Under Attack Mode from CloudFlare, or DDOS protection, you can do it like this with linked Python module.
 
-``` python
-#!/usr/bin/env python
+	```python
+	#!/usr/bin/env python
 
-import cfscrape
+	import cfscrape
 
-url = 'http://yashit.tech/tryharder/'
+	url = 'http://yashit.tech/tryharder/'
 
-scraper = cfscrape.create_scraper()
-print scraper.get(url).content
-```
+	scraper = cfscrape.create_scraper()
+	print scraper.get(url).content
+	```
 
 * [`wpscan`](https://wpscan.org/)
 
@@ -26,14 +26,14 @@ print scraper.get(url).content
 
     Dont forget to use <?xml version="1.0" encoding="UTF-16"?> on Windows (for utf16).
 
-``` xml
-<?xml version="1.0"?>
-<!DOCTYPE data [
-<!ELEMENT data (#ANY)>
-<!ENTITY file SYSTEM "file:///flag">
-]>
-<data>&file;</data>
-```
+	``` xml
+	<?xml version="1.0"?>
+	<!DOCTYPE data [
+	<!ELEMENT data (#ANY)>
+	<!ENTITY file SYSTEM "file:///flag">
+	]>
+	<data>&file;</data>
+	```
 
 
 * Flask Template Injection
@@ -49,7 +49,7 @@ print scraper.get(url).content
 	Website scanner implemented in [Perl](https://en.wikipedia.org/wiki/Perl).
 
 
-* [Burpsuite](https://portswigger.net/burp)
+* [Burpsuite](https://portswigger.net/burp) :heart:
 
 	Tool suite generally used to intercept and manipulate HTTP requests.
 
@@ -58,6 +58,6 @@ print scraper.get(url).content
 
 	Dump all files from a S3 bucket without credentials.
 
-``` bash
-aws s3 cp --recursive --no-sign-request s3://<bucket_name> .
-```
+	``` bash
+	aws s3 cp --recursive --no-sign-request s3://<bucket_name> .
+	```

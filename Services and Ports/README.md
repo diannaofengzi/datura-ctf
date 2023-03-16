@@ -86,7 +86,7 @@ A smb server can have multiple **shares** (~partition) with their own permission
 	smbmap -H 10.10.10.125 -u <user> -d localhost # With domain specified
 	```
 
-* `enum4linux`
+* `enum4linux` :heart:
 
 	Enumerate SMB shares and their permissions.
 

@@ -254,7 +254,7 @@ A smb server can have multiple **shares** (~partition) with their own permission
 	smbmap -H 10.10.10.125 -u <user> -d localhost # With domain specified
 	```
 
-* `enum4linux`
+* `enum4linux` <span style="color:red">❤️</span>
 
 	Enumerate SMB shares and their permissions.
 
@@ -375,24 +375,24 @@ snmp-check 10.10.10.125
 
     A utility for reading from and writing to network connections using TCP or UDP.
 
-Netcat classic listener
-```bash
-$ nc -nlvp 4444
-```
+    Netcat classic listener
+    ```bash
+    $ nc -nlvp 4444
+    ```
 
 * [`rlwrap`](https://github.com/hanslub42/rlwrap)
 
     Allows you to use the arrow keys in a reverse shell.
 
-```bash
-$ rlwrap nc -nlvp 4444
-```
+    ```bash
+    $ rlwrap nc -nlvp 4444
+    ```
 
 * Upgrade a shell to a TTY shell
 
-```bash
-python -c 'import pty; pty.spawn("/bin/bash")'
-```
+    ```bash
+    python -c 'import pty; pty.spawn("/bin/bash")'
+    ```
 <br><br>
 
 # Privilege Escalation
@@ -401,22 +401,22 @@ python -c 'import pty; pty.spawn("/bin/bash")'
 
 * `sudo`
 
-See what the current user is allowed to do
-```bash
-$ sudo -l
-```
+    First thing to check. See what the current user is allowed to do.
+    ```bash
+    sudo -l # List available commands
+    ```
 
 
-* [`PEAS`](https://github.com/carlospolop/PEASS-ng)
+* [`PEAS`](https://github.com/carlospolop/PEASS-ng) <span style="color:red">❤️</span>
 
     Find common misconfigurations and vulnerabilities in Linux and Windows.
 
     Some payload can be found in the [Tools](Privilege%20Escalation/Tools/PEAS/) section.
 
-Send linpeas via ssh
-``` bash	
-$ scp linpeas.sh user@domain:/tmp
-```
+    Send linpeas via ssh
+    ```bash	
+    scp linpeas.sh user@domain:/tmp
+    ```
 
 
 * setuid Files
@@ -428,10 +428,10 @@ $ scp linpeas.sh user@domain:/tmp
     Custom setuid files can be exploited using [binary exploitation](#binary-exploitation).
 
 
-Find files with the setuid bit set.
-``` bash
-$ find / -perm -u=s -type f 2>/dev/null
-```
+    Find files with the setuid bit set.
+    ``` bash
+    find / -perm -u=s -type f 2>/dev/null
+    ```
 
 * [CVE-2021-3156](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-3156)
 
@@ -619,23 +619,23 @@ Tools that will help you to exploit a binary:
 
 	Repport library, system calls and signals.
 
-* [gdb](https://en.wikipedia.org/wiki/GNU_Debugger)
+* [gdb](https://en.wikipedia.org/wiki/GNU_Debugger) <span style="color:red">❤️</span>
 
 	Most used debugger, can be impoved with [GEF](https://hugsy.github.io/gef/) or [PEDA](https://github.com/longld/peda).
 
-Install GEF on top of gdb:
-```bash
-bash -c "$(curl -fsSL https://gef.blah.cat/sh)"
-```
+	Install GEF on top of gdb:
+	```bash
+	bash -c "$(curl -fsSL https://gef.blah.cat/sh)"
+	```
 
-* [Ghidra](https://ghidra-sre.org/)
+* [Ghidra](https://ghidra-sre.org/) <span style="color:red">❤️</span>
 
 	Decompiler for binary files, usefull for static analysis.
 
-Automaticaly create a ghidra project from a binary file using [this script](Reverse%20Engineering/Tools/ghidra.py):
-```bash
-ghidra.py <file>
-```
+	Automaticaly create a ghidra project from a binary file using [this script](Reverse%20Engineering/Tools/ghidra.py):
+	```bash
+	ghidra.py <file>
+	```
 
 * [Hopper](https://www.hopperapp.com)
 
@@ -646,7 +646,7 @@ ghidra.py <file>
 	Good for multithreaded analysis.
 
 
-* [IDA](https://www.hex-rays.com/products/ida/support/download.shtml)
+* [IDA](https://www.hex-rays.com/products/ida/support/download.shtml) <span style="color:red">❤️</span>
 
 	Proprietary reverse engineering software, known to have the best disassembler. The free version can only disassemble 64-bit binaries.
 
@@ -785,9 +785,9 @@ In order to run some system, it is nessesary to use virtualisation.
 
 	Extracts the python bytecode from pyinstaller windows executables. Can be decomplied  after.
 
-```bash
-python3 pyinstxtractor.py <filename>
-```
+	```bash
+	python3 pyinstxtractor.py <filename>
+	```
 
 
 <br><br>
@@ -1389,6 +1389,10 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 
 	Hide data in various kinds of image- and audio-files using a passphrase.
 
+* [AperiSolve](https://www.aperisolve.com/) <span style="color:red">❤️</span>
+
+	Online tool that run several steganography tools.
+
 * [StegCracker](https://github.com/Paradoxis/StegCracker)
 
 	Brute force passphrases for steghide encrypted files. Different data can have different passphrases.
@@ -1405,7 +1409,7 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 
 	This is similar to `stegcracker`.
 
-* [`Stegsolve.jar`](http://www.caesum.com/handbook/stego.htm)
+* [`Stegsolve.jar`](http://www.caesum.com/handbook/stego.htm) <span style="color:red">❤️</span>
 
 	View the image in different colorspaces and alpha channels.
 
@@ -1442,7 +1446,7 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 
 	[https://github.com/DominicBreuker/stego-toolkit](https://github.com/DominicBreuker/stego-toolkit)
 
-* [`zsteg`](https://github.com/zed-0xff/zsteg)
+* [`zsteg`](https://github.com/zed-0xff/zsteg) <span style="color:red">❤️</span>
 
 	Command-line tool for **PNG** and **BMP** steganography.
 
@@ -1470,7 +1474,7 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 
 	A command-line tool for whitespace steganography.
 
-* [`exiftool`](https://exiftool.org/)
+* [`exiftool`](https://exiftool.org/) <span style="color:red">❤️</span>
 
 	Tool to view and edit metadata in files.
 
@@ -1478,9 +1482,9 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 
 	If you have an image where the data you need is covered, try viewing the thumbnail:
 
-```
-exiftool -b -ThumbnailImage my_image.jpg > my_thumbnail.jpg
-```
+	```
+	exiftool -b -ThumbnailImage my_image.jpg > my_thumbnail.jpg
+	```
 
 * [spectrogram](https://en.wikipedia.org/wiki/Spectrogram)
 
@@ -1546,14 +1550,14 @@ exiftool -b -ThumbnailImage my_image.jpg > my_thumbnail.jpg
 
 
 
-* `zip2john`
+* `zip2john` <span style="color:red">❤️</span>
 
     Brute force password protected zip files.
 
-``` bash
-$ zip2john protected.zip > protected.john
-$ john --wordlist=/usr/share/wordlists/rockyou.txt protected.john
-```
+    ``` bash
+    zip2john protected.zip > protected.john
+    john --wordlist=/usr/share/wordlists/rockyou.txt protected.john
+    ```
 
 * [`bkcrack`](https://github.com/kimci86/bkcrack)
 
@@ -1615,7 +1619,7 @@ $ john --wordlist=/usr/share/wordlists/rockyou.txt protected.john
 ⇨ [DNS Exfiltration](#dns-exfiltration)<br>
 
 
-* [Wireshark](https://www.wireshark.org/) 
+* [Wireshark](https://www.wireshark.org/) <span style="color:red">❤️</span>
 	The go-to tool for examining [`.pcap`](https://en.wikipedia.org/wiki/Pcap) files.
 
 * [Network Miner](http://www.netresec.com/?page=NetworkMiner) 
@@ -1624,18 +1628,18 @@ $ john --wordlist=/usr/share/wordlists/rockyou.txt protected.john
 * [PCAPNG](https://github.com/pcapng/pcapng) 
 	Not all tools like the [PCAPNG](https://github.com/pcapng/pcapng) file format... so you can convert them with an online tool [http://pcapng.com/](http://pcapng.com/) or from the command-line with the `editcap` command that comes with installing [Wireshark]:
 
-```
-editcap old_file.pcapng new_file.pcap
-```
+	```
+	editcap old_file.pcapng new_file.pcap
+	```
 
 * [`tcpflow`](https://github.com/simsong/tcpflow)
 
 	A command-line tool for reorganizing packets in a PCAP file and getting files out of them. __Typically it gives no output, but it creates the files in your current directory!__
 
-```
-tcpflow -r my_file.pcap
-ls -1t | head -5 # see the last 5 recently modified files
-```
+	```
+	tcpflow -r my_file.pcap
+	ls -1t | head -5 # see the last 5 recently modified files
+	```
 
 
 
@@ -1676,20 +1680,20 @@ DNS can be used to exfiltrate data, for example to bypass firewalls.
 
 	If you cannot run `ls` or `dir`, or `find` or `grep`, to list files you can use
 
-```
-echo *
-echo /any/path/*
-```
+	```
+	echo *
+	echo /any/path/*
+	```
 
 
 * restricted bash (`rbash`) read files
 
 	If you are a restricted shell like `rbash` you can still read any file with some builtin commands like `mapfile`:
 
-```
-mapfile -t  < /etc/passwd
-printf "$s\n" "${anything[@]}"
-```
+	```
+	mapfile -t  < /etc/passwd
+	printf "$s\n" "${anything[@]}"
+	```
 
 
 * Python 3
@@ -1761,30 +1765,30 @@ Languages
 
 * [Brainfuck](https://esolangs.org/wiki/brainfuck)
 
-	Famous esoteric language, with a very simple syntax. Functions like a Turing machine.
+	Famous esoteric language, with a very **simple syntax**. Functions like a Turing machine.
 
-Exemple Hello World:
-```brainfuck
-++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.
-```
+	Exemple Hello World:
+	```brainfuck
+	++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.
+	```
 
 * [COW](https://esolangs.org/wiki/COW)
 
-	Uses MOO statements in different capitalizations to represent different instructions.
+	Uses MOO statements in different **capitalizations** to represent different instructions.
 
-```
- MoO moO MoO mOo MOO OOM MMM moO moO
- MMM mOo mOo moO MMM mOo MMM moO moO
- MOO MOo mOo MoO moO moo mOo mOo moo
- ```
+	```
+	MoO moO MoO mOo MOO OOM MMM moO moO
+	MMM mOo mOo moO MMM mOo MMM moO moO
+	MOO MOo mOo MoO moO moo mOo mOo moo
+	```
 
 * [Malboge](https://esolangs.org/wiki/malbolge)
 
-	Very hard language, that looks like Base85.
+	Very hard language, that looks like `Base85`.
 
-```
-(=<`#9]~6ZY32Vx/4Rs+0No-&Jk)"Fh}|Bcy?`=*z]Kw%oG4UUS0/@-ejc(:'8dc
-```
+	```
+	(=<`#9]~6ZY32Vx/4Rs+0No-&Jk)"Fh}|Bcy?`=*z]Kw%oG4UUS0/@-ejc(:'8dc
+	```
 
 * [Piet](https://esolangs.org/wiki/piet)
 
@@ -1797,50 +1801,50 @@ Exemple Hello World:
 	Recognizable by `.` and `?`, and `!`. Online interpreter for this language: [https://www.dcode.fr/ook-language](https://www.dcode.fr/ook-language) 
 	
 
-Exemple code:
-```
-Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
-Ook. Ook. Ook. Ook. Ook! Ook? Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
-Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook? Ook! Ook! Ook? Ook! Ook? Ook.
-Ook! Ook. Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
-Ook. Ook. Ook! Ook? Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook?
-Ook! Ook! Ook? Ook! Ook? Ook. Ook. Ook. Ook! Ook. Ook. Ook. Ook. Ook. Ook. Ook.
-```
+	Exemple code:
+	```Ook!
+	Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+	Ook. Ook. Ook. Ook. Ook! Ook? Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+	Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook? Ook! Ook! Ook? Ook! Ook? Ook.
+	Ook! Ook. Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+	Ook. Ook. Ook! Ook? Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook?
+	Ook! Ook! Ook? Ook! Ook? Ook. Ook. Ook. Ook! Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+	```
 
 * [Rockstar](https://esolangs.org/wiki/Rockstar)
 
 	Look like song lyrics.
 	Rockstar has an official online interpreter: [https://codewithrockstar.com/online](https://codewithrockstar.com/online)
 
-Fizzbuzz in Rockstar:
-```
-Midnight takes your heart and your soul
-While your heart is as high as your soul
-Put your heart without your soul into your heart
+	Fizzbuzz in Rockstar:
+	```rockstar
+	Midnight takes your heart and your soul
+	While your heart is as high as your soul
+	Put your heart without your soul into your heart
 
-Give back your heart
+	Give back your heart
 
 
-Desire is a lovestruck ladykiller
-My world is nothing
-Fire is ice
-Hate is water
-Until my world is Desire,
-Build my world up
-If Midnight taking my world, Fire is nothing and Midnight taking my world, Hate is nothing
-Shout "FizzBuzz!"
-Take it to the top
+	Desire is a lovestruck ladykiller
+	My world is nothing
+	Fire is ice
+	Hate is water
+	Until my world is Desire,
+	Build my world up
+	If Midnight taking my world, Fire is nothing and Midnight taking my world, Hate is nothing
+	Shout "FizzBuzz!"
+	Take it to the top
 
-If Midnight taking my world, Fire is nothing
-Shout "Fizz!"
-Take it to the top
+	If Midnight taking my world, Fire is nothing
+	Shout "Fizz!"
+	Take it to the top
 
-If Midnight taking my world, Hate is nothing
-Say "Buzz!"
-Take it to the top
+	If Midnight taking my world, Hate is nothing
+	Say "Buzz!"
+	Take it to the top
 
-Whisper my world
-```
+	Whisper my world
+	```
 <br><br>
 
 # Data Science

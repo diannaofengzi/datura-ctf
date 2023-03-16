@@ -1,21 +1,21 @@
 * `sudo`
 
-See what the current user is allowed to do
-```bash
-$ sudo -l
-```
+    First thing to check. See what the current user is allowed to do.
+    ```bash
+    sudo -l # List available commands
+    ```
 
 
-* [`PEAS`](https://github.com/carlospolop/PEASS-ng)
+* [`PEAS`](https://github.com/carlospolop/PEASS-ng) :heart:
 
     Find common misconfigurations and vulnerabilities in Linux and Windows.
 
     Some payload can be found in the [Tools](./Tools/PEAS/) section.
 
-Send linpeas via ssh
-``` bash	
-$ scp linpeas.sh user@domain:/tmp
-```
+    Send linpeas via ssh
+    ```bash	
+    scp linpeas.sh user@domain:/tmp
+    ```
 
 
 * setuid Files
@@ -27,10 +27,10 @@ $ scp linpeas.sh user@domain:/tmp
     Custom setuid files can be exploited using [binary exploitation](#binary-exploitation).
 
 
-Find files with the setuid bit set.
-``` bash
-$ find / -perm -u=s -type f 2>/dev/null
-```
+    Find files with the setuid bit set.
+    ``` bash
+    find / -perm -u=s -type f 2>/dev/null
+    ```
 
 * [CVE-2021-3156](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-3156)
 

@@ -3,23 +3,23 @@
 
 	Repport library, system calls and signals.
 
-* [gdb](https://en.wikipedia.org/wiki/GNU_Debugger)
+* [gdb](https://en.wikipedia.org/wiki/GNU_Debugger) :heart:
 
 	Most used debugger, can be impoved with [GEF](https://hugsy.github.io/gef/) or [PEDA](https://github.com/longld/peda).
 
-Install GEF on top of gdb:
-```bash
-bash -c "$(curl -fsSL https://gef.blah.cat/sh)"
-```
+	Install GEF on top of gdb:
+	```bash
+	bash -c "$(curl -fsSL https://gef.blah.cat/sh)"
+	```
 
-* [Ghidra](https://ghidra-sre.org/)
+* [Ghidra](https://ghidra-sre.org/) :heart:
 
 	Decompiler for binary files, usefull for static analysis.
 
-Automaticaly create a ghidra project from a binary file using [this script](./Tools/ghidra.py):
-```bash
-ghidra.py <file>
-```
+	Automaticaly create a ghidra project from a binary file using [this script](./Tools/ghidra.py):
+	```bash
+	ghidra.py <file>
+	```
 
 * [Hopper](https://www.hopperapp.com)
 
@@ -30,7 +30,7 @@ ghidra.py <file>
 	Good for multithreaded analysis.
 
 
-* [IDA](https://www.hex-rays.com/products/ida/support/download.shtml)
+* [IDA](https://www.hex-rays.com/products/ida/support/download.shtml) :heart:
 
 	Proprietary reverse engineering software, known to have the best disassembler. The free version can only disassemble 64-bit binaries.
 

@@ -1,5 +1,5 @@
 
-* [Wireshark](https://www.wireshark.org/) 
+* [Wireshark](https://www.wireshark.org/) :heart:
 	The go-to tool for examining [`.pcap`](https://en.wikipedia.org/wiki/Pcap) files.
 
 * [Network Miner](http://www.netresec.com/?page=NetworkMiner) 
@@ -8,18 +8,18 @@
 * [PCAPNG](https://github.com/pcapng/pcapng) 
 	Not all tools like the [PCAPNG](https://github.com/pcapng/pcapng) file format... so you can convert them with an online tool [http://pcapng.com/](http://pcapng.com/) or from the command-line with the `editcap` command that comes with installing [Wireshark]:
 
-```
-editcap old_file.pcapng new_file.pcap
-```
+	```
+	editcap old_file.pcapng new_file.pcap
+	```
 
 * [`tcpflow`](https://github.com/simsong/tcpflow)
 
 	A command-line tool for reorganizing packets in a PCAP file and getting files out of them. __Typically it gives no output, but it creates the files in your current directory!__
 
-```
-tcpflow -r my_file.pcap
-ls -1t | head -5 # see the last 5 recently modified files
-```
+	```
+	tcpflow -r my_file.pcap
+	ls -1t | head -5 # see the last 5 recently modified files
+	```
 
 
 

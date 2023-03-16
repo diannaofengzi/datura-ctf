@@ -16,30 +16,30 @@ Languages
 
 * [Brainfuck](https://esolangs.org/wiki/brainfuck)
 
-	Famous esoteric language, with a very simple syntax. Functions like a Turing machine.
+	Famous esoteric language, with a very **simple syntax**. Functions like a Turing machine.
 
-Exemple Hello World:
-```brainfuck
-++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.
-```
+	Exemple Hello World:
+	```brainfuck
+	++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.
+	```
 
 * [COW](https://esolangs.org/wiki/COW)
 
-	Uses MOO statements in different capitalizations to represent different instructions.
+	Uses MOO statements in different **capitalizations** to represent different instructions.
 
-```
- MoO moO MoO mOo MOO OOM MMM moO moO
- MMM mOo mOo moO MMM mOo MMM moO moO
- MOO MOo mOo MoO moO moo mOo mOo moo
- ```
+	```
+	MoO moO MoO mOo MOO OOM MMM moO moO
+	MMM mOo mOo moO MMM mOo MMM moO moO
+	MOO MOo mOo MoO moO moo mOo mOo moo
+	```
 
 * [Malboge](https://esolangs.org/wiki/malbolge)
 
-	Very hard language, that looks like Base85.
+	Very hard language, that looks like `Base85`.
 
-```
-(=<`#9]~6ZY32Vx/4Rs+0No-&Jk)"Fh}|Bcy?`=*z]Kw%oG4UUS0/@-ejc(:'8dc
-```
+	```
+	(=<`#9]~6ZY32Vx/4Rs+0No-&Jk)"Fh}|Bcy?`=*z]Kw%oG4UUS0/@-ejc(:'8dc
+	```
 
 * [Piet](https://esolangs.org/wiki/piet)
 
@@ -52,47 +52,47 @@ Exemple Hello World:
 	Recognizable by `.` and `?`, and `!`. Online interpreter for this language: [https://www.dcode.fr/ook-language](https://www.dcode.fr/ook-language) 
 	
 
-Exemple code:
-```
-Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
-Ook. Ook. Ook. Ook. Ook! Ook? Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
-Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook? Ook! Ook! Ook? Ook! Ook? Ook.
-Ook! Ook. Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
-Ook. Ook. Ook! Ook? Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook?
-Ook! Ook! Ook? Ook! Ook? Ook. Ook. Ook. Ook! Ook. Ook. Ook. Ook. Ook. Ook. Ook.
-```
+	Exemple code:
+	```Ook!
+	Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+	Ook. Ook. Ook. Ook. Ook! Ook? Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+	Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook? Ook! Ook! Ook? Ook! Ook? Ook.
+	Ook! Ook. Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+	Ook. Ook. Ook! Ook? Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook?
+	Ook! Ook! Ook? Ook! Ook? Ook. Ook. Ook. Ook! Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+	```
 
 * [Rockstar](https://esolangs.org/wiki/Rockstar)
 
 	Look like song lyrics.
 	Rockstar has an official online interpreter: [https://codewithrockstar.com/online](https://codewithrockstar.com/online)
 
-Fizzbuzz in Rockstar:
-```
-Midnight takes your heart and your soul
-While your heart is as high as your soul
-Put your heart without your soul into your heart
+	Fizzbuzz in Rockstar:
+	```rockstar
+	Midnight takes your heart and your soul
+	While your heart is as high as your soul
+	Put your heart without your soul into your heart
 
-Give back your heart
+	Give back your heart
 
 
-Desire is a lovestruck ladykiller
-My world is nothing
-Fire is ice
-Hate is water
-Until my world is Desire,
-Build my world up
-If Midnight taking my world, Fire is nothing and Midnight taking my world, Hate is nothing
-Shout "FizzBuzz!"
-Take it to the top
+	Desire is a lovestruck ladykiller
+	My world is nothing
+	Fire is ice
+	Hate is water
+	Until my world is Desire,
+	Build my world up
+	If Midnight taking my world, Fire is nothing and Midnight taking my world, Hate is nothing
+	Shout "FizzBuzz!"
+	Take it to the top
 
-If Midnight taking my world, Fire is nothing
-Shout "Fizz!"
-Take it to the top
+	If Midnight taking my world, Fire is nothing
+	Shout "Fizz!"
+	Take it to the top
 
-If Midnight taking my world, Hate is nothing
-Say "Buzz!"
-Take it to the top
+	If Midnight taking my world, Hate is nothing
+	Say "Buzz!"
+	Take it to the top
 
-Whisper my world
-```
+	Whisper my world
+	```

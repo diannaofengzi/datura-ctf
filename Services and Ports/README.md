@@ -9,14 +9,9 @@ FTP - File Transfer Protocol - 21/tcp
 Transfer files between a client and server.
 The anonymous credentials are anonymous:anonymous.
 
-Connect to a server
 ```bash
-ftp <ip> <port>  
-```
-
-Enumerate anonymous logins
-```bash
-nmap -v -p 21 --script=ftp-anon.nse <ip>
+ftp <ip> <port>  # Connect to a server
+nmap -v -p 21 --script=ftp-anon.nse <ip> # Enumerate anonymous logins
 ```
 
 
@@ -25,20 +20,14 @@ SSH - Secure Shell - 22/tcp
 
 Securely connect to a remote server.
 
-Connect to a server
 ```bash
-ssh <user>@<ip> -p <port>
-```
+# Connections
+ssh <user>@<ip> -p <port> # Connect to a server
+ssh -L <local_port>:<remote_host>:<remote_port> <user>@<ip> # Port forwarding
 
-Local port forwarding
-```bash
-ssh -L <local_port>:<remote_host>:<remote_port> <user>@<ip> 
-```
-
-Transfer files
-```bash
-scp <file> <user>@<ip>:<path> # Local to remote
-scp <user>@<ip>:<path> <file> # Remote to local
+# Transfer files
+scp <file> <user>@<ip>:<path>   # Local to remote
+scp <user>@<ip>:<path> <file>   # Remote to local
 scp -r <dir> <user>@<ip>:<path> # whole directory
 ```
 
@@ -59,13 +48,14 @@ DNS is used to resolve domain names to IP addresses. `BIND` is the most common D
 
 	Zone transfer is a method of transferring a copy of a DNS zone from a DNS server to another DNS server. This can be used to enumerate DNS records of a hidden zone if we know one of it's domain.
 
-To perform a zone transfer, use `dig` with the `axfr` option.
-```bash
-dig axfr @<dns-server> <domain>
-```
+	To perform a zone transfer, use `dig` with the `axfr` option.
+	```bash
+	dig axfr @<dns-server> <domain>
+	```
 
 HTTP(S) - Hypertext Transfer Protocol - 80/tcp 443/tcp
 ------------------------------------------------------
+
 
 See [Web](../Web/README.md) for more information.
 
@@ -87,34 +77,22 @@ A smb server can have multiple **shares** (~partition) with their own permission
 
 	Emumerate SMB shares and their permissions.
 
+	```bash
+	smbmap -H <ip> -u anonymous                       # List shares as anonymous user
+	smbmap -H 10.10.10.125 -u <user> -p <password>    # Logged in as a user
+	smbmap -H 10.10.10.125 -u <user> -p <password> -r # List everything recursively
 
-List shares as anonymous user:
-```
-smbmap -H <ip> -u anonymous
-```
-
-Logged in as a user:
-```
-smbmap -H 10.10.10.125 -u <user> -p <password>
-```
-
-List recursively everything on the server.
-```
-smbmap -H 10.10.10.125 -u <user> -p <password> -r
-```
-
-The `-d` option specifies a domain. For exemple with the `localhost` domain (useful when NO_LOGON_SERVERS is returned)
-```
-smbmap -H 10.10.10.125 -u <user> -d localhost
-```
+	# When NO_LOGON_SERVERS is returned, try with the localhost domain
+	smbmap -H 10.10.10.125 -u <user> -d localhost # With domain specified
+	```
 
 * `enum4linux`
 
 	Enumerate SMB shares and their permissions.
 
-```
-enum4linux 10.10.10.125
-```
+	```bash
+	enum4linux 10.10.10.125
+	```
 
 * `smbclient`
 
@@ -152,11 +130,11 @@ The different attribute names are :
 
 	`ldapsearch` is a command line tool for querying LDAP servers.
 
-Anonymously query a LDAP server for information about a domain name.
-```bash
-ldapsearch -H ldap://<ip>:<port> -x -s base '' "(objectClass=*)" "*" + # Without DN
-ldapsearch -H ldap://<ip>:<port> -x -b <DN> # With DN
-```
+	Anonymously query a LDAP server for information about a domain name.
+	```bash
+	ldapsearch -H ldap://<ip>:<port> -x -s base '' "(objectClass=*)" "*" + # Without DN
+	ldapsearch -H ldap://<ip>:<port> -x -b <DN> # With DN
+	```
 
 
 SQL - Structured Query Language

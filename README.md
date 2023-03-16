@@ -4,7 +4,9 @@
   <img src="Introduction/_img/datura.jpg" />
 </p>
 
-DaturaCTF is a database for **ideas** and **tools** to use in CTF competitions. It's purpose is to help the user to find solutions and provide some tools to use when offline.
+DaturaCTF is a database for **ideas** and **tools** to use in CTF competitions. It's purpose is to help the user (usually me) to find solutions and provide some tools to use when offline.
+
+The tools that I use most often are marked with a heart <span style="color:red">❤️</span> symbol.
 
 This database was mostly made from [CTF Katana](https://github.com/JohnHammond/ctf-katana) and [HackTricks](https://book.hacktricks.xyz), but also from tools found along the way. I do not own most of this content, I just gathered it in one place. Credit goes to the original authors, linked in the different sections.
 
@@ -64,6 +66,7 @@ This file is auto generated using [build.py](build.py). To update it, update the
     binwalk -e <file>         # Extract embedded files
     binwalk --dd=".*" <file>  # Extract all embedded files
     ```
+    Alternatives: `foremost`, `hachoir-subfile`...
 
 * `strings`
 
@@ -71,16 +74,33 @@ This file is auto generated using [build.py](build.py). To update it, update the
 
 * `grep`
 
-    Search for a string in a file.
+    Search for a string, or regex, in a file.
+
+	```bash
+	grep <string> <file>          # Search in a file
+	grep -r <string> <directory>  # Search recursively in a directory
+	```
+
+* `hexdump`
+
+	Display the hexadecimal representation of a file.
+
+	```bash
+	hexdump -C <file>  # Dump bytes with adress and ascii representation
+	hexdump <file>     # Dump bytes with adress only
+	xxd -p <file>      # Dump only bytes
+	```
 
 
-* `yara`
+* [`yara`](https://virustotal.github.io/yara/)
 
-    Scan a file with Yara rules.
+    Scan a file with Yara rules to find (malicious) patterns. ules can be found in the [Yara-Rules](https://github.com/Yara-Rules/rules)
 
 * [`file signatures`](https://en.wikipedia.org/wiki/List_of_file_signatures)
 
-    A list of file signatures. The most common ones are :
+    File signatures are bytes at the beginning of a file that identify the file type. This header is also called magic numbers.
+
+    Most files can be [found here](https://en.wikipedia.org/wiki/List_of_file_signatures), but the most common ones are :
 
     | Hex signature | File type | Description |
     | --- | --- | --- |
@@ -90,9 +110,20 @@ This file is auto generated using [build.py](build.py). To update it, update the
 
 
 
-
-
 ## Network Scanning
+
+
+
+* [Private IPs]()
+
+    Some ip ranges are reserved for private networks. They are not routable on the internet. They are:
+
+    | Network | Range | Count |
+    | --- | --- | --- |
+    | `10.0.0.0/8` | `10.0.0.0` – `10.255.255.255` | 16,777,214 |
+    | `172.16.0.0/16` | `172.16.0.0` - `172.31.255.255` | 1,048,574 |
+    | `192.168.0.0/16` | `192.168.0.0` - `192.168.255.255` | 65,534 |
+
 
 
 
@@ -100,28 +131,23 @@ This file is auto generated using [build.py](build.py). To update it, update the
 
     `nmap` is a utility for network discovery.
 
-Classic scan
-```	
-nmap -sC -sV -O 192.168.0.0/24
-```
+	```bash
+	nmap -sC -sV -O 192.168.0.0/24 # Classic scan
+	nmap -sS 192.168.0.0/24        # SYN scan (faster but no service detection)
+	```
 
-SYN scan : Only send SYN (faster but no service detection)
-```
-nmap -sS 192.168.0.0/24
-```
 
 * [Nmap scripts](https://nmap.org/nsedoc/scripts/)
   
-  `nmap` has a lot of scripts that can be used to scan for specific vulnerabilities. They are called with the `--script` option.
+	`nmap` has a lot of scripts that can be used to scan for specific vulnerabilities. They are called with the `--script` option.
 
-Run all dns scripts
-```
-nmap -sV --script dns-* <ip>
-```
+	```bash
+	nmap -sV --script dns-* <ip> # Run all dns scripts
+	```
 
 * [`traceroute`](https://en.wikipedia.org/wiki/Traceroute)
 
-    See the path packets take to reach a host.
+    See the machines that a packet goes through to reach its destination.
 
 
 
@@ -151,14 +177,9 @@ FTP - File Transfer Protocol - 21/tcp
 Transfer files between a client and server.
 The anonymous credentials are anonymous:anonymous.
 
-Connect to a server
 ```bash
-ftp <ip> <port>  
-```
-
-Enumerate anonymous logins
-```bash
-nmap -v -p 21 --script=ftp-anon.nse <ip>
+ftp <ip> <port>  # Connect to a server
+nmap -v -p 21 --script=ftp-anon.nse <ip> # Enumerate anonymous logins
 ```
 
 
@@ -167,20 +188,14 @@ SSH - Secure Shell - 22/tcp
 
 Securely connect to a remote server.
 
-Connect to a server
 ```bash
-ssh <user>@<ip> -p <port>
-```
+# Connections
+ssh <user>@<ip> -p <port> # Connect to a server
+ssh -L <local_port>:<remote_host>:<remote_port> <user>@<ip> # Port forwarding
 
-Local port forwarding
-```bash
-ssh -L <local_port>:<remote_host>:<remote_port> <user>@<ip> 
-```
-
-Transfer files
-```bash
-scp <file> <user>@<ip>:<path> # Local to remote
-scp <user>@<ip>:<path> <file> # Remote to local
+# Transfer files
+scp <file> <user>@<ip>:<path>   # Local to remote
+scp <user>@<ip>:<path> <file>   # Remote to local
 scp -r <dir> <user>@<ip>:<path> # whole directory
 ```
 
@@ -201,13 +216,14 @@ DNS is used to resolve domain names to IP addresses. `BIND` is the most common D
 
 	Zone transfer is a method of transferring a copy of a DNS zone from a DNS server to another DNS server. This can be used to enumerate DNS records of a hidden zone if we know one of it's domain.
 
-To perform a zone transfer, use `dig` with the `axfr` option.
-```bash
-dig axfr @<dns-server> <domain>
-```
+	To perform a zone transfer, use `dig` with the `axfr` option.
+	```bash
+	dig axfr @<dns-server> <domain>
+	```
 
 HTTP(S) - Hypertext Transfer Protocol - 80/tcp 443/tcp
 ------------------------------------------------------
+
 
 See [Web](#web) for more information.
 
@@ -229,34 +245,22 @@ A smb server can have multiple **shares** (~partition) with their own permission
 
 	Emumerate SMB shares and their permissions.
 
+	```bash
+	smbmap -H <ip> -u anonymous                       # List shares as anonymous user
+	smbmap -H 10.10.10.125 -u <user> -p <password>    # Logged in as a user
+	smbmap -H 10.10.10.125 -u <user> -p <password> -r # List everything recursively
 
-List shares as anonymous user:
-```
-smbmap -H <ip> -u anonymous
-```
-
-Logged in as a user:
-```
-smbmap -H 10.10.10.125 -u <user> -p <password>
-```
-
-List recursively everything on the server.
-```
-smbmap -H 10.10.10.125 -u <user> -p <password> -r
-```
-
-The `-d` option specifies a domain. For exemple with the `localhost` domain (useful when NO_LOGON_SERVERS is returned)
-```
-smbmap -H 10.10.10.125 -u <user> -d localhost
-```
+	# When NO_LOGON_SERVERS is returned, try with the localhost domain
+	smbmap -H 10.10.10.125 -u <user> -d localhost # With domain specified
+	```
 
 * `enum4linux`
 
 	Enumerate SMB shares and their permissions.
 
-```
-enum4linux 10.10.10.125
-```
+	```bash
+	enum4linux 10.10.10.125
+	```
 
 * `smbclient`
 
@@ -294,11 +298,11 @@ The different attribute names are :
 
 	`ldapsearch` is a command line tool for querying LDAP servers.
 
-Anonymously query a LDAP server for information about a domain name.
-```bash
-ldapsearch -H ldap://<ip>:<port> -x -s base '' "(objectClass=*)" "*" + # Without DN
-ldapsearch -H ldap://<ip>:<port> -x -b <DN> # With DN
-```
+	Anonymously query a LDAP server for information about a domain name.
+	```bash
+	ldapsearch -H ldap://<ip>:<port> -x -s base '' "(objectClass=*)" "*" + # Without DN
+	ldapsearch -H ldap://<ip>:<port> -x -b <DN> # With DN
+	```
 
 
 SQL - Structured Query Language
@@ -525,7 +529,7 @@ Tools that will help you to exploit a binary:
 
 	Checks the security features of a Windows binary.
 
-* [`wine`](https://www.winehq.org/)
+* [`wine`](https://www.winehq.org/) <span style="color:red">❤️</span>
 
 	Runs Windows programs on Linux.
 
@@ -533,20 +537,20 @@ Tools that will help you to exploit a binary:
 
 	Debugger for Windows programs on Linux.
 
-Debug a Windows program on Linux with `winedbg` in gdb mode:
-```bash
-winedbg --gdb <program>
-```
+	Debug a Windows program on Linux with `winedbg` in gdb mode:
+	```bash
+	winedbg --gdb <program>
+	```
 
 * [`gdb server for wine`](https://www.gnu.org/software/gdb/)
 
 	Remote debugger inside wine. The (very large) package is called `gdb-mingw-w64` on most Linux distributions.
 
-Start a gdb server inside wine: (found at https://stackoverflow.com/questions/39938253/how-to-properly-debug-a-cross-compiled-windows-code-on-linux)
-```bash
-$ wine Z:/usr/share/win64/gdbserver.exe localhost:12345 myprogram.exe
-$ x86_64-w64-mingw32-gdb myprogram.exe
-```
+	Start a gdb server inside wine: ([found here](https://stackoverflow.com/questions/39938253/how-to-properly-debug-a-cross-compiled-windows-code-on-linux))
+	```bash
+	wine Z:/usr/share/win64/gdbserver.exe localhost:12345 myprogram.exe
+	x86_64-w64-mingw32-gdb myprogram.exe
+	```
 
 * [`Immunity Debugger`](https://www.immunityinc.com/products/debugger/)
 
@@ -793,68 +797,19 @@ python3 pyinstxtractor.py <filename>
 ⇨ [Disk Image](#disk-image)<br>⇨ [Browser Forensics](#browser-forensics)<br>⇨ [Logs](#logs)<br>⇨ [Images](#images)<br>⇨ [Memory Dump](#memory-dump)<br>⇨ [Docker](#docker)<br>
 
 
-* `binwalk`
+* `File scanning`
 
-	A command-line tool to carve files out of another file.
-
-Extract files:
-```bash
-binwalk -e [filename]
-```
-
-* [`yara`](https://virustotal.github.io/yara/)
-
-	Find patterns in files. Rules can be found in the [Yara-Rules](https://github.com/Yara-Rules/rules)
-
-Usage
-```bash
-yara <rules.yar> <file>
-```
-
-
-* [`dumpzilla`](http://www.dumpzilla.org/)
-
-	A [Python](https://www.python.org/) script to examine a `.mozilla` configuration file, to examine downloads, bookmarks, history or bookmarks and registered passwords. Usage may be as such:
-
-```
-python dumpzilla.py .mozilla/firefox/c3a958fk.default/ --Downloads --History --Bookmarks --Passwords
-```
+	Use [this section](#file%20scanning) to find information about files.
 
 
 * Keepass
 
 	`keepassx` can be installed on Ubuntu to open and explore Keepass databases. Keepass databases master passwords can be cracked with `keepass2john`.
 
-* [Magic Numbers](https://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files) 
-	The starting values that identify a file format. These are often crucial for programs to properly read a certain file type, so they must be correct. If some files are acting strangely, try verifying their [magic number] with a [trusted list of file signatures](https://en.wikipedia.org/wiki/List_of_file_signatures).
 
-* [`hexed.it`](https://hexed.it/)
+* [`VS Code Hex editor`](https://marketplace.visualstudio.com/items?itemName=ms-vscode.hexeditor)
 
-	An online tool that allows you to modify the hexadecimal and binary values of an uploaded file. This is a good tool for correcting files with a corrupt [magic number]
-
-
-* `foremost`
-
-	A command-line tool to carve files out of another file. Usage is `foremost [filename]` and it will create an `output` directory.
-
-```
-sudo apt install foremost
-```
-
-
-* [`hachoir-subfile`](https://pypi.python.org/pypi/hachoir-subfile/0.5.3)
-
-	A command-line tool to carve out files of another file. Very similar to the other tools like `binwalk` and `foremost`, but always try everything!
-
-
-* [TestDisk](https://www.cgsecurity.org/Download_and_donate.php/testdisk-7.1-WIP.linux26.tar.bz2) 
-	A command-line tool, used to recover deleted files from a file system image. Handy to use if given a `.dd` and `.img` file etc.
-
-* [photorec](https://www.cgsecurity.org/wiki/PhotoRec) 
-	Another command-line utility that comes with `testdisk`. It is file data recovery software designed to recover lost files including video, documents and archives from hard disks, CD-ROMs, and lost pictures (thus the Photo Recovery name) from digital camera memory. PhotoRec ignores the file system and goes after the underlying data, so it will still work even if your media's file system has been severely damaged or reformatted.
-
-
-
+	An extension for VS Code that allows you to view and edit files in hexadecimal format.
 
 ## Disk Image
 
@@ -862,11 +817,24 @@ sudo apt install foremost
 
 * [Autopsy](https://www.autopsy.com/download/)
 
-    Browse the filesystem and extract files from a disk image.
+    Browse the filesystem and extract files from a disk image. ALso recovers deleted files.
 
 * [`mount`]
 
-    Mount a disk image. I recommand to use a virtual machine to mount the disk image. This way you can browse the filesystem and extract files without risking to damage your system.
+    Mount a disk image to a filesystem.
+    
+    I recommand to use a virtual machine to mount the disk image. This way you can browse the filesystem and extract files without risking to damage your system.
+
+* [TestDisk](https://www.cgsecurity.org/Download_and_donate.php/testdisk-7.1-WIP.linux26.tar.bz2) 
+	
+    CLI tool to recover lost partitions and/or make non-booting disks bootable again.
+
+* [photorec](https://www.cgsecurity.org/wiki/PhotoRec) 
+	
+    CLI tool to recover deleted files. Works with raw data, so the disk do not need to have a partition system working.
+
+
+
 
 
 
@@ -1150,7 +1118,7 @@ The documentation can be found [here](https://volatility3.readthedocs.io)
 
 	Support many crypto algorithms, but also some interesting tools.
 
-* [CyberChef](https://gchq.github.io/CyberChef/)
+* [CyberChef](https://gchq.github.io/CyberChef/) <span style="color:red">❤️</span>
 
 	Online tool to encrypt/decrypt, encode/decode, analyse, and perform many other operations on data.
 
@@ -1284,34 +1252,16 @@ on [https://www.boxentriq.com/code-breaking/hexahue](https://www.boxentriq.com/c
 
 	If your challenges references "EFF" or includes dice in some way, or showcases numbers 1-6 of length 5, try [https://www.eff.org/dice](https://www.eff.org/dice). This could refer to a passphrase generated by dice rolls available here: [https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt](https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt)
 
-* [Base64], [Base32], [Base85], [Base91](https://www.dcode.fr/base-91-encoding) 
-```
-Base64:
-TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlz
-IHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2Yg
-dGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGlu
-dWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRo
-ZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4=
-```
+* `Base64` <span style="color:red">❤️</span>, `Base32`, `Base85`, `Base91` ...
 
-```
-Base32
-ORUGS4ZANFZSAYLOEBSXQYLNOBWGKIDPMYQGEYLTMUZTELRANF2CA2LTEB3GS43JMJWGKIDCPEQGY33UOMQG6ZRAMNQXA2LUMFWCA3DFOR2GK4TTEBQW4ZBANVXXEZJAMVYXKYLMOMQHG2LHNZZSAZTPOIQHAYLEMRUW4ZZMEBSXQ5DSME======
-```
+	| Name | Charset | Exemple |
+	| --- | --- | --- |
+	| Base64 | `A-Za-z0-9+/` | `SGVsbG8gV29ybGQh` |
+	| Base32 | `A-Z2-7` | `JBSWY3DPEBLW64TMMQ======` |
+	| Base85 | `A-Za-z0-9!#$%&()*+-;<=>?@^_` | `9jqo^F*bKt7!8'or``]8%F<+qT*` |
+	| Base91 | `A-Za-z0-9!#$%&()*+,./:;<=>?@[]^_` | `fPNKd)T1E8K\*+9MH/@RPE.` |
 
-```
-Base85:
-<~9jqo^BlbD-BleB1DJ+*+F(f,q/0JhKF<GL>Cj@.4Gp$d7F!,L7@<6@)/0JDEF<G%<+EV:2F!,
-O<DJ+*.@<*K0@<6L(Df-\0Ec5e;DffZ(EZee.Bl.9pF"AGXBPCsi+DGm>@3BB/F*&OCAfu2/AKY
-i(DIb:@FD,*)+C]U=@3BN#EcYf8ATD3s@q?d$AftVqCh[NqF<G:8+EV:.+Cf>-FD5W8ARlolDIa
-l(DId<j@<?3r@:F%a+D58'ATD4$Bl@l3De:,-DJs`8ARoFb/0JMK@qB4^F!,R<AKZ&-DfTqBG%G
->uD.RTpAKYo'+CT/5+Cei#DII?(E,9)oF*2M7/c~>
-```
-
-```
-Base91:
-8D$J`/wC4!c.hQ;mT8,<p/&Y/H@$]xlL3oDg<W.0$FW6GFMo_D8=8=}AMf][|LfVd/<P1o/1Z2(.I+LR6tQQ0o1a/2/WtN3$3t[x&k)zgZ5=p;LRe.{B[pqa(I.WRT%yxtB92oZB,2,Wzv;Rr#N.cju"JFXiZBMf<WMC&$@+e95p)z01_*UCxT0t88Km=UQJ;WH[#F]4pE>i3o(g7=$e7R2u>xjLxoefB.6Yy#~uex8jEU_1e,MIr%!&=EHnLBn2h>M+;Rl3qxcL5)Wfc,HT$F]4pEsofrFK;W&eh#=#},|iKB,2,W]@fVlx,a<m;i=CY<=Hb%}+},F
-```
+	Usually decoded with python or the `base64 -d` command.
 
 
 * [Base65535](https://github.com/qntm/base65536)
@@ -1319,15 +1269,9 @@ Base91:
 
 	Unicode characters encoding. Includes a lot of seemingly random spaces and chinese characters!
 
-```
-𤇃𢊻𤄻嶜𤄋𤇁𡊻𤄛𤆬𠲻𤆻𠆜𢮻𤆻ꊌ𢪻𤆻邌𤆻𤊻𤅋𤲥𣾻𤄋𥆸𣊻𤅛ꊌ𤆻𤆱炼綻𤋅𤅴薹𣪻𣊻𣽻𤇆𤚢𣺻赈𤇣綹𤻈𤇣𤾺𤇃悺𢦻𤂻𤅠㢹𣾻𤄛𤆓𤦹𤊻𤄰炜傼𤞻𢊻𣲻𣺻ꉌ邹𡊻𣹫𤅋𤇅𣾻𤇄𓎜𠚻𤊻𢊻𤉛𤅫𤂑𤃃𡉌𤵛𣹛𤁐𢉋𡉻𡡫𤇠𠞗𤇡𡊄𡒌𣼻燉𣼋𦄘炸邹㢸𠞻𠦻𡊻𣈻𡈻𣈛𡈛ꊺ𠆼𤂅𣻆𣫃𤮺𤊻𡉋㽻𣺬𣈛𡈋𤭻𤂲𣈻𤭻𤊼𢈛儛𡈛ᔺ
-```
 
 * [Base41](https://github.com/sveljko/base41/blob/master/python/base41.py)
 
-* "Unflattening" Base64 in lowercase or uppercase
-
-	Some time ago we needed to recover the original Base64 string from one that is in all lowercase or all uppercase. Caleb wrote a good script to smartly do this: [https://pastebin.com/HprZcHrY](https://pastebin.com/HprZcHrY)
 
 * [Enigma](https://en.wikipedia.org/wiki/Enigma_machine)
 
@@ -1387,25 +1331,25 @@ __If FactorDB cannot find factors, try [alpertron](https://www.alpertron.com.ar/
 
 	When you see multi-prime RSA, you can use calculate `phi` by still using all the factors.
 
-```
-phi = (a - 1) * (b - 1) * (c - 1)    # ... etcetera
-```
+    ```
+    phi = (a - 1) * (b - 1) * (c - 1)    # ... etcetera
+    ```
 
 
 * RSA: `e` is 3 (or small)
 
 	If `e` is 3, you can try the cubed-root attack. If you the cubed root of `c`, and if that is smaller than the cubed root of `n`, then your plaintext message `m` is just the cubed root of `c`! Here is [Python](https://www.python.org/) code to take the cubed root:
 
-```
-def root3rd(x):
-    y, y1 = None, 2
-    while y!=y1:
-        y = y1
-        y3 = y**3
-        d = (2*y3+x)
-        y1 = (y*(y3+2*x)+d//2)//d
-    return y
-```
+    ```python
+    def root3rd(x):
+        y, y1 = None, 2
+        while y!=y1:
+            y = y1
+            y3 = y**3
+            d = (2*y3+x)
+            y1 = (y*(y3+2*x)+d//2)//d
+        return y
+    ```
 
 * RSA: Wiener's Little D Attack
 
@@ -1765,17 +1709,21 @@ printf "$s\n" "${anything[@]}"
 
 
 
-* [`jadx`](https://github.com/skylot/jadx)
+* [`jadx`](https://github.com/skylot/jadx) <span style="color:red">❤️</span>
 
-    Decompiles Android APKs to Java source code.
+    Decompiles Android APKs to Java source code. Comes with a GUI.
+
+	```bash
+	jadx -d "$(pwd)/out" "$(pwd)/<app>" # Decompile the APK to a folder
+	```
 
 * [`apktool`](https://ibotpeaches.github.io/Apktool/)
 
-	A command-line tool to extract all the resources from an APK file. Usage:
+	A command-line tool to extract all the resources from an APK file.
 
-```
-apktool d <file.apk>
-```
+	```bash
+	apktool d <file.apk> # Extracts the APK to a folder
+	```
 
 
 * [`dex2jar`](https://github.com/pxb1988/dex2jar)
@@ -1786,7 +1734,6 @@ apktool d <file.apk>
 * [`jd-gui`](https://github.com/java-decompiler/jd-gui)
 
 	A GUI tool to decompile Java code, and JAR files.
-
 
 
 

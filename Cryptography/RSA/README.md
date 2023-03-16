@@ -41,25 +41,25 @@ __If FactorDB cannot find factors, try [alpertron](https://www.alpertron.com.ar/
 
 	When you see multi-prime RSA, you can use calculate `phi` by still using all the factors.
 
-```
-phi = (a - 1) * (b - 1) * (c - 1)    # ... etcetera
-```
+    ```
+    phi = (a - 1) * (b - 1) * (c - 1)    # ... etcetera
+    ```
 
 
 * RSA: `e` is 3 (or small)
 
 	If `e` is 3, you can try the cubed-root attack. If you the cubed root of `c`, and if that is smaller than the cubed root of `n`, then your plaintext message `m` is just the cubed root of `c`! Here is [Python](https://www.python.org/) code to take the cubed root:
 
-```
-def root3rd(x):
-    y, y1 = None, 2
-    while y!=y1:
-        y = y1
-        y3 = y**3
-        d = (2*y3+x)
-        y1 = (y*(y3+2*x)+d//2)//d
-    return y
-```
+    ```python
+    def root3rd(x):
+        y, y1 = None, 2
+        while y!=y1:
+            y = y1
+            y3 = y**3
+            d = (2*y3+x)
+            y1 = (y*(y3+2*x)+d//2)//d
+        return y
+    ```
 
 * RSA: Wiener's Little D Attack
 

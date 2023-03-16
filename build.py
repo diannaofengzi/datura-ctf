@@ -5,6 +5,8 @@ import re
 topics = ["Scanning", "Services and Ports", "Reverse Shell", "Privilege Escalation", "Binary Exploitation", "Classic Exploits", "Reverse Engineering", "Forensics",  "Cryptography", "Steganography", "PDF Files", "ZIP Files", "Hashes", "OSINT", "Network", "Jail Break", "Android", "Esoteric Languages", "Data Science", "Signal processing", "Wireless", "Other CheatSheets"]
 output_markdown_file = "./README.md"
 
+special_words = {":heart:":"<span style=\"color:red\">❤️</span>"}
+
 # Parse the makrdown content and update the links
 def updateLinks(content, topic_path):
 
@@ -38,13 +40,17 @@ def updateLinks(content, topic_path):
                 dotdot_path = topic_path[:-i] + "/"
                 dotdot_path = dotdot_path.replace(" ", "%20")
                 content = content.replace(link[1], link[1].replace("../", dotdot_path))
-            
-
-
-
-
 
     return content
+
+def replaceWords(content, special_words):
+    """Replace special words with their corresponding code"""
+    for word in special_words:
+        # Replace all occurences of the word
+        regex = re.compile(word)
+        content = re.sub(regex, special_words[word], content)
+    return content
+
 
 
 
@@ -67,6 +73,7 @@ def addTopic(topic, depth=0):
         with open(topic + "/" + file, "r", encoding='utf-8') as local_readme_fd:
             content = local_readme_fd.read()
         content = updateLinks(content, topic)
+        content = replaceWords(content, special_words)
         with open(output_markdown_file, "a", encoding='utf-8') as output_fd:
             output_fd.write(content)
 

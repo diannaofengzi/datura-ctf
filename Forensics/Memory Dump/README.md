@@ -1,6 +1,6 @@
 Memory dumps are captures of the state of the memory at a given time. It contains all the loaded files, processes and data that was used at this moment.
 
-Memory dumps can be analyzed using the [Volatility Framework](https://www.volatilityfoundation.org/).
+Memory dumps can be analyzed using the [Volatility Framework](https://www.volatilityfoundation.org/) :heart: .
 
 I recommand using **volatility 3** so you do not have to bother with profiles (finding it was often a pain in vol2).
 
@@ -51,7 +51,9 @@ The documentation can be found [here](https://volatility3.readthedocs.io)
 
 * Browser profile
 
-    It is often a good idea to look at the browser profile to find interesting information, such as bookmarks, history, cookies, stored passwords, etc... See [Browser Forensics](../Browser%20Forensics/README.md) for more information.
+    It is often a good idea to look at the browser profile to find interesting information, such as bookmarks, history, cookies, stored passwords, etc... 
+    
+    See [Browser Forensics](../Browser%20Forensics/README.md) for more information.
 
 
 

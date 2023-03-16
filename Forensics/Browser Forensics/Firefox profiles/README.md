@@ -7,7 +7,7 @@ Firefox based browsers (and Thunderbird) store their profiles in the following f
 | `signons.sqlite` or `logins.json` | Stored passwords |
 | `certN.db` with N=8 or 9 | Certificates |
 
-* [Dumpzilla](https://github.com/Busindre/dumpzilla)
+* [Dumpzilla](https://github.com/Busindre/dumpzilla) :heart:
 
     Dumps everything from a Firefox profile. 
 

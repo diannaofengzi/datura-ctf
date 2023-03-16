@@ -26,7 +26,7 @@ m is the deciphered message.
 
 Several attacks exist on RSA depending on the circumstances.
 
-* [RSA CTF Tool](https://github.com/RsaCtfTool/RsaCtfTool)
+* [RSA CTF Tool](https://github.com/RsaCtfTool/RsaCtfTool) :heart:
 
     Performs several attacks on RSA keys. Very useful for CTFs.
 

@@ -630,7 +630,7 @@ Tools that will help you to exploit a binary:
 
 * [Ghidra](https://ghidra-sre.org/) <span style="color:red">❤️</span>
 
-	Decompiler for binary files, usefull for static analysis.
+	Decompiler for binary files, usefull for **static** analysis.
 
 	Automaticaly create a ghidra project from a binary file using [this script](Reverse%20Engineering/Tools/ghidra.py):
 	```bash
@@ -652,7 +652,7 @@ Tools that will help you to exploit a binary:
 
 * [radare2](https://github.com/radareorg/radare2)
 
-	Binary analysis, disassembler, debugger.
+	Binary analysis, disassembler, debugger. Identified as `r2`.
 
 
 * Compiling & running ASM code:
@@ -815,7 +815,7 @@ In order to run some system, it is nessesary to use virtualisation.
 
 
 
-* [Autopsy](https://www.autopsy.com/download/)
+* [Autopsy](https://www.autopsy.com/download/) <span style="color:red">❤️</span>
 
     Browse the filesystem and extract files from a disk image. ALso recovers deleted files.
 
@@ -876,7 +876,7 @@ Firefox based browsers (and Thunderbird) store their profiles in the following f
 | `signons.sqlite` or `logins.json` | Stored passwords |
 | `certN.db` with N=8 or 9 | Certificates |
 
-* [Dumpzilla](https://github.com/Busindre/dumpzilla)
+* [Dumpzilla](https://github.com/Busindre/dumpzilla) <span style="color:red">❤️</span>
 
     Dumps everything from a Firefox profile. 
 
@@ -1020,7 +1020,7 @@ Looking at logs takes time but can lead to valuable information.
 
 Memory dumps are captures of the state of the memory at a given time. It contains all the loaded files, processes and data that was used at this moment.
 
-Memory dumps can be analyzed using the [Volatility Framework](https://www.volatilityfoundation.org/).
+Memory dumps can be analyzed using the [Volatility Framework](https://www.volatilityfoundation.org/) <span style="color:red">❤️</span> .
 
 I recommand using **volatility 3** so you do not have to bother with profiles (finding it was often a pain in vol2).
 
@@ -1071,7 +1071,9 @@ The documentation can be found [here](https://volatility3.readthedocs.io)
 
 * Browser profile
 
-    It is often a good idea to look at the browser profile to find interesting information, such as bookmarks, history, cookies, stored passwords, etc... See [Browser Forensics](#browser%20forensics) for more information.
+    It is often a good idea to look at the browser profile to find interesting information, such as bookmarks, history, cookies, stored passwords, etc... 
+    
+    See [Browser Forensics](#browser%20forensics) for more information.
 
 
 
@@ -1086,6 +1088,8 @@ The documentation can be found [here](https://volatility3.readthedocs.io)
 * [Dive](https://github.com/wagoodman/dive)
 
     Explore layers of a docker image.
+
+    If a interesting file modification is found, it can be extracted from the image with an archive editing software (or with `dive export <image> <layer> <file> <output>` ?).
 
 
 <br><br>
@@ -1316,7 +1320,7 @@ m is the deciphered message.
 
 Several attacks exist on RSA depending on the circumstances.
 
-* [RSA CTF Tool](https://github.com/RsaCtfTool/RsaCtfTool)
+* [RSA CTF Tool](https://github.com/RsaCtfTool/RsaCtfTool) <span style="color:red">❤️</span>
 
     Performs several attacks on RSA keys. Very useful for CTFs.
 

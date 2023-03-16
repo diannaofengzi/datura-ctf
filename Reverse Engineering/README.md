@@ -14,7 +14,7 @@
 
 * [Ghidra](https://ghidra-sre.org/) :heart:
 
-	Decompiler for binary files, usefull for static analysis.
+	Decompiler for binary files, usefull for **static** analysis.
 
 	Automaticaly create a ghidra project from a binary file using [this script](./Tools/ghidra.py):
 	```bash
@@ -36,7 +36,7 @@
 
 * [radare2](https://github.com/radareorg/radare2)
 
-	Binary analysis, disassembler, debugger.
+	Binary analysis, disassembler, debugger. Identified as `r2`.
 
 
 * Compiling & running ASM code:

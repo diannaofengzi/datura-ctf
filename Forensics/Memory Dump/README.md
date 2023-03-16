@@ -36,7 +36,7 @@ The documentation can be found [here](https://volatility3.readthedocs.io)
     sudo vol -f $DUMP_NAME windows.cmdlines > ./out/cmdlines.txt # List all commands executed and their arguments (arguments are usually very interesting)
     
     # Specific information
-    sudo vol -f $DUMP_NAME windows.dumpfiles ‑‑virtaddr <addr> # Dump a file from memory
+    sudo vol -f $DUMP_NAME windows.dumpfiles --physaddr <addr> # Dump a file from memory (addr from filescan)
     sudo vol -f $DUMP_NAME windows.handles --pid <pid> # List all handles of a process (files opened, etc...)
     
     # Registry
@@ -51,20 +51,7 @@ The documentation can be found [here](https://volatility3.readthedocs.io)
 
 * Browser profile
 
-    The browser profile contains a lot of information about the user, such as bookmarks, history, cookies, stored passwords, etc.
-
-    In Windows:
-    | Browser | Location |
-    | --- | --- |
-    | Chrome | `C:\Users\<username>\AppData\Local\Google\Chrome\User Data\Default` |
-    | [Firefox](https://support.mozilla.org/en-US/kb/profiles-where-firefox-stores-user-data) | `C:\Users\<username>\AppData\Roaming\Mozilla\Firefox\Profiles\<profile>` |
-    | Edge | `C:\Users\<username>\AppData\Local\Microsoft\Edge\User Data\Default` |
-
-    In Linux:
-    | Browser | Location |
-    | --- | --- |
-    | Chrome | `~/.config/google-chrome/Default` |
-    | [Firefox](https://support.mozilla.org/en-US/kb/profiles-where-firefox-stores-user-data) | `~/.mozilla/firefox/<profile>` |
+    It is often a good idea to look at the browser profile to find interesting information, such as bookmarks, history, cookies, stored passwords, etc... See [Browser Forensics](../Browser%20Forensics/README.md) for more information.
 
 
 

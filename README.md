@@ -90,6 +90,8 @@ This file is auto generated using [build.py](build.py). To update it, update the
 
 
 
+
+
 ## Network Scanning
 
 
@@ -121,12 +123,16 @@ nmap -sV --script dns-* <ip>
 
     See the path packets take to reach a host.
 
+
+
 ## Website Scanning
 
 
 
 
 See [Web Enumeration](#web)
+
+
 
 <br><br>
 
@@ -508,6 +514,8 @@ Tools that will help you to exploit a binary:
 
     A command-line tool that can be used to find gadgets in a binary.
 
+
+
 ## Windows
 
 
@@ -563,6 +571,8 @@ $ x86_64-w64-mingw32-gdb myprogram.exe
 * [AutoIt](https://www.autoitscript.com/site/autoit/)
 
 	Scripting language for Windows.
+
+
 <br><br>
 
 # Classic Exploits
@@ -746,6 +756,8 @@ ghidra.py <file>
 
 In order to run some system, it is nessesary to use virtualisation.
 
+
+
 ## Python
 
 
@@ -772,11 +784,13 @@ In order to run some system, it is nessesary to use virtualisation.
 ```bash
 python3 pyinstxtractor.py <filename>
 ```
+
+
 <br><br>
 
 # Forensics
 
-⇨ [Disk Image](#disk-image)<br>⇨ [Logs](#logs)<br>⇨ [Images](#images)<br>⇨ [Memory Dump](#memory-dump)<br>⇨ [Docker](#docker)<br>
+⇨ [Disk Image](#disk-image)<br>⇨ [Browser Forensics](#browser-forensics)<br>⇨ [Logs](#logs)<br>⇨ [Images](#images)<br>⇨ [Memory Dump](#memory-dump)<br>⇨ [Docker](#docker)<br>
 
 
 * `binwalk`
@@ -854,6 +868,81 @@ sudo apt install foremost
 
     Mount a disk image. I recommand to use a virtual machine to mount the disk image. This way you can browse the filesystem and extract files without risking to damage your system.
 
+
+
+## Browser Forensics
+
+⇨ [Firefox profiles](#firefox-profiles)<br>
+
+The browser profile contains a lot of information about the user, such as bookmarks, history, cookies, stored passwords, etc.
+
+
+* Profile location
+    
+    In Windows:
+    | Browser | Location |
+    | --- | --- |
+    | Chrome | `C:\Users\<username>\AppData\Local\Google\Chrome\User Data\Default` |
+    | [Firefox](https://support.mozilla.org/en-US/kb/profiles-where-firefox-stores-user-data) | `C:\Users\<username>\AppData\Roaming\Mozilla\Firefox\Profiles\<profile>` |
+    | Edge | `C:\Users\<username>\AppData\Local\Microsoft\Edge\User Data\Default` |
+
+    In Linux:
+    | Browser | Location |
+    | --- | --- |
+    | Chrome | `~/.config/google-chrome/Default` |
+    | [Firefox](https://support.mozilla.org/en-US/kb/profiles-where-firefox-stores-user-data) | `~/.mozilla/firefox/<profile>` |
+
+
+
+
+### Firefox profiles
+
+
+
+Firefox based browsers (and Thunderbird) store their profiles in the following files in the profile folder (usually `XXXXXXXX.default`):
+
+| File | Description |
+| --- | --- |
+| `places.sqlite` | Bookmarks, history, cookies, etc... |
+| `keyN.db` with N=3 or 4 | Master password, used to encrypt the stored passwords |
+| `signons.sqlite` or `logins.json` | Stored passwords |
+| `certN.db` with N=8 or 9 | Certificates |
+
+* [Dumpzilla](https://github.com/Busindre/dumpzilla)
+
+    Dumps everything from a Firefox profile. 
+
+    ```bash
+    python3 dumpzilla.py /path/to/your-profile/
+    ```
+    
+    Uses [NSS](https://en.wikipedia.org/wiki/Network_Security_Services) to decrypt passwords, which can be hard to install.
+
+
+* [Firefox decrypt](https://github.com/unode/firefox_decrypt)
+
+    Decrypts passwords from Firefox. Better support than dumpzilla but dont handle legacy profiles (key3.db).
+
+    ```bash
+    python3 firefox_decrypt.py /path/to/your-profile/
+    ```
+
+    Uses [NSS](https://en.wikipedia.org/wiki/Network_Security_Services) to decrypt passwords, which can be hard to install. Similar to [nss-password](https://github.com/glondu/nss-passwords) which can be installed with a .deb file.
+
+* [FirePWD](https://github.com/lclevy/firepwd)
+
+    Decrypt all types of firefox passwords (including legacy).
+
+    ```bash
+    python3 firepwd.py -d /path/to/your-profile/
+    ```
+
+    Do not use [NSS](https://en.wikipedia.org/wiki/Network_Security_Services) to decrypt passwords, which makes it easier to install. Found this tool [here](https://security.stackexchange.com/questions/152285/command-line-tools-to-decrypt-my-firefox-45-7-0-passwords-using-key3-db-and-logi)
+
+
+
+
+
 ## Logs
 
 
@@ -920,6 +1009,8 @@ Looking at logs takes time but can lead to valuable information.
     ```
 
 
+
+
 ## Images
 
 
@@ -951,6 +1042,8 @@ Looking at logs takes time but can lead to valuable information.
 * [Analysis Image] ['https://29a.ch/photo-forensics/#forensic-magnifier']
 
 	Forensically is free online tool to analysis image this tool has many features like  Magnifier, Clone Detection, Error Level analysis, Noise Analusis, level Sweep, Meta Data, Geo tags, Thumbnail Analysis , JPEG Analysis, Strings Extraction.
+
+
 
 
 ## Memory Dump
@@ -995,7 +1088,7 @@ The documentation can be found [here](https://volatility3.readthedocs.io)
     sudo vol -f $DUMP_NAME windows.cmdlines > ./out/cmdlines.txt # List all commands executed and their arguments (arguments are usually very interesting)
     
     # Specific information
-    sudo vol -f $DUMP_NAME windows.dumpfiles ‑‑virtaddr <addr> # Dump a file from memory
+    sudo vol -f $DUMP_NAME windows.dumpfiles --physaddr <addr> # Dump a file from memory (addr from filescan)
     sudo vol -f $DUMP_NAME windows.handles --pid <pid> # List all handles of a process (files opened, etc...)
     
     # Registry
@@ -1010,20 +1103,9 @@ The documentation can be found [here](https://volatility3.readthedocs.io)
 
 * Browser profile
 
-    The browser profile contains a lot of information about the user, such as bookmarks, history, cookies, stored passwords, etc.
+    It is often a good idea to look at the browser profile to find interesting information, such as bookmarks, history, cookies, stored passwords, etc... See [Browser Forensics](#browser%20forensics) for more information.
 
-    In Windows:
-    | Browser | Location |
-    | --- | --- |
-    | Chrome | `C:\Users\<username>\AppData\Local\Google\Chrome\User Data\Default` |
-    | [Firefox](https://support.mozilla.org/en-US/kb/profiles-where-firefox-stores-user-data) | `C:\Users\<username>\AppData\Roaming\Mozilla\Firefox\Profiles\<profile>` |
-    | Edge | `C:\Users\<username>\AppData\Local\Microsoft\Edge\User Data\Default` |
 
-    In Linux:
-    | Browser | Location |
-    | --- | --- |
-    | Chrome | `~/.config/google-chrome/Default` |
-    | [Firefox](https://support.mozilla.org/en-US/kb/profiles-where-firefox-stores-user-data) | `~/.mozilla/firefox/<profile>` |
 
 
 
@@ -1036,6 +1118,8 @@ The documentation can be found [here](https://volatility3.readthedocs.io)
 * [Dive](https://github.com/wagoodman/dive)
 
     Explore layers of a docker image.
+
+
 <br><br>
 
 # Cryptography
@@ -1055,6 +1139,8 @@ The documentation can be found [here](https://volatility3.readthedocs.io)
 * AES ECB
 
 	The "blind SQL" of cryptography... leak the flag out by testing for characters just one byte away from the block length.
+
+
 
 ## Simple Codes
 
@@ -1252,6 +1338,8 @@ Base91:
 
 	
 
+
+
 ## RSA
 
 
@@ -1343,6 +1431,8 @@ Some code for this attack can be found [here](https://github.com/mimoo/RSA-and-L
     ```python
     q = n//p # in python
     ```
+
+
 <br><br>
 
 # Steganography
@@ -1630,6 +1720,8 @@ DNS can be used to exfiltrate data, for example to bypass firewalls.
 
 
 
+
+
 <br><br>
 
 # Jail Break
@@ -1694,6 +1786,8 @@ apktool d <file.apk>
 * [`jd-gui`](https://github.com/java-decompiler/jd-gui)
 
 	A GUI tool to decompile Java code, and JAR files.
+
+
 
 
 <br><br>
@@ -1860,6 +1954,8 @@ Whisper my world
 
     Good for **large** datasets.
 
+
+
 ## Unsupervised Clasification
 
 
@@ -1873,6 +1969,8 @@ Whisper my world
 * [Gaussian Mixture Model (GMM)]()
 
     A probabilistic model that assumes that the data was generated from a finite sum of Gaussian distributions.
+
+
 
 
 

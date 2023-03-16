@@ -48,7 +48,7 @@ def updateLinks(content, topic_path):
 
 
 
-def addTopic(topic):
+def addTopic(topic, depth=0):
 
     # List directories in the current directory
     directories = [d for d in os.listdir(topic) if os.path.isdir(os.path.join(topic, d))]
@@ -76,8 +76,10 @@ def addTopic(topic):
             if os.path.isdir(topic + "/" + file):
                 if not file.startswith(".") and not file.startswith("_") and not file == "Tools":
                     with open(output_markdown_file, "a", encoding='utf-8') as output_fd:
-                        output_fd.write("\n\n## " + file + "\n\n")
-                    addTopic(topic + "/" + file)
+                        output_fd.write("\n\n##" + "#" * depth + " " + file + "\n\n")
+                    addTopic(topic + "/" + file, depth=depth+1)
+                    with open(output_markdown_file, "a", encoding='utf-8') as output_fd:
+                        output_fd.write("\n\n")
 
 def main():
 

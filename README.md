@@ -18,10 +18,10 @@ This file is auto generated using [build.py](build.py). To update it, update the
 * [Scanning](#scanning)
 * [Services and Ports](#services-and-ports)
 * [Reverse Shell](#reverse-shell)
-* [Privilege Escalation](#privilege-escalation)
-* [Binary Exploitation](#binary-exploitation)
-* [Classic Exploits](#classic-exploits)
 * [Reverse Engineering](#reverse-engineering)
+* [Binary Exploitation](#binary-exploitation)
+* [Privilege Escalation](#privilege-escalation)
+* [Classic Exploits](#classic-exploits)
 * [Forensics](#forensics)
 * [Cryptography](#cryptography)
 * [Steganography](#steganography)
@@ -396,49 +396,164 @@ snmp-check 10.10.10.125
     ```
 <br><br>
 
-# Privilege Escalation
+# Reverse Engineering
+
+⇨ [Binaries](#binaries)<br>⇨ [Virtualisation](#virtualisation)<br>⇨ [Python](#python)<br>
+
+Reverse engeenering is the process of analyzing a system, device or program in order to extract knowledge about it. It is a broad field that can be divided into two main categories: **static** and **dynamic** analysis.
+
+The [Binary Exploitation](/Binary%20Exploitation) section, also known as PWN, is dedicated to altering the behavior of a program by exploiting vulnerabilities in it. The 
 
 
 
-* `sudo`
-
-    First thing to check. See what the current user is allowed to do.
-    ```bash
-    sudo -l # List available commands
-    ```
 
 
-* [`PEAS`](https://github.com/carlospolop/PEASS-ng) <span style="color:red">❤️</span>
+* Punchcards
 
-    Find common misconfigurations and vulnerabilities in Linux and Windows.
-
-    Some payload can be found in the [Tools](Privilege%20Escalation/Tools/PEAS/) section.
-
-    Send linpeas via ssh
-    ```bash	
-    scp linpeas.sh user@domain:/tmp
-    ```
+	[Punch card emulator](http://tyleregeto.com/article/punch-card-emulator)
 
 
-* setuid Files
+* GameBoy ROMS
 
-    Files with the setuid bit set are executed with the permissions of the owner of the file, not the user who started the program. This can be used to escalate privileges.
-
-    [GTFOBins](https://gtfobins.github.io/) has a list of setuid binaries that can be used to escalate privileges.
-
-    Custom setuid files can be exploited using [binary exploitation](#binary-exploitation).
+	Packages to run GameBoy ROMS: `visualboyadvance` or `retroarch`
 
 
-    Find files with the setuid bit set.
-    ``` bash
-    find / -perm -u=s -type f 2>/dev/null
-    ```
+## Binaries
 
-* [CVE-2021-3156](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-3156)
+⇨ [Golang](#golang)<br>
 
-    sudo versions before **1.9.5p2** are vulnerable to a heap-based buffer overflow. This can be exploited to gain root access. Very useful on older systems.
+Reversing binaries can be used to solve keygen (or crackme) challenges, or just to understand how a program works to [exploit it](#binary%20exploitation).
 
-    Some payload can be found in the [Tools](Privilege%20Escalation/Tools/CVE-2021-3156/) section.
+* [ltrace](http://man7.org/linux/man-pages/man1/ltrace.1.html) and [strace](https://strace.io)
+
+	Repport library, system calls and signals.
+
+* [gdb](https://en.wikipedia.org/wiki/GNU_Debugger) <span style="color:red">❤️</span>
+
+	Most used debugger, can be impoved with [GEF](https://hugsy.github.io/gef/) <span style="color:red">❤️</span> or [PEDA](https://github.com/longld/peda). A lot of [cheatsheets](https://raw.githubusercontent.com/zxgio/gdb_gef-cheatsheet/master/gdb_gef-cheatsheet.pdf) exsists, here are a small one:
+
+
+	```bash
+	bash -c "$(curl -fsSL https://gef.blah.cat/sh)" # Install GEF on top of gdb
+	gdb <binary> # Start gdb
+
+	# Start debugging
+	run <args> # Run the program with arguments
+	run < <file> # Run the program with input from a file
+	run <<< $(python -c 'print("A"*100)') # Run the program with input from a command
+
+	# Display info
+	info functions # List all functions
+	disassemble <function> # Disassemble a function
+	disassemble # Disassemble the current function
+	x/64x <address> # Display the content of the memory at an address
+	x/64x $esp # Display the content of the stack
+
+	# Breakpoints
+	break <function> # Set a breakpoint at the beginning of a function
+	break * <address> # Set a breakpoint at an address
+
+	# Execution
+	n[ext] # Execute the next source instruction, goes into functions
+	s[tep] # Execute the next source instruction, does not go into functions
+	c[ontinue] # Continue execution until the next breakpoint
+	n[ext]i # Execute the next machine instruction, goes into functions
+	s[tep]i # Execute the next machine instruction, does not go into functions
+	reverse-{s[tep][i], n[ext][i]} # Reverse execution
+
+	# Registers
+	info registers # Display the content of the registers
+	set $<register> = <value> # Set the value of a register
+
+	# Checkpoints
+	checkpoint # Create a checkpoint
+	info checkpoints # List all checkpoints
+	restart <checkpoint id> # Restart the program at a checkpoint
+	delete checkpoint <checkpoint id> # Delete a checkpoint
+	```
+
+* [Ghidra](https://ghidra-sre.org/) <span style="color:red">❤️</span>
+
+	Decompiler for binary files, usefull for **static** analysis.
+
+	Automaticaly create a ghidra project from a binary file using [this script](Reverse%20Engineering/Binaries/Tools/ghidra.py):
+	```bash
+	ghidra.py <file>
+	```
+
+* [angr](https://angr.io/)
+
+    Tool for **dynamic** analysis. Can be used to solve keygen challeges automatically using ssymbolic execution. 
+    
+    Requires some time to fully understand.
+
+* [Hopper](https://www.hopperapp.com)
+
+	Disassembler.
+
+* [Binary Ninja](https://binary.ninja)
+
+	Good for multithreaded analysis.
+
+
+* [IDA](https://www.hex-rays.com/products/ida/support/download.shtml) <span style="color:red">❤️</span>
+
+	Proprietary reverse engineering software, known to have the best disassembler. The free version can only disassemble 64-bit binaries.
+
+* [radare2](https://github.com/radareorg/radare2)
+
+	Binary analysis, disassembler, debugger. Identified as `r2`.
+
+### Golang
+
+
+
+[GO](go.dev) is a compiled programming language developped by google as a high level alternative to C. It is statically typed and compiled to machine code.
+
+Function are named after the library they are from. For exemple, function from the standard I/O library are `fmt.<function>`. The main function is called `main.main`.
+
+When the binary is stripped, the function's informations are stored in the `.gopclntab` section. 
+
+
+
+
+
+
+
+## Virtualisation
+
+
+
+In order to run some system, it is nessesary to use virtualisation.
+
+
+
+## Python
+
+
+
+
+* [`uncompyle6`](https://github.com/rocky/python-uncompyle6/)
+
+	Decompiles Python bytecode to equivalent Python source code. Support python versions to to 3.8.
+
+	Legend has it that it exists an option (maybe -d) that can suceed when the regular decompilation fails.
+
+* [Decompyle++](https://github.com/zrax/pycdc)
+
+	Less reliable, but claims to decompile every python versions.
+
+* [Easy Python Decompiler](https://sourceforge.net/projects/easypythondecompiler/)
+
+	Windows GUI to decompile python bytecode.
+
+* [Pyinstaller Extractor](https://github.com/extremecoders-re/pyinstxtractor)
+
+	Extracts the python bytecode from pyinstaller windows executables. Can be decomplied  after.
+
+	```bash
+	python3 pyinstxtractor.py <filename>
+	```
 
 
 <br><br>
@@ -580,6 +695,53 @@ Tools that will help you to exploit a binary:
 
 <br><br>
 
+# Privilege Escalation
+
+
+
+* `sudo`
+
+    First thing to check. See what the current user is allowed to do.
+    ```bash
+    sudo -l # List available commands
+    ```
+
+
+* [`PEAS`](https://github.com/carlospolop/PEASS-ng) <span style="color:red">❤️</span>
+
+    Find common misconfigurations and vulnerabilities in Linux and Windows.
+
+    Some payload can be found in the [Tools](Privilege%20Escalation/Tools/PEAS/) section.
+
+    Send linpeas via ssh
+    ```bash	
+    scp linpeas.sh user@domain:/tmp
+    ```
+
+
+* setuid Files
+
+    Files with the setuid bit set are executed with the permissions of the owner of the file, not the user who started the program. This can be used to escalate privileges.
+
+    [GTFOBins](https://gtfobins.github.io/) has a list of setuid binaries that can be used to escalate privileges.
+
+    Custom setuid files can be exploited using [binary exploitation](#binary-exploitation).
+
+
+    Find files with the setuid bit set.
+    ``` bash
+    find / -perm -u=s -type f 2>/dev/null
+    ```
+
+* [CVE-2021-3156](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-3156)
+
+    sudo versions before **1.9.5p2** are vulnerable to a heap-based buffer overflow. This can be exploited to gain root access. Very useful on older systems.
+
+    Some payload can be found in the [Tools](Privilege%20Escalation/Tools/CVE-2021-3156/) section.
+
+
+<br><br>
+
 # Classic Exploits
 
 
@@ -609,188 +771,6 @@ Tools that will help you to exploit a binary:
 	[ECW2022 author's WU](https://gist.github.com/Amossys-team/e99cc3b979b30c047e6855337fec872e#web---not-so-smart-api)
 
 	[Request Bin](https://requestbin.net/) Usefull for detection and environment variable exfiltration.
-<br><br>
-
-# Reverse Engineering
-
-⇨ [Virtualisation](#virtualisation)<br>⇨ [Python](#python)<br>
-
-
-* [ltrace](http://man7.org/linux/man-pages/man1/ltrace.1.html) and [strace](https://strace.io)
-
-	Repport library, system calls and signals.
-
-* [gdb](https://en.wikipedia.org/wiki/GNU_Debugger) <span style="color:red">❤️</span>
-
-	Most used debugger, can be impoved with [GEF](https://hugsy.github.io/gef/) or [PEDA](https://github.com/longld/peda).
-
-	Install GEF on top of gdb:
-	```bash
-	bash -c "$(curl -fsSL https://gef.blah.cat/sh)"
-	```
-
-* [Ghidra](https://ghidra-sre.org/) <span style="color:red">❤️</span>
-
-	Decompiler for binary files, usefull for **static** analysis.
-
-	Automaticaly create a ghidra project from a binary file using [this script](Reverse%20Engineering/Tools/ghidra.py):
-	```bash
-	ghidra.py <file>
-	```
-
-* [Hopper](https://www.hopperapp.com)
-
-	Disassembler.
-
-* [Binary Ninja](https://binary.ninja)
-
-	Good for multithreaded analysis.
-
-
-* [IDA](https://www.hex-rays.com/products/ida/support/download.shtml) <span style="color:red">❤️</span>
-
-	Proprietary reverse engineering software, known to have the best disassembler. The free version can only disassemble 64-bit binaries.
-
-* [radare2](https://github.com/radareorg/radare2)
-
-	Binary analysis, disassembler, debugger. Identified as `r2`.
-
-
-* Compiling & running ASM code:
-
-	You can convert ASM functions from assembly and run them as C functions like the following:
-
-	`asm4.S`
-	```asm
-	.intel_syntax noprefix
-	.global asm4
-	asm4:
-		push   ebp
-		mov    ebp,esp
-		push   ebx
-		sub    esp,0x10
-		mov    DWORD PTR [ebp-0x10],0x27d
-		mov    DWORD PTR [ebp-0xc],0x0
-		jmp    label2
-	label1:
-		add    DWORD PTR [ebp-0xc],0x1
-	label2:
-		mov    edx,DWORD PTR [ebp-0xc]
-		mov    eax,DWORD PTR [ebp+0x8]
-		add    eax,edx
-		movzx  eax,BYTE PTR [eax]
-		test   al,al
-		jne    label1
-		mov    DWORD PTR [ebp-0x8],0x1
-		jmp    label3
-	label4:
-		mov    edx,DWORD PTR [ebp-0x8]
-		mov    eax,DWORD PTR [ebp+0x8]
-		add    eax,edx
-		movzx  eax,BYTE PTR [eax]
-		movsx  edx,al
-		mov    eax,DWORD PTR [ebp-0x8]
-		lea    ecx,[eax-0x1]
-		mov    eax,DWORD PTR [ebp+0x8]
-		add    eax,ecx
-		movzx  eax,BYTE PTR [eax]
-		movsx  eax,al
-		sub    edx,eax
-		mov    eax,edx
-		mov    edx,eax
-		mov    eax,DWORD PTR [ebp-0x10]
-		lea    ebx,[edx+eax*1]
-		mov    eax,DWORD PTR [ebp-0x8]
-		lea    edx,[eax+0x1]
-		mov    eax,DWORD PTR [ebp+0x8]
-		add    eax,edx
-		movzx  eax,BYTE PTR [eax]
-		movsx  edx,al
-		mov    ecx,DWORD PTR [ebp-0x8]
-		mov    eax,DWORD PTR [ebp+0x8]
-		add    eax,ecx
-		movzx  eax,BYTE PTR [eax]
-		movsx  eax,al
-		sub    edx,eax
-		mov    eax,edx
-		add    eax,ebx
-		mov    DWORD PTR [ebp-0x10],eax
-		add    DWORD PTR [ebp-0x8],0x1
-	label3:
-		mov    eax,DWORD PTR [ebp-0xc]
-		sub    eax,0x1
-		cmp    DWORD PTR [ebp-0x8],eax
-		jl     label4
-		mov    eax,DWORD PTR [ebp-0x10]
-		add    esp,0x10
-		pop    ebx
-		pop    ebp
-		ret
-	```
-
-	`asm4.c`
-	```c
-	#include<stdio.h>
-	extern int asm4(char* s);
-
-	int main(){
-	    char *str = "picoCTF_d899a";
-	    printf("%X", asm4(str));
-	    return 0;
-	}
-	```
-	`bash`
-	```bash
-	$ gcc -m32 -o a asm4.c asm4.S
-	$ ./a
-	```
-
-* Punchcards
-
-	[Punch card emulator](http://tyleregeto.com/article/punch-card-emulator)
-
-
-* GameBoy ROMS
-
-	Packages to run GameBoy ROMS: `visualboyadvance` or `retroarch`
-
-
-## Virtualisation
-
-
-
-In order to run some system, it is nessesary to use virtualisation.
-
-
-
-## Python
-
-
-
-
-* [`uncompyle6`](https://github.com/rocky/python-uncompyle6/)
-
-	Decompiles Python bytecode to equivalent Python source code. Support python versions to to 3.8.
-
-	Legend has it that it exists an option (maybe -d) that can suceed when the regular decompilation fails.
-
-* [Decompyle++](https://github.com/zrax/pycdc)
-
-	Less reliable, but claims to decompile every python versions.
-
-* [Easy Python Decompiler](https://sourceforge.net/projects/easypythondecompiler/)
-
-	Windows GUI to decompile python bytecode.
-
-* [Pyinstaller Extractor](https://github.com/extremecoders-re/pyinstxtractor)
-
-	Extracts the python bytecode from pyinstaller windows executables. Can be decomplied  after.
-
-	```bash
-	python3 pyinstxtractor.py <filename>
-	```
-
-
 <br><br>
 
 # Forensics

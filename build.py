@@ -2,7 +2,7 @@ import os
 import sys
 import re
 
-topics = ["Scanning", "Services and Ports", "Reverse Shell", "Privilege Escalation", "Binary Exploitation", "Classic Exploits", "Reverse Engineering", "Forensics", "Cryptography", "Steganography", "PDF Files", "ZIP Files", "Hashes", "OSINT", "Network", "Jail Break", "Android", "Web", "Esoteric Languages", "Data Science", "Signal processing", "Wireless", "Other CheatSheets"]
+topics = ["Scanning", "Services and Ports", "Reverse Shell", "Reverse Engineering", "Binary Exploitation", "Privilege Escalation", "Classic Exploits", "Forensics", "Cryptography", "Steganography", "PDF Files", "ZIP Files", "Hashes", "OSINT", "Network", "Jail Break", "Android", "Web", "Esoteric Languages", "Data Science", "Signal processing", "Wireless", "Other CheatSheets"]
 output_markdown_file = "./README.md"
 
 special_words = {":heart:":"<span style=\"color:red\">❤️</span>"}

@@ -1395,6 +1395,10 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 
 	Python library to hide data in images.
 
+* [`APNG`]
+
+	Animated PNG. Use (apngdis)[https://sourceforge.net/projects/apngdis/] to extract the frames and delays.
+
 * [Digital Invisible Ink Stego Tool](http://diit.sourceforge.net/)
 
 	A Java steganography tool that can hide any sort of file inside a digital image (regarding that the message will fit, and the image is 24 bit colour)
@@ -1510,6 +1514,19 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 
 	A command-line tool to get a basic synopsis of what the [PDF](https://en.wikipedia.org/wiki/Portable_Document_Format) file is.
 
+* [`pdf-parser`](https://blog.didierstevens.com/programs/pdf-tools/) <span style="color:red">❤️</span>
+
+	Parse a PDF file and extract the objects.
+
+	```bash
+	# Extract stream from object 77
+	python pdf-parser.py -o 77 -f -d out.txt input.pdf
+	```
+
+* [`qpdf`](https://github.com/qpdf/qpdf)
+
+	A command-line tool to manipulate [PDF](https://en.wikipedia.org/wiki/Portable_Document_Format) files. Can extract embedded files.
+
 * [`pdfcrack`](https://pdfcrack.sourceforge.net/)
 
 	A comand-line tool to __recover a password from a PDF file.__ Supports dictionary wordlists and bruteforce.
@@ -1520,7 +1537,7 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 
 * [`pdfdetach`](https://www.systutorials.com/docs/linux/man/1-pdfdetach/)
 
-	A command-line tool to extract files out of a [PDF].
+	A command-line tool to extract files out of a [PDF](https://en.wikipedia.org/wiki/Portable_Document_Format) file.
 <br><br>
 
 # ZIP Files
@@ -1732,7 +1749,7 @@ DNS can be used to exfiltrate data, for example to bypass firewalls.
 
 # Web
 
-⇨ [PHP](#php)<br>⇨ [SQL Injection](#sql-injection)<br>⇨ [Enumeration](#enumeration)<br>⇨ [XSS](#xss)<br>
+⇨ [GraphQL](#graphql)<br>⇨ [PHP](#php)<br>⇨ [Request and Cookie Forgery](#request-and-cookie-forgery)<br>⇨ [SQL Injection](#sql-injection)<br>⇨ [Enumeration](#enumeration)<br>⇨ [XSS](#xss)<br>
 
 * [`wpscan`](https://wpscan.org/)
 
@@ -1773,6 +1790,28 @@ DNS can be used to exfiltrate data, for example to bypass firewalls.
 	``` bash
 	aws s3 cp --recursive --no-sign-request s3://<bucket_name> .
 	```
+
+## GraphQL
+
+
+
+* [graphQLmap](https://github.com/swisskyrepo/GraphQLmap)
+
+    Parse a GraphQL endpoint and extract data from it using introspection queries.
+
+    ```bash
+    # Dump names with introspection
+    dump_via_introspection
+    
+    # Make a query
+    {name(id: 0){id, value}}
+
+    # Chech if there is something in the first 30 ids
+    {name(id: GRAPHQL_INCREMENT_10){id, value}}
+    ```
+
+
+
 
 ## PHP
 
@@ -1817,6 +1856,39 @@ DNS can be used to exfiltrate data, for example to bypass firewalls.
 * [`PHP Generic Gadget Chains`](https://github.com/ambionics/phpggc)
 
 	Payloads for Object injection in `unserialize` on different frameworks.
+
+
+
+## Request and Cookie Forgery
+
+
+
+
+* URL Encoding
+
+    URL encoding is a way to encode special characters in a URL. The code is the `%` charater followed by the Hex representation of the caracter in ascii. For example, the `?` character is encoded as `%3F`, space is `%20` etc.
+    
+    Read [this](https://www.w3schools.com/tags/ref_urlencode.asp) for more details on how to encode characters.
+
+
+* IP restriction bypass with the `X-Forwarded-For` header
+
+    Some servers use the `X-Forwarded-For` header to check if the request comes from a valid IP address. This is a vulnerability since it can be changed by the client, and used to bypass IP restrictions. 
+    
+    Use [burp](https://portswigger.net/burp) or python's `requests` library to set the header.
+
+
+* Authentication bypass with `User-Agent` header
+
+    Some servers use the `User-Agent` header to authenticate the user. Usually this field is used to identify the browser's version and OS, but it can be changed by the client.
+    
+    Use [burp](https://portswigger.net/burp) or python's `requests` library to set the header.
+
+* Verb tampering
+
+    Servers can have different behaviors depending on the HTTP verb used. For example, a server can return a 404 error when a `GET` request is made, but return a 200 when a `PUT` request is made.
+
+    Read [this](https://owasp.org/www-project-web-security-testing-guide/v41/4-Web_Application_Security_Testing/07-Input_Validation_Testing/03-Testing_for_HTTP_Verb_Tampering) for more details on how to test it.
 
 
 

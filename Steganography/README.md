@@ -33,6 +33,10 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 
 	Python library to hide data in images.
 
+* [`APNG`]
+
+	Animated PNG. Use (apngdis)[https://sourceforge.net/projects/apngdis/] to extract the frames and delays.
+
 * [Digital Invisible Ink Stego Tool](http://diit.sourceforge.net/)
 
 	A Java steganography tool that can hide any sort of file inside a digital image (regarding that the message will fit, and the image is 24 bit colour)

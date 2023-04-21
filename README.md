@@ -798,7 +798,7 @@ Tools that will help you to exploit a binary:
 
 * [Autopsy](https://www.autopsy.com/download/) <span style="color:red">❤️</span>
 
-    Browse the filesystem and extract files from a disk image. ALso recovers deleted files.
+    GUI for analyzing disk images with Sleuthkit. It can be used to extract files, search for keywords, etc...
 
 * [`mount`]
 
@@ -886,7 +886,7 @@ Firefox based browsers (and Thunderbird) store their profiles in the following f
     python3 firepwd.py -d /path/to/your-profile/
     ```
 
-    Do not use [NSS](https://en.wikipedia.org/wiki/Network_Security_Services) to decrypt passwords, which makes it easier to install. Found this tool [here](https://security.stackexchange.com/questions/152285/command-line-tools-to-decrypt-my-firefox-45-7-0-passwords-using-key3-db-and-logi)
+    It does not use [NSS](https://en.wikipedia.org/wiki/Network_Security_Services) to decrypt passwords, which makes it easier to install. Found this tool [here](https://security.stackexchange.com/questions/152285/command-line-tools-to-decrypt-my-firefox-45-7-0-passwords-using-key3-db-and-logi)
 
 
 
@@ -1003,7 +1003,7 @@ Memory dumps are captures of the state of the memory at a given time. It contain
 
 Memory dumps can be analyzed using the [Volatility Framework](https://www.volatilityfoundation.org/) <span style="color:red">❤️</span> .
 
-I recommand using **volatility 3** so you do not have to bother with profiles (finding it was often a pain in vol2).
+I recommand using **volatility 3** so you do not have to bother with profiles (finding it was sometiles a pain in vol2).
 
 The documentation can be found [here](https://volatility3.readthedocs.io)
 
@@ -1044,6 +1044,25 @@ The documentation can be found [here](https://volatility3.readthedocs.io)
     sudo vol -f $DUMP_NAME windows.registry.hivescan > out/hivescan.txt # List all registry hives
     sudo vol -f $DUMP_NAME windows.registry.hivelist > out/hivelist.txt # List all registry hives
     sudo vol -f $DUMP_NAME windows.registry.printkey.PrintKey --key 'Software\Microsoft\Windows\CurrentVersion\Run' > out/autoruns.txt # List all autoruns
+    ```
+
+    Some usefull linux commands:
+    ```bash
+    # Utility
+    export DUMP_NAME=memory.dmp
+    mkdir out
+
+    # General information
+    sudo vol -f $DUMP_NAME linux.info # Get linux version
+    sudo vol -f $DUMP_NAME linux.filescan > out/filescan.txt # List all files
+    sudo vol -f $DUMP_NAME linux.pslist > out/pslist.txt # List all running processes
+    sudo vol -f $DUMP_NAME linux.pstree > out/pstree.txt # List all running processes as a tree
+    sudo vol -f $DUMP_NAME linux.netscan > out/netscan.txt # List all network connections
+    sudo vol -f $DUMP_NAME linux.cmdlines > ./out/cmdlines.txt # List all commands executed and their arguments (arguments are usually very interesting)
+
+    # Specific information
+    sudo vol -f $DUMP_NAME linux.dumpfiles --physaddr <addr> # Dump a file from memory (addr from filescan)
+    sudo vol -f $DUMP_NAME linux.handles --pid <pid> # List all handles of a process (files opened, etc...)
     ```
 
 
@@ -1095,6 +1114,10 @@ Platforms with cryptanalysis challenges:
 
     Archive repository of the most common attacks on cryptosystems.
 
+* [Crypto Attacks repository](https://github.com/jvdsn/crypto-attacks)
+
+    A large collection of cryptography attacks.
+
 * Predictable Pseudo-Random Number Generators
 
     For performance reasons, most of random number generators are **predictable**. Generating a cryptographic key requires a secure PRNG.
@@ -1111,10 +1134,18 @@ Platforms with cryptanalysis challenges:
 
 	Support many crypto algorithms, but also some interesting tools.
 
+
 * [CyberChef](https://gchq.github.io/CyberChef/) <span style="color:red">❤️</span>
 
 	Online tool to encrypt/decrypt, encode/decode, analyse, and perform many other operations on data.
 
+* [Ciphey](https://github.com/Ciphey/Ciphey)
+
+	Automated cryptanalysis tool. It can detect the type of cipher used and try to decrypt it.
+	
+	Requires python version strickly less than 3.10.
+
+	Will be replaced in the future by [Ares](https://github.com/bee-san/Ares)
 
 * [Keyboard Shift](https://www.dcode.fr/keyboard-shift-cipher)
 
@@ -1130,7 +1161,7 @@ Platforms with cryptanalysis challenges:
 	- Encryption: c = m ^ k
 	- Decryption: m = c ^ k
 
-	If the key is repeated, it is a type of **Vigenere cipher**. [This template](Cryptography/Tools/reapeted_xor.ipynb) helps to crack reapeted XOR keys. This is called `Many time pad`
+	If the key is repeated, it is a type of **Vigenere cipher**. [This template](Cryptography/Tools/reapeted_xor.ipynb) helps to crack reapeted XOR keys. [`xortools`](https://github.com/hellman/xortool) can also be used for this. This is called `Many time pad`
 
 * `Many time pad` on images/data
 
@@ -1432,6 +1463,16 @@ Several attacks exist on RSA depending on the circumstances.
     
    You can then compute $m = c^d$ by dividing by $r$.
 
+* Bleichenbacher's attack on PKCS#1 v1.5
+
+   When the message is padded with **PKCS#1 v1.5** and a **padding oracle** output an error when the decrypted ciphertext is not padded, it is possible to perform a Bleichenbacher attack (BB98). See [this github script](https://github.com/jvdsn/crypto-attacks/blob/master/attacks/rsa/bleichenbacher.py) for an implementation of the attack.
+
+   This attack is also known as the million message attack, as it require a lot of oracle queries.
+
+
+* Coppersmith's attack 
+
+
 
 <br><br>
 
@@ -1676,7 +1717,7 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 
 # OSINT
 
-
+⇨ [Dorking](#dorking)<br>
 
 * [`Sherlock`](https://github.com/sherlock-project/sherlock)
 
@@ -1685,6 +1726,49 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 * [Google reverse image search](https://www.google.fr/imghp)
 
     Search by image.
+
+## Dorking
+
+
+
+Dorking is the process of using search engines to find information about a target.
+
+
+* [Google Dorks](https://en.https://en.wikipedia.org/wiki/Google_hacking)
+
+    Use Google's search engine to find indexed pages that contain specific information.
+    [This cheatsheet](https://gist.github.com/sundowndev/283efaddbcf896ab405488330d1bbc06) provides detailed information about Google Dorks.
+
+    The most common ones are:
+    ```bash
+    site:example.com           # Search for a specific domain
+    inurl: "ViewerFrame?Mode=" # Search for a specific string in the URL (exposed webcams)
+    intitle: "index of"        # Search for a specific string in the title of the page (exposed dirs)
+    filetype:pdf               # Search for a specific file type
+    ```
+
+* Github Dorks
+
+    Use Github's search engine to find indexed files that contain specific information. [This documentation](https://docs.github.com/en/search-github/searching-on-github) can be used to craft search queries.
+
+    Github users can be tracked using [Gitive](https://github.com/mxrch/GitFive).
+
+    The most dork keywords are:
+    ```bash
+    filename:passwords.txt     # Search for a specific filename
+    extension:txt              # Search for a specific file extension
+    owner:username             # Search for a specific username
+    
+    # In commits
+    author-name:username       # Search for a specific commit author
+    author-email:u@ex.com      # Search for a specific commit author email
+    committer-name:username    # Search for a specific committer
+    committer-email:u@ex.com   # Search for a specific committer email
+    ```
+
+    
+
+
 <br><br>
 
 # Network

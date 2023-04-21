@@ -14,6 +14,10 @@ Platforms with cryptanalysis challenges:
 
     Archive repository of the most common attacks on cryptosystems.
 
+* [Crypto Attacks repository](https://github.com/jvdsn/crypto-attacks)
+
+    A large collection of cryptography attacks.
+
 * Predictable Pseudo-Random Number Generators
 
     For performance reasons, most of random number generators are **predictable**. Generating a cryptographic key requires a secure PRNG.

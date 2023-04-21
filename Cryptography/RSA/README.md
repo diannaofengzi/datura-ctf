@@ -78,3 +78,12 @@ Several attacks exist on RSA depending on the circumstances.
    >$(c * r^e)^d = c^d * r = m * r \mod n$
     
    You can then compute $m = c^d$ by dividing by $r$.
+
+* Bleichenbacher's attack on PKCS#1 v1.5
+
+   When the message is padded with **PKCS#1 v1.5** and a **padding oracle** output an error when the decrypted ciphertext is not padded, it is possible to perform a Bleichenbacher attack (BB98). See [this github script](https://github.com/jvdsn/crypto-attacks/blob/master/attacks/rsa/bleichenbacher.py) for an implementation of the attack.
+
+   This attack is also known as the million message attack, as it require a lot of oracle queries.
+
+
+* Coppersmith's attack 

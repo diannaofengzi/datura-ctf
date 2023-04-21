@@ -2,10 +2,18 @@
 
 	Support many crypto algorithms, but also some interesting tools.
 
+
 * [CyberChef](https://gchq.github.io/CyberChef/) :heart:
 
 	Online tool to encrypt/decrypt, encode/decode, analyse, and perform many other operations on data.
 
+* [Ciphey](https://github.com/Ciphey/Ciphey)
+
+	Automated cryptanalysis tool. It can detect the type of cipher used and try to decrypt it.
+	
+	Requires python version strickly less than 3.10.
+
+	Will be replaced in the future by [Ares](https://github.com/bee-san/Ares)
 
 * [Keyboard Shift](https://www.dcode.fr/keyboard-shift-cipher)
 
@@ -21,7 +29,7 @@
 	- Encryption: c = m ^ k
 	- Decryption: m = c ^ k
 
-	If the key is repeated, it is a type of **Vigenere cipher**. [This template](../Tools/reapeted_xor.ipynb) helps to crack reapeted XOR keys. This is called `Many time pad`
+	If the key is repeated, it is a type of **Vigenere cipher**. [This template](../Tools/reapeted_xor.ipynb) helps to crack reapeted XOR keys. [`xortools`](https://github.com/hellman/xortool) can also be used for this. This is called `Many time pad`
 
 * `Many time pad` on images/data
 

@@ -2,7 +2,7 @@ Memory dumps are captures of the state of the memory at a given time. It contain
 
 Memory dumps can be analyzed using the [Volatility Framework](https://www.volatilityfoundation.org/) :heart: .
 
-I recommand using **volatility 3** so you do not have to bother with profiles (finding it was often a pain in vol2).
+I recommand using **volatility 3** so you do not have to bother with profiles (finding it was sometiles a pain in vol2).
 
 The documentation can be found [here](https://volatility3.readthedocs.io)
 
@@ -43,6 +43,25 @@ The documentation can be found [here](https://volatility3.readthedocs.io)
     sudo vol -f $DUMP_NAME windows.registry.hivescan > out/hivescan.txt # List all registry hives
     sudo vol -f $DUMP_NAME windows.registry.hivelist > out/hivelist.txt # List all registry hives
     sudo vol -f $DUMP_NAME windows.registry.printkey.PrintKey --key 'Software\Microsoft\Windows\CurrentVersion\Run' > out/autoruns.txt # List all autoruns
+    ```
+
+    Some usefull linux commands:
+    ```bash
+    # Utility
+    export DUMP_NAME=memory.dmp
+    mkdir out
+
+    # General information
+    sudo vol -f $DUMP_NAME linux.info # Get linux version
+    sudo vol -f $DUMP_NAME linux.filescan > out/filescan.txt # List all files
+    sudo vol -f $DUMP_NAME linux.pslist > out/pslist.txt # List all running processes
+    sudo vol -f $DUMP_NAME linux.pstree > out/pstree.txt # List all running processes as a tree
+    sudo vol -f $DUMP_NAME linux.netscan > out/netscan.txt # List all network connections
+    sudo vol -f $DUMP_NAME linux.cmdlines > ./out/cmdlines.txt # List all commands executed and their arguments (arguments are usually very interesting)
+
+    # Specific information
+    sudo vol -f $DUMP_NAME linux.dumpfiles --physaddr <addr> # Dump a file from memory (addr from filescan)
+    sudo vol -f $DUMP_NAME linux.handles --pid <pid> # List all handles of a process (files opened, etc...)
     ```
 
 

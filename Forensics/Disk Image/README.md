@@ -1,6 +1,6 @@
 * [Autopsy](https://www.autopsy.com/download/) :heart:
 
-    Browse the filesystem and extract files from a disk image. ALso recovers deleted files.
+    GUI for analyzing disk images with Sleuthkit. It can be used to extract files, search for keywords, etc...
 
 * [`mount`]
 

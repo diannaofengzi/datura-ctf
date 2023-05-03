@@ -14,7 +14,7 @@ These sites can be used to create hooks to catch HTTP requests:
 | [`hookbin.com`](https://hookbin.com/) |
 
 
-* [XSS Cheat sheet](https://portswigger.net/web-security/cross-site-scripting/cheat-sheet)
+* `XSS Cheat sheet` - [Website](https://portswigger.net/web-security/cross-site-scripting/cheat-sheet)
 
 * Filter Evasion
 
@@ -37,6 +37,6 @@ These sites can be used to create hooks to catch HTTP requests:
 
 
 
-* [XSStrike](https://github.com/UltimateHackers/XSStrike)
+* `XSStrike` - [GitHub](https://github.com/UltimateHackers/XSStrike)
 
 	A python CLI tool for XSS detection and exploitation.

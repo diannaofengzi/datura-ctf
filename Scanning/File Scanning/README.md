@@ -38,11 +38,11 @@
 	```
 
 
-* [`yara`](https://virustotal.github.io/yara/)
+* `yara` - [Website](https://virustotal.github.io/yara/)
 
     Scan a file with Yara rules to find (malicious) patterns. ules can be found in the [Yara-Rules](https://github.com/Yara-Rules/rules)
 
-* [`file signatures`](https://en.wikipedia.org/wiki/List_of_file_signatures)
+* `file signatures` - [Wikipedia](https://en.wikipedia.org/wiki/List_of_file_signatures)
 
     File signatures are bytes at the beginning of a file that identify the file type. This header is also called magic numbers.
 

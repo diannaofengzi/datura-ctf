@@ -1,4 +1,4 @@
-* [Scipy](https://scipy.org/install/)
+* `Scipy` - [Website](https://scipy.org/install/)
 
     Can be used for signal processing.
 

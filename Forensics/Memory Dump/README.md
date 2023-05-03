@@ -9,11 +9,11 @@ Volatility 3 have currently less features but is easier to use. Volatility requi
 
 The documentation can be found [here](https://volatility3.readthedocs.io)
 
-* [Online Cheat Sheet](https://blog.onfvp.com/post/volatility-cheatsheet/)
+* `Online Cheat Sheet` - [Website](https://blog.onfvp.com/post/volatility-cheatsheet/)
 
-* [Windows Memory Forensics](https://volatility3.readthedocs.io/en/latest/getting-started-windows-tutorial.html#)
+* `Windows Memory Forensics` - [Website](https://volatility3.readthedocs.io/en/latest/getting-started-windows-tutorial.html#)
 
-* [Linux Memory Forensics](https://volatility3.readthedocs.io/en/latest/getting-started-linux-tutorial.html)
+* `Linux Memory Forensics` - [Website](https://volatility3.readthedocs.io/en/latest/getting-started-linux-tutorial.html)
 
 * Most useful plugins
 

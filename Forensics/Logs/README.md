@@ -1,6 +1,6 @@
 Looking at logs takes time but can lead to valuable information.
 
-* [Windows Event Logs](https://en.wikipedia.org/wiki/Event_Viewer)
+* `Windows Event Logs` - [Wikipedia](https://en.wikipedia.org/wiki/Event_Viewer)
 
     Windows logs a *lot* of information. It can be read using `mmc.exe`, under "Windows Logs".
 
@@ -12,7 +12,7 @@ Looking at logs takes time but can lead to valuable information.
     | System | Changes to system (boot, shutdown, peripherals ...) |
     | Setup | System maintainance (update logs, ...) |
 
-* [Linux logs](https://fr.wikipedia.org/wiki/Syslog)
+* `Linux logs` - [Wikipedia](https://en.wikipedia.org/wiki/Syslog)
 
     Linux logs are stored in `/var/log/`. The most important ones are:
     | File | Description |
@@ -29,7 +29,7 @@ Looking at logs takes time but can lead to valuable information.
 
     Other applications can have their own logs in /var/logs.
 
-* [Apache logs](https://httpd.apache.org/docs/2.4/logs.html)
+* `Apache logs` - [Website](https://httpd.apache.org/docs/2.4/logs.html)
   
     Apache logs are often stored in `/var/log/apache2/`. The most important ones are:
     | File | Description |

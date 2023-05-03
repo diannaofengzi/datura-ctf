@@ -1,7 +1,7 @@
 Dorking is the process of using search engines to find information about a target.
 
 
-* [Google Dorks](https://en.https://en.wikipedia.org/wiki/Google_hacking)
+* `Google Dorks` - [Wikipedia](https://en.wikipedia.org/wiki/Google_hacking)
 
     Use Google's search engine to find indexed pages that contain specific information.
     [This cheatsheet](https://gist.github.com/sundowndev/283efaddbcf896ab405488330d1bbc06) provides detailed information about Google Dorks.

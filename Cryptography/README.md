@@ -6,15 +6,15 @@ Platforms with cryptanalysis challenges:
 - [Cryptohack](https://cryptohack.org/)
 - [CryptoPals](https://cryptopals.com/)
 
-* [SageMath](https://www.sagemath.org/)
+* `SageMath` - [Website](https://www.sagemath.org/)
 
     Powerful mathematics software, very useful for crypto and number theory.
 
-* [Crypton](https://github.com/ashutosh1206/Crypton)
+* `Crypton` - [GitHub](https://github.com/ashutosh1206/Crypton)
 
     Archive repository of the most common attacks on cryptosystems.
 
-* [Crypto Attacks repository](https://github.com/jvdsn/crypto-attacks)
+* `Crypto Attacks repository` - [GitHub](https://github.com/jvdsn/crypto-attacks)
 
     A large collection of cryptography attacks.
 

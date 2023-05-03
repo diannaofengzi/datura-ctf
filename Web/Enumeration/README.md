@@ -23,7 +23,7 @@
     ```
 
 
-* [`GitDumper`](https://github.com/arthaud/git-dumper) :heart:
+* `GitDumper` :heart: - [GitHub](https://github\.com/arthaud/git-dumper)
 
 	A command-line tool that will automatically scrape and download a [git](https://git-scm.com/) repository hosted online with a given URL.
 

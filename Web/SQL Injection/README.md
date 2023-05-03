@@ -23,6 +23,6 @@ SELECT * FROM users WHERE username = 'admin' AND password = "" OR 1=1--"
 
 
 
-* [`sqlmap`](https://github.com/sqlmapproject/sqlmap)
+* `sqlmap` - [GitHub](https://github\.com/sqlmapproject/sqlmap)
 
 	A command-line tool written in [Python](https://www.python.org/) to automatically detect and exploit vulnerable SQL injection points.

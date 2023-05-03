@@ -90,11 +90,11 @@ This file is auto generated using [build.py](build.py). To update it, update the
 	```
 
 
-* [`yara`](https://virustotal.github.io/yara/)
+* `yara` - [Website](https://virustotal.github.io/yara/)
 
     Scan a file with Yara rules to find (malicious) patterns. ules can be found in the [Yara-Rules](https://github.com/Yara-Rules/rules)
 
-* [`file signatures`](https://en.wikipedia.org/wiki/List_of_file_signatures)
+* `file signatures` - [Wikipedia](https://en.wikipedia.org/wiki/List_of_file_signatures)
 
     File signatures are bytes at the beginning of a file that identify the file type. This header is also called magic numbers.
 
@@ -112,7 +112,7 @@ This file is auto generated using [build.py](build.py). To update it, update the
 
 
 
-* [Private IPs]()
+* `Private IPs`
 
     Some ip ranges are reserved for private networks. They are not routable on the internet. They are:
 
@@ -125,7 +125,7 @@ This file is auto generated using [build.py](build.py). To update it, update the
 
 
 
-* [`nmap`](https://nmap.org/)
+* `nmap` - [Website](https://nmap.org/)
 
     `nmap` is a utility for network discovery.
 
@@ -135,7 +135,7 @@ This file is auto generated using [build.py](build.py). To update it, update the
 	```
 
 
-* [Nmap scripts](https://nmap.org/nsedoc/scripts/)
+* `Nmap scripts` - [Website](https://nmap.org/nsedoc/scripts/)
   
 	`nmap` has a lot of scripts that can be used to scan for specific vulnerabilities. They are called with the `--script` option.
 
@@ -143,7 +143,7 @@ This file is auto generated using [build.py](build.py). To update it, update the
 	nmap -sV --script dns-* <ip> # Run all dns scripts
 	```
 
-* [`traceroute`](https://en.wikipedia.org/wiki/Traceroute)
+* `traceroute` - [Wikipedia](https://en.wikipedia.org/wiki/Traceroute)
 
     See the machines that a packet goes through to reach its destination.
 
@@ -202,15 +202,15 @@ DNS - Domain Name System - 53/udp
 
 DNS is used to resolve domain names to IP addresses. `BIND` is the most common DNS implementation.
 
-* [`nslookup`](https://en.wikipedia.org/wiki/Nslookup)
+* `nslookup` - [Wikipedia](https://en.wikipedia.org/wiki/Nslookup)
 
 	Query a DNS server for information about a domain name.
 
-* [`dig`](https://en.wikipedia.org/wiki/Dig_(command))
+* `dig` - [Wikipedia](https://en.wikipedia.org/wiki/Dig_(command))
 
 	Query a DNS server for information about a domain name.
 
-* [Zone transfer attack](https://en.wikipedia.org/wiki/DNS_zone_transfer)
+* `Zone transfer attack` - [Wikipedia](https://en.wikipedia.org/wiki/DNS_zone_transfer)
 
 	Zone transfer is a method of transferring a copy of a DNS zone from a DNS server to another DNS server. This can be used to enumerate DNS records of a hidden zone if we know one of it's domain.
 
@@ -239,7 +239,7 @@ Samba is a free and open-source implementation of the SMB/CIFS network protocol.
 
 A smb server can have multiple **shares** (~partition) with their own permissions. They can be listed with `smbmap` or `enum4linux` and accessed with `smbclient`.
 
-* [`smbmap`](https://github.com/ShawnDEvans/smbmap)
+* `smbmap` - [GitHub](https://github\.com/ShawnDEvans/smbmap)
 
 	Emumerate SMB shares and their permissions.
 
@@ -292,7 +292,7 @@ The different attribute names are :
 | `UID` | User ID |
 
 
-* [`ldapsearch`](https://linux.die.net/man/1/ldapsearch)
+* `ldapsearch` - [Website](https://linux.die.net/man/1/ldapsearch)
 
 	`ldapsearch` is a command line tool for querying LDAP servers.
 
@@ -365,11 +365,11 @@ snmp-check 10.10.10.125
 
 
 
-* [PayloadAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)
+* `PayloadAllTheThings` - [GitHub](https://github.com/swisskyrepo/PayloadsAllTheThings)
 
     Compilation of useful payloads and bypass for Web Application Security and Pentest/CTF.
 
-* [`netcat`](https://en.wikipedia.org/wiki/Netcat)
+* `netcat` - [Wikipedia](https://en.wikipedia.org/wiki/Netcat)
 
     A utility for reading from and writing to network connections using TCP or UDP.
 
@@ -378,7 +378,7 @@ snmp-check 10.10.10.125
     $ nc -nlvp 4444
     ```
 
-* [`rlwrap`](https://github.com/hanslub42/rlwrap)
+* `rlwrap` - [GitHub](https://github\.com/hanslub42/rlwrap)
 
     Allows you to use the arrow keys in a reverse shell.
 
@@ -419,13 +419,16 @@ The [Binary Exploitation](/Binary%20Exploitation) section, also known as PWN, is
 
 ⇨ [Golang](#golang)<br>
 
-Reversing binaries can be used to solve keygen (or crackme) challenges, or just to understand how a program works to [exploit it](#binary%20exploitation).
+Reversing binaries can be used to solve keygen (or crackme) challenges, or just to understand how a program works to [exploit it](#binary-exploitation).
 
-* [ltrace](http://man7.org/linux/man-pages/man1/ltrace.1.html) and [strace](https://strace.io)
+
+* `strace` - [Website](https://strace.io)
 
 	Repport library, system calls and signals.
 
-* [gdb](https://en.wikipedia.org/wiki/GNU_Debugger) <span style="color:red">❤️</span>
+* `ltrace` - [Manual](http://man7.org/linux/man-pages/man1/ltrace.1.html)
+
+* `gdb` <span style="color:red">❤️</span> - [Wikipedia](https://en.wikipedia.org/wiki/GNU_Debugger)
 
 	Most used debugger, can be impoved with [GEF](https://hugsy.github.io/gef/) <span style="color:red">❤️</span> or [PEDA](https://github.com/longld/peda). A lot of [cheatsheets](https://raw.githubusercontent.com/zxgio/gdb_gef-cheatsheet/master/gdb_gef-cheatsheet.pdf) exsists, here are a small one:
 
@@ -469,7 +472,7 @@ Reversing binaries can be used to solve keygen (or crackme) challenges, or just 
 	delete checkpoint <checkpoint id> # Delete a checkpoint
 	```
 
-* [Ghidra](https://ghidra-sre.org/) <span style="color:red">❤️</span>
+* `Ghidra` <span style="color:red">❤️</span> - [Website](https://ghidra-sre.org/)
 
 	Decompiler for binary files, usefull for **static** analysis.
 
@@ -478,26 +481,26 @@ Reversing binaries can be used to solve keygen (or crackme) challenges, or just 
 	ghidra.py <file>
 	```
 
-* [angr](https://angr.io/)
+* `angr` - [Website](https://angr.io/)
 
     Tool for **dynamic** analysis. Can be used to solve keygen challeges automatically using ssymbolic execution. 
     
     Requires some time to fully understand.
 
-* [Hopper](https://www.hopperapp.com)
+* `Hopper` - [Website](https://www.hopperapp.com)
 
 	Disassembler.
 
-* [Binary Ninja](https://binary.ninja)
+* `Binary Ninja` - [Website](https://binary.ninja)
 
 	Good for multithreaded analysis.
 
 
-* [IDA](https://www.hex-rays.com/products/ida/support/download.shtml) <span style="color:red">❤️</span>
+* `IDA` <span style="color:red">❤️</span> - [Website](https://www.hex-rays.com/products/ida/support/download.shtml)
 
 	Proprietary reverse engineering software, known to have the best disassembler. The free version can only disassemble 64-bit binaries.
 
-* [radare2](https://github.com/radareorg/radare2)
+* `radare2` - [GitHub](https://github.com/radareorg/radare2)
 
 	Binary analysis, disassembler, debugger. Identified as `r2`.
 
@@ -530,21 +533,21 @@ In order to run some system, it is nessesary to use virtualisation.
 
 
 
-* [`uncompyle6`](https://github.com/rocky/python-uncompyle6/)
+* `uncompyle6` - [GitHub](https://github\.com/rocky/python-uncompyle6/)
 
 	Decompiles Python bytecode to equivalent Python source code. Support python versions to to 3.8.
 
 	Legend has it that it exists an option (maybe -d) that can suceed when the regular decompilation fails.
 
-* [Decompyle++](https://github.com/zrax/pycdc)
+* `Decompyle++` - [GitHub](https://github.com/zrax/pycdc)
 
 	Less reliable, but claims to decompile every python versions.
 
-* [Easy Python Decompiler](https://sourceforge.net/projects/easypythondecompiler/)
+* `Easy Python Decompiler` - [Website](https://sourceforge.net/projects/easypythondecompiler/)
 
 	Windows GUI to decompile python bytecode.
 
-* [Pyinstaller Extractor](https://github.com/extremecoders-re/pyinstxtractor)
+* `Pyinstaller Extractor` - [GitHub](https://github.com/extremecoders-re/pyinstxtractor)
 
 	Extracts the python bytecode from pyinstaller windows executables. Can be decomplied  after.
 
@@ -589,17 +592,17 @@ But some security mechanisms exists and can be bypassed:
 
 Tools that will help you to exploit a binary:
 
-* `gdb` [Wikipedia](https://en.wikipedia.org/wiki/GNU_Debugger)
+* `gdb` - [Wikipedia](https://en.wikipedia.org/wiki/GNU_Debugger)
 
     Most popular debugger for **dynamic** analysis.
-    See [Reverse Engineering](#reverse%20engineering) for more info.
+    See [Reverse Engineering](#reverse-engineering) for more info.
 
-* `Ghidra` [WebSite](https://ghidra-sre.org/)
+* `Ghidra` - [Website](https://ghidra-sre.org/)
 
 	Decompiler for binary files, usefull for **static** analysis.
-	See [Reverse Engineering](#reverse%20engineering) for more info.
+	See [Reverse Engineering](#reverse-engineering) for more info.
 
-* [---x--x--x root root]()
+* `---x--x--x root root`
 
     To exfiltrate or read a binary when you only have **execution rights**, you can load it with a library and use the library to read it.
 
@@ -623,11 +626,11 @@ Tools that will help you to exploit a binary:
 
     A python library that can be used to interact with a binary.
 
-* `ROPgadget` [GitHub](https://github.com/JonathanSalwan/ROPgadget)  [Pypi](https://pypi.org/project/ROPGadget/)
+* `ROPgadget` - [GitHub](https://github.com/JonathanSalwan/ROPgadget)  [Pypi](https://pypi.org/project/ROPGadget/)
 
     A command-line tool that can be used to find gadgets in a binary.
 
-* `ropper` [GitHub](https://github.com/sashs/Ropper)
+* `ropper` - [GitHub](https://github.com/sashs/Ropper)
 
     A command-line tool that can be used to find gadgets in a binary.
 
@@ -638,15 +641,15 @@ Tools that will help you to exploit a binary:
 
 
 
-* [`winchecksec`](https://github.com/trailofbits/winchecksec)
+* `winchecksec` - [GitHub](https://github\.com/trailofbits/winchecksec)
 
 	Checks the security features of a Windows binary.
 
-* [`wine`](https://www.winehq.org/) <span style="color:red">❤️</span>
+* `wine` <span style="color:red">❤️</span> - [Website](https://www.winehq.org/)
 
 	Runs Windows programs on Linux.
 
-* [`winedbg`](https://www.winehq.org/)
+* `winedbg` - [Website](https://www.winehq.org/)
 
 	Debugger for Windows programs on Linux.
 
@@ -655,7 +658,7 @@ Tools that will help you to exploit a binary:
 	winedbg --gdb <program>
 	```
 
-* [`gdb server for wine`](https://www.gnu.org/software/gdb/)
+* `gdb server for wine` - [Website](https://www.gnu.org/software/gdb/)
 
 	Remote debugger inside wine. The (very large) package is called `gdb-mingw-w64` on most Linux distributions.
 
@@ -665,19 +668,19 @@ Tools that will help you to exploit a binary:
 	x86_64-w64-mingw32-gdb myprogram.exe
 	```
 
-* [`Immunity Debugger`](https://www.immunityinc.com/products/debugger/)
+* `Immunity Debugger` - [Website](https://www.immunityinc.com/products/debugger/)
 
 	Debugger for Windows programs. I recommend using only GDB in order to learn less commands.
 
-* [`pefile`](https://github.com/erocarrera/pefile)
+* `pefile` - [GitHub](https://github\.com/erocarrera/pefile)
 
 	Get info about PE files.
 
-* [dnSpy](https://github.com/0xd4d/dnSpy) 
+* `dnSpy` - [GitHub](https://github.com/0xd4d/dnSpy) 
 	
 	.NET debugger and assembly editor.
 
-* [PEiD](https://www.aldeid.com/wiki/PEiD)
+* `PEiD` - [Website](https://www.aldeid.com/wiki/PEiD)
 
 	Detects packers, cryptors, compilers, etc.
 
@@ -685,7 +688,7 @@ Tools that will help you to exploit a binary:
 
 	exists
 
-* [AutoIt](https://www.autoitscript.com/site/autoit/)
+* `AutoIt` - [Website](https://www.autoitscript.com/site/autoit/)
 
 	Scripting language for Windows.
 
@@ -704,7 +707,7 @@ Tools that will help you to exploit a binary:
     ```
 
 
-* [`PEAS`](https://github.com/carlospolop/PEASS-ng) <span style="color:red">❤️</span>
+* `PEAS` <span style="color:red">❤️</span> - [GitHub](https://github\.com/carlospolop/PEASS-ng)
 
     Find common misconfigurations and vulnerabilities in Linux and Windows.
 
@@ -730,7 +733,7 @@ Tools that will help you to exploit a binary:
     find / -perm -u=s -type f 2>/dev/null
     ```
 
-* [CVE-2021-3156](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-3156)
+* `CVE-2021-3156` - [Website](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-3156)
 
     sudo versions before **1.9.5p2** are vulnerable to a heap-based buffer overflow. This can be exploited to gain root access. Very useful on older systems.
 
@@ -777,7 +780,7 @@ Tools that will help you to exploit a binary:
 
 * `File scanning`
 
-	Use [this section](#file%20scanning) to find information about files.
+	Use [this section](#file-scanning) to find information about files.
 
 
 * Keepass
@@ -785,7 +788,7 @@ Tools that will help you to exploit a binary:
 	`keepassx` can be installed on Ubuntu to open and explore Keepass databases. Keepass databases master passwords can be cracked with `keepass2john`.
 
 
-* [`VS Code Hex editor`](https://marketplace.visualstudio.com/items?itemName=ms-vscode.hexeditor)
+* `VS Code Hex editor` - [Website](https://marketplace.visualstudio.com/items?itemName=ms-vscode.hexeditor)
 
 	An extension for VS Code that allows you to view and edit files in hexadecimal format.
 
@@ -793,7 +796,7 @@ Tools that will help you to exploit a binary:
 
 
 
-* [Autopsy](https://www.autopsy.com/download/) <span style="color:red">❤️</span>
+* `Autopsy` <span style="color:red">❤️</span> - [Website](https://www.autopsy.com/download/)
 
     GUI for analyzing disk images with Sleuthkit. It can be used to extract files, search for keywords, etc...
 
@@ -803,11 +806,11 @@ Tools that will help you to exploit a binary:
     
     I recommand to use a virtual machine to mount the disk image. This way you can browse the filesystem and extract files without risking to damage your system.
 
-* [TestDisk](https://www.cgsecurity.org/Download_and_donate.php/testdisk-7.1-WIP.linux26.tar.bz2) 
+* `TestDisk` - [Website](https://www.cgsecurity.org/Download_and_donate.php/testdisk-7.1-WIP.linux26.tar.bz2) 
 	
     CLI tool to recover lost partitions and/or make non-booting disks bootable again.
 
-* [photorec](https://www.cgsecurity.org/wiki/PhotoRec) 
+* `photorec` - [Website](https://www.cgsecurity.org/wiki/PhotoRec) 
 	
     CLI tool to recover deleted files. Works with raw data, so the disk do not need to have a partition system working.
 
@@ -854,7 +857,7 @@ Firefox based browsers (and Thunderbird) store their profiles in the following f
 | `signons.sqlite` or `logins.json` | Stored passwords |
 | `certN.db` with N=8 or 9 | Certificates |
 
-* [Dumpzilla](https://github.com/Busindre/dumpzilla) <span style="color:red">❤️</span>
+* `Dumpzilla` <span style="color:red">❤️</span> - [GitHub](https://github.com/Busindre/dumpzilla)
 
     Dumps everything from a Firefox profile. 
 
@@ -865,7 +868,7 @@ Firefox based browsers (and Thunderbird) store their profiles in the following f
     Uses [NSS](https://en.wikipedia.org/wiki/Network_Security_Services) to decrypt passwords, which can be hard to install.
 
 
-* [Firefox decrypt](https://github.com/unode/firefox_decrypt)
+* `Firefox decrypt` - [GitHub](https://github.com/unode/firefox_decrypt)
 
     Decrypts passwords from Firefox. Better support than dumpzilla but dont handle legacy profiles (key3.db).
 
@@ -875,7 +878,7 @@ Firefox based browsers (and Thunderbird) store their profiles in the following f
 
     Uses [NSS](https://en.wikipedia.org/wiki/Network_Security_Services) to decrypt passwords, which can be hard to install. Similar to [nss-password](https://github.com/glondu/nss-passwords) which can be installed with a .deb file.
 
-* [FirePWD](https://github.com/lclevy/firepwd)
+* `FirePWD` - [GitHub](https://github.com/lclevy/firepwd)
 
     Decrypt all types of firefox passwords (including legacy).
 
@@ -895,7 +898,7 @@ Firefox based browsers (and Thunderbird) store their profiles in the following f
 
 Looking at logs takes time but can lead to valuable information.
 
-* [Windows Event Logs](https://en.wikipedia.org/wiki/Event_Viewer)
+* `Windows Event Logs` - [Wikipedia](https://en.wikipedia.org/wiki/Event_Viewer)
 
     Windows logs a *lot* of information. It can be read using `mmc.exe`, under "Windows Logs".
 
@@ -907,7 +910,7 @@ Looking at logs takes time but can lead to valuable information.
     | System | Changes to system (boot, shutdown, peripherals ...) |
     | Setup | System maintainance (update logs, ...) |
 
-* [Linux logs](https://fr.wikipedia.org/wiki/Syslog)
+* `Linux logs` - [Wikipedia](https://en.wikipedia.org/wiki/Syslog)
 
     Linux logs are stored in `/var/log/`. The most important ones are:
     | File | Description |
@@ -924,7 +927,7 @@ Looking at logs takes time but can lead to valuable information.
 
     Other applications can have their own logs in /var/logs.
 
-* [Apache logs](https://httpd.apache.org/docs/2.4/logs.html)
+* `Apache logs` - [Website](https://httpd.apache.org/docs/2.4/logs.html)
   
     Apache logs are often stored in `/var/log/apache2/`. The most important ones are:
     | File | Description |
@@ -967,12 +970,12 @@ Looking at logs takes time but can lead to valuable information.
 	Check if a **PNG** file is valid. If it is not, displays the error.
 
 
-* [`pngcsum`](http://www.schaik.com/png/pngcsum/pngcsum-v01.tar.gz)
+* `pngcsum` - [Website](http://www.schaik.com/png/pngcsum/pngcsum-v01.tar.gz)
 
 	Correct the CRCs present in a **PNG** file.
 
 
-* [https://github.com/sherlly/PCRT](https://github.com/sherlly/PCRT)
+* `https://github.com/sherlly/PCRT` - [GitHub](https://github.com/sherlly/PCRT)
 
 	Correct a corrupted PNG file.
 
@@ -1007,11 +1010,11 @@ Volatility 3 have currently less features but is easier to use. Volatility requi
 
 The documentation can be found [here](https://volatility3.readthedocs.io)
 
-* [Online Cheat Sheet](https://blog.onfvp.com/post/volatility-cheatsheet/)
+* `Online Cheat Sheet` - [Website](https://blog.onfvp.com/post/volatility-cheatsheet/)
 
-* [Windows Memory Forensics](https://volatility3.readthedocs.io/en/latest/getting-started-windows-tutorial.html#)
+* `Windows Memory Forensics` - [Website](https://volatility3.readthedocs.io/en/latest/getting-started-windows-tutorial.html#)
 
-* [Linux Memory Forensics](https://volatility3.readthedocs.io/en/latest/getting-started-linux-tutorial.html)
+* `Linux Memory Forensics` - [Website](https://volatility3.readthedocs.io/en/latest/getting-started-linux-tutorial.html)
 
 * Most useful plugins
 
@@ -1073,7 +1076,7 @@ The documentation can be found [here](https://volatility3.readthedocs.io)
 
     It is often a good idea to look at the browser profile to find interesting information, such as bookmarks, history, cookies, stored passwords, etc... 
     
-    See [Browser Forensics](#browser%20forensics) for more information.
+    See [Browser Forensics](#browser-forensics) for more information.
 
 
 
@@ -1085,7 +1088,7 @@ The documentation can be found [here](https://volatility3.readthedocs.io)
 
 
 
-* [Dive](https://github.com/wagoodman/dive)
+* `Dive` - [GitHub](https://github.com/wagoodman/dive)
 
     Explore layers of a docker image.
 
@@ -1106,15 +1109,15 @@ Platforms with cryptanalysis challenges:
 - [Cryptohack](https://cryptohack.org/)
 - [CryptoPals](https://cryptopals.com/)
 
-* [SageMath](https://www.sagemath.org/)
+* `SageMath` - [Website](https://www.sagemath.org/)
 
     Powerful mathematics software, very useful for crypto and number theory.
 
-* [Crypton](https://github.com/ashutosh1206/Crypton)
+* `Crypton` - [GitHub](https://github.com/ashutosh1206/Crypton)
 
     Archive repository of the most common attacks on cryptosystems.
 
-* [Crypto Attacks repository](https://github.com/jvdsn/crypto-attacks)
+* `Crypto Attacks repository` - [GitHub](https://github.com/jvdsn/crypto-attacks)
 
     A large collection of cryptography attacks.
 
@@ -1130,16 +1133,16 @@ Platforms with cryptanalysis challenges:
 
 
 
-* [DCode](https://www.dcode.fr)
+* `DCode` - [Website](https://www.dcode.fr)
 
 	Support many crypto algorithms, but also some interesting tools.
 
 
-* [CyberChef](https://gchq.github.io/CyberChef/) <span style="color:red">❤️</span>
+* `CyberChef` <span style="color:red">❤️</span> - [Website](https://gchq.github.io/CyberChef/)
 
 	Online tool to encrypt/decrypt, encode/decode, analyse, and perform many other operations on data.
 
-* [Ciphey](https://github.com/Ciphey/Ciphey)
+* `Ciphey` - [GitHub](https://github.com/Ciphey/Ciphey)
 
 	Automated cryptanalysis tool. It can detect the type of cipher used and try to decrypt it.
 	
@@ -1147,12 +1150,12 @@ Platforms with cryptanalysis challenges:
 
 	Will be replaced in the future by [Ares](https://github.com/bee-san/Ares)
 
-* [Keyboard Shift](https://www.dcode.fr/keyboard-shift-cipher)
+* `Keyboard Shift` - [Website](https://www.dcode.fr/keyboard-shift-cipher)
 
 	ROT but using the keyboard layout.
 
 
-* [One time pad](https://en.wikipedia.org/wiki/One-time_pad) - `Many time pad`
+* `One time pad` - [Wikipedia](https://en.wikipedia.org/wiki/One-time_pad) - `Many time pad`
 
 	Encrypt each character with a pre-shared key. The key must be as long as the message. The key must be random and never reused.
 
@@ -1170,21 +1173,21 @@ Platforms with cryptanalysis challenges:
 	[This stackexchange question](https://crypto.stackexchange.com/questions/59/taking-advantage-of-one-time-pad-key-reuse) can help understant how the re-use of a `One time pad` can be dangerous on stuctured data.
 
 
-* [Substitution Cipher](https://en.wikipedia.org/wiki/Substitution_cipher)
+* `Substitution Cipher` - [Wikipedia](https://en.wikipedia.org/wiki/Substitution_cipher)
 
 	Rearrange the alphabet. The key is the new alphabet. [This online tool](https://www.dcode.fr/substitution-cipher) can be used to decipher it.
 
 	The ceasar cipher is the most common substitution cipher.
 
-* [Caesar Cipher](https://www.dcode.fr/caesar-cipher)
+* `Caesar Cipher` - [Website](https://www.dcode.fr/caesar-cipher)
 
 	Shift cipher using the alphabet. Different alphabets can also be used. Vulnerable to **frequency analysis**.
 
-* [Atbash Cipher](https://en.wikipedia.org/wiki/Atbash) 
+* `Atbash Cipher` - [Wikipedia](https://en.wikipedia.org/wiki/Atbash) 
 	
 	Shift cipher using the alphabet in reverse order. Vulnerable to frequency analysis.
 
-* [Symbol Substitution Cipher](https://www.dcode.fr/tools-list#symbols)
+* `Symbol Substitution Cipher` - [Website](https://www.dcode.fr/tools-list#symbols)
 
 	Regular letters can be replaced with symbols. Those are often references to video games or films. You can either translate it to any regular letters and use a [substitution cipher solver](https://www.dcode.fr/substitution-cipher), or find it's tanslation table and use it.
 
@@ -1198,7 +1201,7 @@ Platforms with cryptanalysis challenges:
 	| [Standard Galactic Alphabet](https://www.dcode.fr/standard-galactic-alphabet) | Vertical and horisontal lines |
 
 
-* [Transposition Cipher](https://en.wikipedia.org/wiki/Transposition_cipher)
+* `Transposition Cipher` - [Wikipedia](https://en.wikipedia.org/wiki/Transposition_cipher)
 
 	Reorder the letters of the message. The key is the order of the letters.
 
@@ -1206,7 +1209,7 @@ Platforms with cryptanalysis challenges:
 
 	[This online tool](https://www.dcode.fr/transposition-cipher) can be used to decipher it.
 
-* [Vigenere Cipher](https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher) 
+* `Vigenere Cipher` - [Wikipedia](https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher) 
 	
 	Shift cipher using a key. The key is repeated to match the length of the message.
 
@@ -1219,27 +1222,27 @@ Platforms with cryptanalysis challenges:
 	This can be cracked using [this online tool](https://www.dcode.fr/vigenere-cipher).
 
 
-* [Gronsfeld Cipher](http://rumkin.com/tools/cipher/gronsfeld.php)
+* `Gronsfeld Cipher` - [Website](http://rumkin.com/tools/cipher/gronsfeld.php)
 
 	Variant of the Vigenere cipher using a key of numbers instead of letters.
 
-* [Beaufourt Cipher](https://www.dcode.fr/beaufort-cipher)
+* `Beaufourt Cipher` - [Website](https://www.dcode.fr/beaufort-cipher)
 
 	Substitute letters to their index in the alphabet.
 
-* [Bacon Cipher](https://en.wikipedia.org/wiki/Bacon%27s_cipher)
+* `Bacon Cipher` - [Wikipedia](https://en.wikipedia.org/wiki/Bacon%27s_cipher)
 
 	Reconizable when the ciphertext only contains two symbols (e.g.: A and B) and the length of the ciphertext is a multiple of 5. Example: `aabbbaabaaababbababbabbba babbaabbbabaaabababbaaabb`.
 
 	Each group of 5 symbols is a letter. It can be deciphered using [this online tool](http://rumkin.com/tools/cipher/baconian.php).
 
 
-* [LC4](https://eprint.iacr.org/2017/339.pdf) 
+* `LC4` - [Article](https://eprint.iacr.org/2017/339.pdf) 
 	
 	Encryption algorithm designed to be computed by hand. [This repository](https://github.com/dstein64/LC4) provides an implementation of it.
 
 
-* [Railfence Cipher](https://en.wikipedia.org/wiki/Rail_fence_cipher)
+* `Railfence Cipher` - [Wikipedia](https://en.wikipedia.org/wiki/Rail_fence_cipher)
 
 	Transposition cipher using a key. The key is the number of rails.
 
@@ -1252,24 +1255,24 @@ Platforms with cryptanalysis challenges:
 
 	[This repository](https://github.com/CrypTools/RailfenceCipher) provides an implementation of it.
 
-* [Playfair Cipher](https://en.wikipedia.org/wiki/Playfair_cipher)
+* `Playfair Cipher` - [Wikipedia](https://en.wikipedia.org/wiki/Playfair_cipher)
 
 	Encrypt messages by bigrams (pairs of letters).
 	[This online tool](http://bionsgadgets.appspot.com/ww_forms/playfair_ph_web_worker3.html) can help to crack it.
 
-* [Polybius Square Cipher](https://en.wikipedia.org/wiki/Polybius_square)
+* `Polybius Square Cipher` - [Wikipedia](https://en.wikipedia.org/wiki/Polybius_square)
 
 	Substitution cipher using a 5x5 grid. Each letter is presented by its coordinates on the grid, often written as a two-digit number.
 
 	Can be cracked using simple frequency analysis. The main difficulty is to change the format of the ciphertext to make it easier to analyze.
 
 
-* [International Code of Signals](https://en.wikipedia.org/wiki/International_Code_of_Signals) 
+* `International Code of Signals` - [Wikipedia](https://en.wikipedia.org/wiki/International_Code_of_Signals) 
 	
 	Using flags to transmit messages. Often used on boats.	
 
 
-* [EFF/DICE](https://www.eff.org/dice)
+* `EFF/DICE` - [Website](https://www.eff.org/dice)
 
 	Generate passphrases from dice rolls. Each set of 5 dice rolls are translated to a word.
 
@@ -1285,17 +1288,17 @@ Platforms with cryptanalysis challenges:
 	Usually decoded with python's `base64` lib, or the `base64 -d` command.
 
 
-* [Base65535](https://github.com/qntm/base65536)
+* `Base65535` - [GitHub](https://github.com/qntm/base65536)
 
 	Each symbol (number) is encoded on 2 bytes. Consequently, when decoded to unicode, most symbols are very uncommon and also chinese characters.
 
 
-* [Base41](https://github.com/sveljko/base41/blob/master/python/base41.py)
+* `Base41` - [GitHub](https://github.com/sveljko/base41/blob/master/python/base41.py)
 
 	Just anorther data representation.
 
 
-* [Enigma](https://en.wikipedia.org/wiki/Enigma_machine)
+* `Enigma` - [Wikipedia](https://en.wikipedia.org/wiki/Enigma_machine)
 
 	Machine used by the Germans during World War II to encrypt messages. Still takes a lot of time to crack today, but some tricks can be used to speed up the process.
 
@@ -1421,7 +1424,7 @@ m is the deciphered message.
 
 Several attacks exist on RSA depending on the circumstances.
 
-* [RSA CTF Tool](https://github.com/RsaCtfTool/RsaCtfTool) <span style="color:red">❤️</span>
+* `RSA CTF Tool` <span style="color:red">❤️</span> - [GitHub](https://github.com/RsaCtfTool/RsaCtfTool)
 
     Performs several attacks on RSA keys. Very useful for CTFs.
 
@@ -1431,7 +1434,7 @@ Several attacks exist on RSA depending on the circumstances.
 	Services such as [FactorDB](http://factordb.com) or  [Alpertron's calculator](https://www.alpertron.com.ar/ECM.HTM) provide a database of known factors. If you can find a factor of $N$, you can compute $p$ and $q$ then $d$.
 
 
-* [Wiener's Attack](https://en.wikipedia.org/wiki/Wiener%27s_attack) with continued fractions
+* `Wiener's Attack` - [Wikipedia](https://en.wikipedia.org/wiki/Wiener%27s_attack) with continued fractions
 
    When $e$ is **very large**, that means $d$ is small and the system can be vulnerable to the Wiener's attack. See [this script](Cryptography/RSA/Tools/wiener.py) for an implementation of the attack.
 
@@ -1448,7 +1451,7 @@ Several attacks exist on RSA depending on the circumstances.
    Using Bezout's algorithm, you can find $a$ and $b$ such that $a e_1 + b e_2 = 1$. Then you can compute $m$ with:
    > $c_1^a c_2^b = m^{a e_1} m^{b e_2} = m^{a e_1 + b e_2} = m^1 = m \mod N$
 
-* [RSA Fixed Point](https://crypto.stackexchange.com/questions/81128/fixed-point-in-rsa-encryption)
+* `RSA Fixed Point` - [StackExchange](https://crypto.stackexchange.com/questions/81128/fixed-point-in-rsa-encryption)
 
    These challenges can be spotted when the input is not changed with encrypted/decrypted.
 
@@ -1482,36 +1485,36 @@ Several attacks exist on RSA depending on the circumstances.
 
 WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY PASSWORD!
 
-* [`steghide`](http://steghide.sourceforge.net/)
+* `steghide` - [Website](http://steghide.sourceforge.net/)
 
 	Hide data in various kinds of image- and audio-files using a passphrase.
 
-* [AperiSolve](https://www.aperisolve.com/) <span style="color:red">❤️</span>
+* `AperiSolve` <span style="color:red">❤️</span> - [Website](https://www.aperisolve.com/)
 
 	Online tool that run several steganography tools.
 
-* [StegCracker](https://github.com/Paradoxis/StegCracker)
+* `StegCracker` - [GitHub](https://github.com/Paradoxis/StegCracker)
 
 	Brute force passphrases for steghide encrypted files. Different data can have different passphrases.
 
-* [Steganography Online](http://stylesuxx.github.io/steganography/)
+* `Steganography Online` - [Website](http://stylesuxx.github.io/steganography/)
 
 	Online tool to hide data in images.
 
-* [StegSeek](https://github.com/RickdeJager/stegseek)
+* `StegSeek` - [GitHub](https://github.com/RickdeJager/stegseek)
 
 	Faster than `stegcracker`.
 
-* [`steg_brute.py`](https://github.com/Va5c0/Steghide-Brute-Force-Tool)
+* `steg_brute.py` - [GitHub](https://github\.com/Va5c0/Steghide-Brute-Force-Tool)
 
 	This is similar to `stegcracker`.
 
-* [`Stegsolve.jar`](http://www.caesum.com/handbook/stego.htm) <span style="color:red">❤️</span>
+* `Stegsolve.jar` <span style="color:red">❤️</span> - [Website](http://www.caesum.com/handbook/stego.htm)
 
 	View the image in different colorspaces and alpha channels.
 
 
-* [`stepic`](http://domnit.org/stepic/doc/)
+* `stepic` - [Website](http://domnit.org/stepic/doc/)
 
 	Python library to hide data in images.
 
@@ -1519,16 +1522,16 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 
 	Animated PNG. Use (apngdis)[https://sourceforge.net/projects/apngdis/] to extract the frames and delays.
 
-* [Digital Invisible Ink Stego Tool](http://diit.sourceforge.net/)
+* `Digital Invisible Ink Stego Tool` - [Website](http://diit.sourceforge.net/)
 
 	A Java steganography tool that can hide any sort of file inside a digital image (regarding that the message will fit, and the image is 24 bit colour)
 
 
-* [ImageHide](https://www.softpedia.com/get/Security/Encrypting/ImageHide.shtml)
+* `ImageHide` - [Website](https://www.softpedia.com/get/Security/Encrypting/ImageHide.shtml)
 
 	Hide any data in the LSB of an image. Can have a password.
 
-* [stegoVeritas](https://github.com/bannsec/stegoVeritas/)
+* `stegoVeritas` - [GitHub](https://github.com/bannsec/stegoVeritas/)
 
 	CLI tool to extract data from images.
 
@@ -1547,11 +1550,11 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 
 	[https://github.com/DominicBreuker/stego-toolkit](https://github.com/DominicBreuker/stego-toolkit)
 
-* [`zsteg`](https://github.com/zed-0xff/zsteg) <span style="color:red">❤️</span>
+* `zsteg` <span style="color:red">❤️</span> - [GitHub](https://github\.com/zed-0xff/zsteg)
 
 	Command-line tool for **PNG** and **BMP** steganography.
 
-* [`jsteg`](https://github.com/lukechampine/jsteg)
+* `jsteg` - [GitHub](https://github\.com/lukechampine/jsteg)
 
     Command-line tool for **JPEG** steganography.
 
@@ -1559,7 +1562,7 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 
     GUI tool for **JPG** steganography.
 
-* [`openstego`](https://www.openstego.com/)
+* `openstego` - [Website](https://www.openstego.com/)
 
 	Steganography tool.
 
@@ -1571,11 +1574,11 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 
 	Tabs and spaces (for exemple in the indentation) can hide data. Some tools can find it: [`snow`](http://www.darkside.com.au/snow/) or an esoteric programming language interpreter: [https://tio.run/#whitespace](https://tio.run/#whitespace)
 
-* [`snow`](http://www.darkside.com.au/snow/)
+* `snow` - [Website](http://www.darkside.com.au/snow/)
 
 	A command-line tool for whitespace steganography.
 
-* [`exiftool`](https://exiftool.org/) <span style="color:red">❤️</span>
+* `exiftool` <span style="color:red">❤️</span> - [Website](https://exiftool.org/)
 
 	Tool to view and edit metadata in files.
 
@@ -1587,15 +1590,15 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 	exiftool -b -ThumbnailImage my_image.jpg > my_thumbnail.jpg
 	```
 
-* [spectrogram](https://en.wikipedia.org/wiki/Spectrogram)
+* `spectrogram` - [Wikipedia](https://en.wikipedia.org/wiki/Spectrogram)
 
 	An image can be hidden in the spectrogram of an audio file. [`audacity`](https://www.audacityteam.org/) can show the spectrogram of an audio file. (To select Spectrogram view, click on the track name (or the black triangle) in the Track Control Panel which opens the Track Dropdown Menu, where the spectrogram view can be selected.. )
 
-* [XIAO Steganography](https://xiao-steganography.en.softonic.com/)
+* `XIAO Steganography` - [Website](https://xiao-steganography.en.softonic.com/)
 
 	Windows software to hide data in audio.
 
-* [DTMF](https://en.wikipedia.org/wiki/Dual-tone_multi-frequency_signaling).
+* `DTMF` - [Wikipedia](https://en.wikipedia.org/wiki/Dual-tone_multi-frequency_signaling).
 
 	Dual tone multi-frequency is a signaling system using the voice-frequency band over telephone lines. It can be used to send text messages over the phone. Some tool: [Detect DTMF Tones](http://dialabc.com/sound/detect/index.html) 
 	
@@ -1606,15 +1609,15 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 
 ![https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSySxHjMFv80XWp74LZpfrnAro6a1MLqeF1F3zpguA5PGSW9ov](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSySxHjMFv80XWp74LZpfrnAro6a1MLqeF1F3zpguA5PGSW9ov)
 
-* [`hipshot`](https://bitbucket.org/eliteraspberries/hipshot)
+* `hipshot` - [Website](https://bitbucket.org/eliteraspberries/hipshot)
 
 	A python tool to hide a video in an image.
 
-* [QR code](https://en.wikipedia.org/wiki/QR_code) 
+* `QR code` - [Wikipedia](https://en.wikipedia.org/wiki/QR_code) 
 	
 	Square barcode that can store data.
 
-* [`zbarimg`](https://linux.die.net/man/1/zbarimg)
+* `zbarimg` - [Website](https://linux.die.net/man/1/zbarimg)
 
 	CLI tool to scan QR codes of different types.
 
@@ -1630,11 +1633,11 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 
 
 
-* [`pdfinfo`](https://poppler.freedesktop.org/)
+* `pdfinfo` - [Website](https://poppler.freedesktop.org/)
 
 	A command-line tool to get a basic synopsis of what the [PDF](https://en.wikipedia.org/wiki/Portable_Document_Format) file is.
 
-* [`pdf-parser`](https://blog.didierstevens.com/programs/pdf-tools/) <span style="color:red">❤️</span>
+* `pdf-parser` <span style="color:red">❤️</span> - [Website](https://blog.didierstevens.com/programs/pdf-tools/)
 
 	Parse a PDF file and extract the objects.
 
@@ -1643,19 +1646,19 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 	python pdf-parser.py -o 77 -f -d out.txt input.pdf
 	```
 
-* [`qpdf`](https://github.com/qpdf/qpdf)
+* `qpdf` - [GitHub](https://github\.com/qpdf/qpdf)
 
 	A command-line tool to manipulate [PDF](https://en.wikipedia.org/wiki/Portable_Document_Format) files. Can extract embedded files.
 
-* [`pdfcrack`](https://pdfcrack.sourceforge.net/)
+* `pdfcrack` - [Website](https://pdfcrack.sourceforge.net/)
 
 	A comand-line tool to __recover a password from a PDF file.__ Supports dictionary wordlists and bruteforce.
 
-* [`pdfimages`](https://poppler.freedesktop.org/)
+* `pdfimages` - [Website](https://poppler.freedesktop.org/)
 
 	A command-line tool, the first thing to reach for when given a PDF file. It extracts the images stored in a PDF file, but it needs the name of an output directory (that it will create for) to place the found images.
 
-* [`pdfdetach`](https://www.systutorials.com/docs/linux/man/1-pdfdetach/)
+* `pdfdetach` - [Website](https://www.systutorials.com/docs/linux/man/1-pdfdetach/)
 
 	A command-line tool to extract files out of a [PDF](https://en.wikipedia.org/wiki/Portable_Document_Format) file.
 <br><br>
@@ -1673,7 +1676,7 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
     john --wordlist=/usr/share/wordlists/rockyou.txt protected.john
     ```
 
-* [`bkcrack`](https://github.com/kimci86/bkcrack)
+* `bkcrack` - [GitHub](https://github\.com/kimci86/bkcrack)
 
     Crack ZipCrypto Store files. Need some plaintext to work.
 
@@ -1684,7 +1687,7 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 
 
 
-* [Hash types](https://hashcat.net/wiki/doku.php?id=example_hashes)
+* `Hash types` - [Website](https://hashcat.net/wiki/doku.php?id=example_hashes)
 
     Different hash types exists, and they are used in different contexts. This page lists the most common hash types and their respective hashcat modes.
 
@@ -1697,20 +1700,20 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 
 
 
-* [Haiti](https://github.com/noraj/haiti/)
+* `Haiti` - [GitHub](https://github.com/noraj/haiti/)
 
     CLI Hash type identifier
 
-* [Hashcat](https://hashcat.net/hashcat/)
+* `Hashcat` - [Website](https://hashcat.net/hashcat/)
 
     Crack hashes. Can use GPU.
 
 
-* [John the Ripper](https://www.openwall.com/john/)
+* `John the Ripper` - [Website](https://www.openwall.com/john/)
 
     Better compatibility and easier to use than hashcat, but lower number of hash types supported.
 
-* [dcipher](https://github.com/k4m4/dcipher-cli)
+* `dcipher` - [GitHub](https://github.com/k4m4/dcipher-cli)
 
     CLI tool to lookup hashes in online databases.
 <br><br>
@@ -1719,11 +1722,11 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 
 ⇨ [Dorking](#dorking)<br>
 
-* [`Sherlock`](https://github.com/sherlock-project/sherlock)
+* `Sherlock` - [GitHub](https://github\.com/sherlock-project/sherlock)
 
     Python script to search for usernames across social networks.
 
-* [Google reverse image search](https://www.google.fr/imghp)
+* `Google reverse image search` - [Website](https://www.google.fr/imghp)
 
     Search by image.
 
@@ -1734,7 +1737,7 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 Dorking is the process of using search engines to find information about a target.
 
 
-* [Google Dorks](https://en.https://en.wikipedia.org/wiki/Google_hacking)
+* `Google Dorks` - [Wikipedia](https://en.wikipedia.org/wiki/Google_hacking)
 
     Use Google's search engine to find indexed pages that contain specific information.
     [This cheatsheet](https://gist.github.com/sundowndev/283efaddbcf896ab405488330d1bbc06) provides detailed information about Google Dorks.
@@ -1776,20 +1779,20 @@ Dorking is the process of using search engines to find information about a targe
 ⇨ [DNS Exfiltration](#dns-exfiltration)<br>
 
 
-* [Wireshark](https://www.wireshark.org/) <span style="color:red">❤️</span>
+* `Wireshark` <span style="color:red">❤️</span> - [Website](https://www.wireshark.org/)
 	The go-to tool for examining [`.pcap`](https://en.wikipedia.org/wiki/Pcap) files.
 
-* [Network Miner](http://www.netresec.com/?page=NetworkMiner) 
+* `Network Miner` - [Website](http://www.netresec.com/?page=NetworkMiner) 
 	Seriously cool tool that will try and scrape out images, files, credentials and other goods from [PCAP](https://en.wikipedia.org/wiki/Pcap) and [PCAPNG](https://github.com/pcapng/pcapng) files.
 
-* [PCAPNG](https://github.com/pcapng/pcapng) 
+* `PCAPNG` - [GitHub](https://github.com/pcapng/pcapng) 
 	Not all tools like the [PCAPNG](https://github.com/pcapng/pcapng) file format... so you can convert them with an online tool [http://pcapng.com/](http://pcapng.com/) or from the command-line with the `editcap` command that comes with installing [Wireshark]:
 
 	```
 	editcap old_file.pcapng new_file.pcap
 	```
 
-* [`tcpflow`](https://github.com/simsong/tcpflow)
+* `tcpflow` - [GitHub](https://github\.com/simsong/tcpflow)
 
 	A command-line tool for reorganizing packets in a PCAP file and getting files out of them. __Typically it gives no output, but it creates the files in your current directory!__
 
@@ -1800,7 +1803,7 @@ Dorking is the process of using search engines to find information about a targe
 
 
 
-* [PcapXray](https://github.com/Srinivas11789/PcapXray) 
+* `PcapXray` - [GitHub](https://github.com/Srinivas11789/PcapXray) 
 	A GUI tool to visualize network traffic.
 	
 
@@ -1812,16 +1815,16 @@ Dorking is the process of using search engines to find information about a targe
 
 DNS can be used to exfiltrate data, for example to bypass firewalls.
 
-* [iodine](https://github.com/yarrick/iodine)
+* `iodine` - [GitHub](https://github.com/yarrick/iodine)
 
     Can be identifed by the presence of the "Aaahhh-Drink-mal-ein-Jägermeister" or "La flûte naïve française est retirée à Crête".<br>
     Can be decipherd with [this script](Network/Tools/iodine/exploit.py)<br>
     [Hack.lu CTF WU](http://blog.stalkr.net/2010/10/hacklu-ctf-challenge-9-bottle-writeup.html)
 
-* [DNScat2](https://github.com/iagox86/dnscat2)
+* `DNScat2` - [GitHub](https://github.com/iagox86/dnscat2)
 
-    Can be identified when [file signatures](#file%20scanning) are present in the DNS queries.
-    Data can be extracted with [this script](Network/Tools/dnscat2/exploit.py) and fies can be extracted with [binwalk](#file%20scanning).
+    Can be identified when [file signatures](#file-scanning) are present in the DNS queries.
+    Data can be extracted with [this script](Network/Tools/dnscat2/exploit.py) and fies can be extracted with [binwalk](#file-scanning).
 
 
 
@@ -1862,7 +1865,7 @@ DNS can be used to exfiltrate data, for example to bypass firewalls.
 
 ⇨ [System Forensics](#system-forensics)<br>⇨ [APK Forensics](#apk-forensics)<br>
 
-* `Android Studio` [WebSite](https://developer.android.com/studio)
+* `Android Studio` - [Website](https://developer.android.com/studio)
 
     Main IDE for Android development. Java and Kotlin can be used.
 
@@ -1888,7 +1891,7 @@ DNS can be used to exfiltrate data, for example to bypass firewalls.
 	jadx -d "$(pwd)/out" "$(pwd)/<app>" # Decompile the APK to a folder
 	```
 
-* `apktool` - [WebSite](https://ibotpeaches.github.io/Apktool/)
+* `apktool` - [Website](https://ibotpeaches.github.io/Apktool/)
 
 	A command-line tool to extract all the resources from an APK file.
 
@@ -1914,7 +1917,7 @@ DNS can be used to exfiltrate data, for example to bypass firewalls.
 
 ⇨ [GraphQL](#graphql)<br>⇨ [PHP](#php)<br>⇨ [Request and Cookie Forgery](#request-and-cookie-forgery)<br>⇨ [SQL Injection](#sql-injection)<br>⇨ [Enumeration](#enumeration)<br>⇨ [XSS](#xss)<br>
 
-* [`wpscan`](https://wpscan.org/)
+* `wpscan` - [Website](https://wpscan.org/)
 
   Scan [Wordpress](https://en.wikipedia.org/wiki/WordPress) sites for vulnerabilities.
 
@@ -1936,12 +1939,12 @@ DNS can be used to exfiltrate data, for example to bypass firewalls.
 	```
 
 
-* [`nikto`](https://github.com/sullo/nikto)
+* `nikto` - [GitHub](https://github\.com/sullo/nikto)
 
 	Website scanner implemented in [Perl](https://en.wikipedia.org/wiki/Perl).
 
 
-* [Burpsuite](https://portswigger.net/burp) <span style="color:red">❤️</span>
+* `Burpsuite` <span style="color:red">❤️</span> - [Website](https://portswigger.net/burp)
 
 	Most used tool to do web pentesting. It is a proxy that allows you to intercept and modify HTTP requests and responses.
 
@@ -1958,7 +1961,7 @@ DNS can be used to exfiltrate data, for example to bypass firewalls.
 
 
 
-* [graphQLmap](https://github.com/swisskyrepo/GraphQLmap)
+* `graphQLmap` - [GitHub](https://github.com/swisskyrepo/GraphQLmap)
 
     Parse a GraphQL endpoint and extract data from it using introspection queries.
 
@@ -1993,12 +1996,12 @@ DNS can be used to exfiltrate data, for example to bypass firewalls.
 	[http://php.net/manual/en/function.preg-replace.php](http://php.net/manual/en/function.preg-replace.php)
 
 
-* [`phpdc.phpr`](https://github.com/lighttpd/xcache/blob/master/bin/phpdc.phpr)
+* `phpdc.phpr` - [GitHub](https://github\.com/lighttpd/xcache/blob/master/bin/phpdc.phpr)
 
 	A command-line tool to decode [`bcompiler`](http://php.net/manual/en/book.bcompiler.php) compiled [PHP](https://en.wikipedia.org/wiki/PHP) code.
 
 
-* [`php://filter` for Local File Inclusion](https://www.idontplaydarts.com/2011/02/using-php-filter-for-local-file-inclusion/) 
+* ``php://filter` for Local File Inclusion` - [Website](https://www.idontplaydarts.com/2011/02/using-php-filter-for-local-file-inclusion/) 
 
 	A bug in [PHP](https://en.wikipedia.org/wiki/PHP) where if GET HTTP variables in the URL are controlling the navigation of the web page, perhaps the source code is `include`-ing other files to be served to the user. This can be manipulated by using [PHP filters](http://php.net/manual/en/filters.php) to potentially retrieve source code. Example like so:
 
@@ -2016,7 +2019,7 @@ DNS can be used to exfiltrate data, for example to bypass firewalls.
 	```
 
 
-* [`PHP Generic Gadget Chains`](https://github.com/ambionics/phpggc)
+* `PHP Generic Gadget Chains` - [GitHub](https://github\.com/ambionics/phpggc)
 
 	Payloads for Object injection in `unserialize` on different frameworks.
 
@@ -2096,7 +2099,7 @@ SELECT * FROM users WHERE username = 'admin' AND password = "" OR 1=1--"
 
 
 
-* [`sqlmap`](https://github.com/sqlmapproject/sqlmap)
+* `sqlmap` - [GitHub](https://github\.com/sqlmapproject/sqlmap)
 
 	A command-line tool written in [Python](https://www.python.org/) to automatically detect and exploit vulnerable SQL injection points.
 
@@ -2131,7 +2134,7 @@ SELECT * FROM users WHERE username = 'admin' AND password = "" OR 1=1--"
     ```
 
 
-* [`GitDumper`](https://github.com/arthaud/git-dumper) <span style="color:red">❤️</span>
+* `GitDumper` <span style="color:red">❤️</span> - [GitHub](https://github\.com/arthaud/git-dumper)
 
 	A command-line tool that will automatically scrape and download a [git](https://git-scm.com/) repository hosted online with a given URL.
 
@@ -2180,7 +2183,7 @@ These sites can be used to create hooks to catch HTTP requests:
 | [`hookbin.com`](https://hookbin.com/) |
 
 
-* [XSS Cheat sheet](https://portswigger.net/web-security/cross-site-scripting/cheat-sheet)
+* `XSS Cheat sheet` - [Website](https://portswigger.net/web-security/cross-site-scripting/cheat-sheet)
 
 * Filter Evasion
 
@@ -2203,7 +2206,7 @@ These sites can be used to create hooks to catch HTTP requests:
 
 
 
-* [XSStrike](https://github.com/UltimateHackers/XSStrike)
+* `XSStrike` - [GitHub](https://github.com/UltimateHackers/XSStrike)
 
 	A python CLI tool for XSS detection and exploitation.
 
@@ -2223,15 +2226,15 @@ These sites can be used to create hooks to catch HTTP requests:
 
 
 
-* [SciKit Lean](https://scikit-learn.org/)
+* `SciKit Lean` - [Website](https://scikit-learn.org/)
 
     Machine learning in Python.
 
-* [SciKit Mine](https://scikit-mine.github.io/scikit-mine/)
+* `SciKit Mine` - [Website](https://scikit-mine.github.io/scikit-mine/)
 
     Data mining in Python.
 
-* [(Book) Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow, Aurélien Géron]()
+* `(Book) Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow, Aurélien Géron`
 
     Very useful book that was used to create this section.
 
@@ -2241,35 +2244,35 @@ These sites can be used to create hooks to catch HTTP requests:
 
 #### Models
 
-* [Logistic Regression]()
+* `Logistic Regression`
 
     High explainablility, reasonable computation cost.
 
-* [Decision Tree]()
+* `Decision Tree`
 
     Performs classification, regression, and multi-output tasks. Good at finding **orthogonal** decision boundaries.
 
     But very sensitive to small changes in the data, which make them hard to train.
 
 
-* [Random Forest]()
+* `Random Forest`
 
     Very powerful model. Uses an ensemble method to combine multiple decision trees. 
 
 
-* [Support Vector Machine (SVM)]()
+* `Support Vector Machine (SVM)`
 
     Popular model that performs linear and non-linear classification, regression, and outlier detection.
 
     Works well with **small to medium** sized datasets.
 
 
-* [K-Nearest Neighbors (KNN)]()
+* `K-Nearest Neighbors (KNN)`
 
 
-* [Naive Bayes]()
+* `Naive Bayes`
 
-* [Multi Layer Perceptron (MLP)]()
+* `Multi Layer Perceptron (MLP)`
 
     A neural network model that can learn non-linear decision boundaries.
 
@@ -2283,11 +2286,11 @@ These sites can be used to create hooks to catch HTTP requests:
 
 ### Models
 
-* [K-Means Clustering]()
+* `K-Means Clustering`
 
     Simple clustering algorithm that groups data points into a specified number of clusters.
 
-* [Gaussian Mixture Model (GMM)]()
+* `Gaussian Mixture Model (GMM)`
 
     A probabilistic model that assumes that the data was generated from a finite sum of Gaussian distributions.
 
@@ -2302,7 +2305,7 @@ These sites can be used to create hooks to catch HTTP requests:
 
 
 
-* [Scipy](https://scipy.org/install/)
+* `Scipy` - [Website](https://scipy.org/install/)
 
     Can be used for signal processing.
 
@@ -2317,12 +2320,12 @@ These sites can be used to create hooks to catch HTTP requests:
 Tools
 -----
 
-* [DCode](https://www.dcode.fr)
+* `DCode` - [Website](https://www.dcode.fr)
 
 	Support many crypto algorithms, but also some interesting tools.
 
 
-* [Try It Online](https://tio.run/)
+* `Try It Online` - [Website](https://tio.run/)
 
 	Online tool for running code in many languages.
 
@@ -2330,7 +2333,7 @@ Tools
 Languages
 ---------
 
-* [Brainfuck](https://esolangs.org/wiki/brainfuck)
+* `Brainfuck` - [Website](https://esolangs.org/wiki/brainfuck)
 
 	Famous esoteric language, with a very **simple syntax**. Functions like a Turing machine.
 
@@ -2339,7 +2342,7 @@ Languages
 	++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.
 	```
 
-* [COW](https://esolangs.org/wiki/COW)
+* `COW` - [Website](https://esolangs.org/wiki/COW)
 
 	Uses MOO statements in different **capitalizations** to represent different instructions.
 
@@ -2349,7 +2352,7 @@ Languages
 	MOO MOo mOo MoO moO moo mOo mOo moo
 	```
 
-* [Malboge](https://esolangs.org/wiki/malbolge)
+* `Malboge` - [Website](https://esolangs.org/wiki/malbolge)
 
 	Very hard language, that looks like `Base85`.
 
@@ -2357,13 +2360,13 @@ Languages
 	(=<`#9]~6ZY32Vx/4Rs+0No-&Jk)"Fh}|Bcy?`=*z]Kw%oG4UUS0/@-ejc(:'8dc
 	```
 
-* [Piet](https://esolangs.org/wiki/piet)
+* `Piet` - [Website](https://esolangs.org/wiki/piet)
 
 	Programs are represented as images. Can be interpreted with [`npiet`](https://www.bertnase.de/npiet/)
 
 ![https://www.bertnase.de/npiet/hi.png](https://www.bertnase.de/npiet/hi.png)
 
-* [Ook!](http://esolangs.org/wiki/ook!)
+* `Ook!` - [Website](http://esolangs.org/wiki/ook!)
 
 	Recognizable by `.` and `?`, and `!`. Online interpreter for this language: [https://www.dcode.fr/ook-language](https://www.dcode.fr/ook-language) 
 	
@@ -2378,7 +2381,7 @@ Languages
 	Ook! Ook! Ook? Ook! Ook? Ook. Ook. Ook. Ook! Ook. Ook. Ook. Ook. Ook. Ook. Ook.
 	```
 
-* [Rockstar](https://esolangs.org/wiki/Rockstar)
+* `Rockstar` - [Website](https://esolangs.org/wiki/Rockstar)
 
 	Look like song lyrics.
 	Rockstar has an official online interpreter: [https://codewithrockstar.com/online](https://codewithrockstar.com/online)
@@ -2419,7 +2422,7 @@ Languages
 
 
 
-* [`gnuradio`](https://wiki.gnuradio.org/index.php/InstallingGR)
+* `gnuradio` - [Website](https://wiki.gnuradio.org/index.php/InstallingGR)
 
     `gnuradio` and it's GUI `gnuradio-companion` are used to create or analyse RF (Radio Frequency) signals.
 
@@ -2437,23 +2440,23 @@ Languages
 
 
 
-* [CTF-Katana](https://github.com/JohnHammond/ctf-katana)
+* `CTF-Katana` - [GitHub](https://github.com/JohnHammond/ctf-katana)
 
     Most of the tools and idaes provided come from there.
 
-* [Hack Tricks](https://book.hacktricks.xyz/)
+* `Hack Tricks` - [Website](https://book.hacktricks.xyz/)
 
     A collection of useful commands and tricks for penetration testing.
 
-* [thehacker.recipes](https://www.thehacker.recipes/)
+* `thehacker.recipes` - [Website](https://www.thehacker.recipes/)
 
     Very complete on Active Directory.
 
-* [Payload All The Things](https://github.com/swisskyrepo/PayloadsAllTheThings)
+* `Payload All The Things` - [GitHub](https://github.com/swisskyrepo/PayloadsAllTheThings)
 
 	Super useful repo that has a payload for basically every sceario
 
-* [SecLists](https://github.com/danielmiessler/SecLists)
+* `SecLists` - [GitHub](https://github.com/danielmiessler/SecLists)
 
     A LOT of wordlists for different purposes.
 

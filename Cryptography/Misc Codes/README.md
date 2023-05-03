@@ -1,13 +1,13 @@
-* [DCode](https://www.dcode.fr)
+* `DCode` - [Website](https://www.dcode.fr)
 
 	Support many crypto algorithms, but also some interesting tools.
 
 
-* [CyberChef](https://gchq.github.io/CyberChef/) :heart:
+* `CyberChef` :heart: - [Website](https://gchq.github.io/CyberChef/)
 
 	Online tool to encrypt/decrypt, encode/decode, analyse, and perform many other operations on data.
 
-* [Ciphey](https://github.com/Ciphey/Ciphey)
+* `Ciphey` - [GitHub](https://github.com/Ciphey/Ciphey)
 
 	Automated cryptanalysis tool. It can detect the type of cipher used and try to decrypt it.
 	
@@ -15,12 +15,12 @@
 
 	Will be replaced in the future by [Ares](https://github.com/bee-san/Ares)
 
-* [Keyboard Shift](https://www.dcode.fr/keyboard-shift-cipher)
+* `Keyboard Shift` - [Website](https://www.dcode.fr/keyboard-shift-cipher)
 
 	ROT but using the keyboard layout.
 
 
-* [One time pad](https://en.wikipedia.org/wiki/One-time_pad) - `Many time pad`
+* `One time pad` - [Wikipedia](https://en.wikipedia.org/wiki/One-time_pad) - `Many time pad`
 
 	Encrypt each character with a pre-shared key. The key must be as long as the message. The key must be random and never reused.
 
@@ -38,21 +38,21 @@
 	[This stackexchange question](https://crypto.stackexchange.com/questions/59/taking-advantage-of-one-time-pad-key-reuse) can help understant how the re-use of a `One time pad` can be dangerous on stuctured data.
 
 
-* [Substitution Cipher](https://en.wikipedia.org/wiki/Substitution_cipher)
+* `Substitution Cipher` - [Wikipedia](https://en.wikipedia.org/wiki/Substitution_cipher)
 
 	Rearrange the alphabet. The key is the new alphabet. [This online tool](https://www.dcode.fr/substitution-cipher) can be used to decipher it.
 
 	The ceasar cipher is the most common substitution cipher.
 
-* [Caesar Cipher](https://www.dcode.fr/caesar-cipher)
+* `Caesar Cipher` - [Website](https://www.dcode.fr/caesar-cipher)
 
 	Shift cipher using the alphabet. Different alphabets can also be used. Vulnerable to **frequency analysis**.
 
-* [Atbash Cipher](https://en.wikipedia.org/wiki/Atbash) 
+* `Atbash Cipher` - [Wikipedia](https://en.wikipedia.org/wiki/Atbash) 
 	
 	Shift cipher using the alphabet in reverse order. Vulnerable to frequency analysis.
 
-* [Symbol Substitution Cipher](https://www.dcode.fr/tools-list#symbols)
+* `Symbol Substitution Cipher` - [Website](https://www.dcode.fr/tools-list#symbols)
 
 	Regular letters can be replaced with symbols. Those are often references to video games or films. You can either translate it to any regular letters and use a [substitution cipher solver](https://www.dcode.fr/substitution-cipher), or find it's tanslation table and use it.
 
@@ -66,7 +66,7 @@
 	| [Standard Galactic Alphabet](https://www.dcode.fr/standard-galactic-alphabet) | Vertical and horisontal lines |
 
 
-* [Transposition Cipher](https://en.wikipedia.org/wiki/Transposition_cipher)
+* `Transposition Cipher` - [Wikipedia](https://en.wikipedia.org/wiki/Transposition_cipher)
 
 	Reorder the letters of the message. The key is the order of the letters.
 
@@ -74,7 +74,7 @@
 
 	[This online tool](https://www.dcode.fr/transposition-cipher) can be used to decipher it.
 
-* [Vigenere Cipher](https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher) 
+* `Vigenere Cipher` - [Wikipedia](https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher) 
 	
 	Shift cipher using a key. The key is repeated to match the length of the message.
 
@@ -87,27 +87,27 @@
 	This can be cracked using [this online tool](https://www.dcode.fr/vigenere-cipher).
 
 
-* [Gronsfeld Cipher](http://rumkin.com/tools/cipher/gronsfeld.php)
+* `Gronsfeld Cipher` - [Website](http://rumkin.com/tools/cipher/gronsfeld.php)
 
 	Variant of the Vigenere cipher using a key of numbers instead of letters.
 
-* [Beaufourt Cipher](https://www.dcode.fr/beaufort-cipher)
+* `Beaufourt Cipher` - [Website](https://www.dcode.fr/beaufort-cipher)
 
 	Substitute letters to their index in the alphabet.
 
-* [Bacon Cipher](https://en.wikipedia.org/wiki/Bacon%27s_cipher)
+* `Bacon Cipher` - [Wikipedia](https://en.wikipedia.org/wiki/Bacon%27s_cipher)
 
 	Reconizable when the ciphertext only contains two symbols (e.g.: A and B) and the length of the ciphertext is a multiple of 5. Example: `aabbbaabaaababbababbabbba babbaabbbabaaabababbaaabb`.
 
 	Each group of 5 symbols is a letter. It can be deciphered using [this online tool](http://rumkin.com/tools/cipher/baconian.php).
 
 
-* [LC4](https://eprint.iacr.org/2017/339.pdf) 
+* `LC4` - [Article](https://eprint.iacr.org/2017/339.pdf) 
 	
 	Encryption algorithm designed to be computed by hand. [This repository](https://github.com/dstein64/LC4) provides an implementation of it.
 
 
-* [Railfence Cipher](https://en.wikipedia.org/wiki/Rail_fence_cipher)
+* `Railfence Cipher` - [Wikipedia](https://en.wikipedia.org/wiki/Rail_fence_cipher)
 
 	Transposition cipher using a key. The key is the number of rails.
 
@@ -120,24 +120,24 @@
 
 	[This repository](https://github.com/CrypTools/RailfenceCipher) provides an implementation of it.
 
-* [Playfair Cipher](https://en.wikipedia.org/wiki/Playfair_cipher)
+* `Playfair Cipher` - [Wikipedia](https://en.wikipedia.org/wiki/Playfair_cipher)
 
 	Encrypt messages by bigrams (pairs of letters).
 	[This online tool](http://bionsgadgets.appspot.com/ww_forms/playfair_ph_web_worker3.html) can help to crack it.
 
-* [Polybius Square Cipher](https://en.wikipedia.org/wiki/Polybius_square)
+* `Polybius Square Cipher` - [Wikipedia](https://en.wikipedia.org/wiki/Polybius_square)
 
 	Substitution cipher using a 5x5 grid. Each letter is presented by its coordinates on the grid, often written as a two-digit number.
 
 	Can be cracked using simple frequency analysis. The main difficulty is to change the format of the ciphertext to make it easier to analyze.
 
 
-* [International Code of Signals](https://en.wikipedia.org/wiki/International_Code_of_Signals) 
+* `International Code of Signals` - [Wikipedia](https://en.wikipedia.org/wiki/International_Code_of_Signals) 
 	
 	Using flags to transmit messages. Often used on boats.	
 
 
-* [EFF/DICE](https://www.eff.org/dice)
+* `EFF/DICE` - [Website](https://www.eff.org/dice)
 
 	Generate passphrases from dice rolls. Each set of 5 dice rolls are translated to a word.
 
@@ -153,17 +153,17 @@
 	Usually decoded with python's `base64` lib, or the `base64 -d` command.
 
 
-* [Base65535](https://github.com/qntm/base65536)
+* `Base65535` - [GitHub](https://github.com/qntm/base65536)
 
 	Each symbol (number) is encoded on 2 bytes. Consequently, when decoded to unicode, most symbols are very uncommon and also chinese characters.
 
 
-* [Base41](https://github.com/sveljko/base41/blob/master/python/base41.py)
+* `Base41` - [GitHub](https://github.com/sveljko/base41/blob/master/python/base41.py)
 
 	Just anorther data representation.
 
 
-* [Enigma](https://en.wikipedia.org/wiki/Enigma_machine)
+* `Enigma` - [Wikipedia](https://en.wikipedia.org/wiki/Enigma_machine)
 
 	Machine used by the Germans during World War II to encrypt messages. Still takes a lot of time to crack today, but some tricks can be used to speed up the process.
 

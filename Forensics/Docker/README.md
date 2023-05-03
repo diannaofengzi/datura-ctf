@@ -1,4 +1,4 @@
-* [Dive](https://github.com/wagoodman/dive)
+* `Dive` - [GitHub](https://github.com/wagoodman/dive)
 
     Explore layers of a docker image.
 

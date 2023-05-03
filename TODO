@@ -11,3 +11,5 @@ Volatility commands
 yara + yarascan with vol3
 windows iso forensics
 magic hashes
+imhex
+image reverse search with multile engines

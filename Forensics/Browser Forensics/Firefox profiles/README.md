@@ -7,7 +7,7 @@ Firefox based browsers (and Thunderbird) store their profiles in the following f
 | `signons.sqlite` or `logins.json` | Stored passwords |
 | `certN.db` with N=8 or 9 | Certificates |
 
-* [Dumpzilla](https://github.com/Busindre/dumpzilla) :heart:
+* `Dumpzilla` :heart: - [GitHub](https://github.com/Busindre/dumpzilla)
 
     Dumps everything from a Firefox profile. 
 
@@ -18,7 +18,7 @@ Firefox based browsers (and Thunderbird) store their profiles in the following f
     Uses [NSS](https://en.wikipedia.org/wiki/Network_Security_Services) to decrypt passwords, which can be hard to install.
 
 
-* [Firefox decrypt](https://github.com/unode/firefox_decrypt)
+* `Firefox decrypt` - [GitHub](https://github.com/unode/firefox_decrypt)
 
     Decrypts passwords from Firefox. Better support than dumpzilla but dont handle legacy profiles (key3.db).
 
@@ -28,7 +28,7 @@ Firefox based browsers (and Thunderbird) store their profiles in the following f
 
     Uses [NSS](https://en.wikipedia.org/wiki/Network_Security_Services) to decrypt passwords, which can be hard to install. Similar to [nss-password](https://github.com/glondu/nss-passwords) which can be installed with a .deb file.
 
-* [FirePWD](https://github.com/lclevy/firepwd)
+* `FirePWD` - [GitHub](https://github.com/lclevy/firepwd)
 
     Decrypt all types of firefox passwords (including legacy).
 

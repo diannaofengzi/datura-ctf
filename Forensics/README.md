@@ -9,6 +9,6 @@
 	`keepassx` can be installed on Ubuntu to open and explore Keepass databases. Keepass databases master passwords can be cracked with `keepass2john`.
 
 
-* [`VS Code Hex editor`](https://marketplace.visualstudio.com/items?itemName=ms-vscode.hexeditor)
+* `VS Code Hex editor` - [Website](https://marketplace.visualstudio.com/items?itemName=ms-vscode.hexeditor)
 
 	An extension for VS Code that allows you to view and edit files in hexadecimal format.

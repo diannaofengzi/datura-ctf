@@ -6,7 +6,7 @@
     ```
 
 
-* [`PEAS`](https://github.com/carlospolop/PEASS-ng) :heart:
+* `PEAS` :heart: - [GitHub](https://github\.com/carlospolop/PEASS-ng)
 
     Find common misconfigurations and vulnerabilities in Linux and Windows.
 
@@ -32,7 +32,7 @@
     find / -perm -u=s -type f 2>/dev/null
     ```
 
-* [CVE-2021-3156](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-3156)
+* `CVE-2021-3156` - [Website](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-3156)
 
     sudo versions before **1.9.5p2** are vulnerable to a heap-based buffer overflow. This can be exploited to gain root access. Very useful on older systems.
 

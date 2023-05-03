@@ -1,12 +1,12 @@
 Tools
 -----
 
-* [DCode](https://www.dcode.fr)
+* `DCode` - [Website](https://www.dcode.fr)
 
 	Support many crypto algorithms, but also some interesting tools.
 
 
-* [Try It Online](https://tio.run/)
+* `Try It Online` - [Website](https://tio.run/)
 
 	Online tool for running code in many languages.
 
@@ -14,7 +14,7 @@ Tools
 Languages
 ---------
 
-* [Brainfuck](https://esolangs.org/wiki/brainfuck)
+* `Brainfuck` - [Website](https://esolangs.org/wiki/brainfuck)
 
 	Famous esoteric language, with a very **simple syntax**. Functions like a Turing machine.
 
@@ -23,7 +23,7 @@ Languages
 	++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.
 	```
 
-* [COW](https://esolangs.org/wiki/COW)
+* `COW` - [Website](https://esolangs.org/wiki/COW)
 
 	Uses MOO statements in different **capitalizations** to represent different instructions.
 
@@ -33,7 +33,7 @@ Languages
 	MOO MOo mOo MoO moO moo mOo mOo moo
 	```
 
-* [Malboge](https://esolangs.org/wiki/malbolge)
+* `Malboge` - [Website](https://esolangs.org/wiki/malbolge)
 
 	Very hard language, that looks like `Base85`.
 
@@ -41,13 +41,13 @@ Languages
 	(=<`#9]~6ZY32Vx/4Rs+0No-&Jk)"Fh}|Bcy?`=*z]Kw%oG4UUS0/@-ejc(:'8dc
 	```
 
-* [Piet](https://esolangs.org/wiki/piet)
+* `Piet` - [Website](https://esolangs.org/wiki/piet)
 
 	Programs are represented as images. Can be interpreted with [`npiet`](https://www.bertnase.de/npiet/)
 
 ![https://www.bertnase.de/npiet/hi.png](https://www.bertnase.de/npiet/hi.png)
 
-* [Ook!](http://esolangs.org/wiki/ook!)
+* `Ook!` - [Website](http://esolangs.org/wiki/ook!)
 
 	Recognizable by `.` and `?`, and `!`. Online interpreter for this language: [https://www.dcode.fr/ook-language](https://www.dcode.fr/ook-language) 
 	
@@ -62,7 +62,7 @@ Languages
 	Ook! Ook! Ook? Ook! Ook? Ook. Ook. Ook. Ook! Ook. Ook. Ook. Ook. Ook. Ook. Ook.
 	```
 
-* [Rockstar](https://esolangs.org/wiki/Rockstar)
+* `Rockstar` - [Website](https://esolangs.org/wiki/Rockstar)
 
 	Look like song lyrics.
 	Rockstar has an official online interpreter: [https://codewithrockstar.com/online](https://codewithrockstar.com/online)

@@ -7,7 +7,7 @@
     john --wordlist=/usr/share/wordlists/rockyou.txt protected.john
     ```
 
-* [`bkcrack`](https://github.com/kimci86/bkcrack)
+* `bkcrack` - [GitHub](https://github\.com/kimci86/bkcrack)
 
     Crack ZipCrypto Store files. Need some plaintext to work.
 

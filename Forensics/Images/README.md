@@ -4,12 +4,12 @@
 	Check if a **PNG** file is valid. If it is not, displays the error.
 
 
-* [`pngcsum`](http://www.schaik.com/png/pngcsum/pngcsum-v01.tar.gz)
+* `pngcsum` - [Website](http://www.schaik.com/png/pngcsum/pngcsum-v01.tar.gz)
 
 	Correct the CRCs present in a **PNG** file.
 
 
-* [https://github.com/sherlly/PCRT](https://github.com/sherlly/PCRT)
+* `https://github.com/sherlly/PCRT` - [GitHub](https://github.com/sherlly/PCRT)
 
 	Correct a corrupted PNG file.
 

@@ -1,4 +1,4 @@
-* [Private IPs]()
+* `Private IPs`
 
     Some ip ranges are reserved for private networks. They are not routable on the internet. They are:
 
@@ -11,7 +11,7 @@
 
 
 
-* [`nmap`](https://nmap.org/)
+* `nmap` - [Website](https://nmap.org/)
 
     `nmap` is a utility for network discovery.
 
@@ -21,7 +21,7 @@
 	```
 
 
-* [Nmap scripts](https://nmap.org/nsedoc/scripts/)
+* `Nmap scripts` - [Website](https://nmap.org/nsedoc/scripts/)
   
 	`nmap` has a lot of scripts that can be used to scan for specific vulnerabilities. They are called with the `--script` option.
 
@@ -29,6 +29,6 @@
 	nmap -sV --script dns-* <ip> # Run all dns scripts
 	```
 
-* [`traceroute`](https://en.wikipedia.org/wiki/Traceroute)
+* `traceroute` - [Wikipedia](https://en.wikipedia.org/wiki/Traceroute)
 
     See the machines that a packet goes through to reach its destination.

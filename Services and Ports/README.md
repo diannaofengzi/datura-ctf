@@ -36,15 +36,15 @@ DNS - Domain Name System - 53/udp
 
 DNS is used to resolve domain names to IP addresses. `BIND` is the most common DNS implementation.
 
-* [`nslookup`](https://en.wikipedia.org/wiki/Nslookup)
+* `nslookup` - [Wikipedia](https://en.wikipedia.org/wiki/Nslookup)
 
 	Query a DNS server for information about a domain name.
 
-* [`dig`](https://en.wikipedia.org/wiki/Dig_(command))
+* `dig` - [Wikipedia](https://en.wikipedia.org/wiki/Dig_(command))
 
 	Query a DNS server for information about a domain name.
 
-* [Zone transfer attack](https://en.wikipedia.org/wiki/DNS_zone_transfer)
+* `Zone transfer attack` - [Wikipedia](https://en.wikipedia.org/wiki/DNS_zone_transfer)
 
 	Zone transfer is a method of transferring a copy of a DNS zone from a DNS server to another DNS server. This can be used to enumerate DNS records of a hidden zone if we know one of it's domain.
 
@@ -73,7 +73,7 @@ Samba is a free and open-source implementation of the SMB/CIFS network protocol.
 
 A smb server can have multiple **shares** (~partition) with their own permissions. They can be listed with `smbmap` or `enum4linux` and accessed with `smbclient`.
 
-* [`smbmap`](https://github.com/ShawnDEvans/smbmap)
+* `smbmap` - [GitHub](https://github\.com/ShawnDEvans/smbmap)
 
 	Emumerate SMB shares and their permissions.
 
@@ -126,7 +126,7 @@ The different attribute names are :
 | `UID` | User ID |
 
 
-* [`ldapsearch`](https://linux.die.net/man/1/ldapsearch)
+* `ldapsearch` - [Website](https://linux.die.net/man/1/ldapsearch)
 
 	`ldapsearch` is a command line tool for querying LDAP servers.
 

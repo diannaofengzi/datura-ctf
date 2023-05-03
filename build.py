@@ -2,13 +2,14 @@ import os
 import sys
 import re
 
+# Parameters
 topics = ["Scanning", "Services and Ports", "Reverse Shell", "Reverse Engineering", "Binary Exploitation", "Privilege Escalation", "Classic Exploits", "Forensics", "Cryptography", "Steganography", "PDF Files", "ZIP Files", "Hashes", "OSINT", "Network", "Jail Break", "Android", "Web", "Miscellaneous", "Other Resources"]
 output_markdown_file = "./README.md"
 
 special_words = {":heart:":"<span style=\"color:red\">❤️</span>"}
 
 # Parse the makrdown content and update the links
-def updateLinks(content, topic_path):
+def update_links(content, topic_path):
 
     # Get potential links to other resources in the content
     links = re.findall(r"\[([^\]]+)\]\(([^\)]+)\)", content)
@@ -24,7 +25,7 @@ def updateLinks(content, topic_path):
             # If the link have at least a directory, keep only the last directory
             if "/" in link[1]:
                 dir_name = link[1].split("/")[-2]
-                content = content.replace(link[1], "#" + dir_name.lower().replace(" ", "-"))
+                content = content.replace(link[1], "#" + dir_name.lower().replace(" ", "-").replace("%20", "-"))
 
 
         # Link inside a directory
@@ -43,7 +44,7 @@ def updateLinks(content, topic_path):
 
     return content
 
-def replaceWords(content, special_words):
+def replace_special_words(content, special_words):
     """Replace special words with their corresponding code"""
     for word in special_words:
         # Replace all occurences of the word
@@ -54,7 +55,7 @@ def replaceWords(content, special_words):
 
 
 
-def addTopic(topic, depth=0):
+def add_topic(topic, depth=0):
 
     # List directories in the current directory
     directories = [d for d in os.listdir(topic) if os.path.isdir(os.path.join(topic, d))]
@@ -72,8 +73,8 @@ def addTopic(topic, depth=0):
         file = "README.md"
         with open(topic + "/" + file, "r", encoding='utf-8') as local_readme_fd:
             content = local_readme_fd.read()
-        content = updateLinks(content, topic)
-        content = replaceWords(content, special_words)
+        content = update_links(content, topic)
+        content = replace_special_words(content, special_words)
         with open(output_markdown_file, "a", encoding='utf-8') as output_fd:
             output_fd.write(content)
 
@@ -84,7 +85,7 @@ def addTopic(topic, depth=0):
                 if not file.startswith(".") and not file.startswith("_") and not file == "Tools":
                     with open(output_markdown_file, "a", encoding='utf-8') as output_fd:
                         output_fd.write("\n\n##" + "#" * depth + " " + file + "\n\n")
-                    addTopic(topic + "/" + file, depth=depth+1)
+                    add_topic(topic + "/" + file, depth=depth+1)
                     with open(output_markdown_file, "a", encoding='utf-8') as output_fd:
                         output_fd.write("\n\n")
 
@@ -95,7 +96,7 @@ def main():
         output_fd.write("")
 
     # Introduction
-    addTopic("Introduction")
+    add_topic("Introduction")
 
     # Add auto generated warning
     with open(output_markdown_file, "a", encoding='utf-8') as output_fd:
@@ -113,7 +114,7 @@ def main():
 
         with open(output_markdown_file, "a", encoding='utf-8') as output_fd:
             output_fd.write("\n<br><br>\n\n# " + topic + "\n\n")
-        addTopic(topic)
+        add_topic(topic)
 
 if __name__ == "__main__":
     main()

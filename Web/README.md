@@ -1,4 +1,4 @@
-* [`wpscan`](https://wpscan.org/)
+* `wpscan` - [Website](https://wpscan.org/)
 
   Scan [Wordpress](https://en.wikipedia.org/wiki/WordPress) sites for vulnerabilities.
 
@@ -20,12 +20,12 @@
 	```
 
 
-* [`nikto`](https://github.com/sullo/nikto)
+* `nikto` - [GitHub](https://github\.com/sullo/nikto)
 
 	Website scanner implemented in [Perl](https://en.wikipedia.org/wiki/Perl).
 
 
-* [Burpsuite](https://portswigger.net/burp) :heart:
+* `Burpsuite` :heart: - [Website](https://portswigger.net/burp)
 
 	Most used tool to do web pentesting. It is a proxy that allows you to intercept and modify HTTP requests and responses.
 

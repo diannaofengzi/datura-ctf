@@ -1,4 +1,4 @@
-* [graphQLmap](https://github.com/swisskyrepo/GraphQLmap)
+* `graphQLmap` - [GitHub](https://github.com/swisskyrepo/GraphQLmap)
 
     Parse a GraphQL endpoint and extract data from it using introspection queries.
 

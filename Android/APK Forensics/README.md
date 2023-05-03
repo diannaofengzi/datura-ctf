@@ -6,7 +6,7 @@
 	jadx -d "$(pwd)/out" "$(pwd)/<app>" # Decompile the APK to a folder
 	```
 
-* `apktool` - [WebSite](https://ibotpeaches.github.io/Apktool/)
+* `apktool` - [Website](https://ibotpeaches.github.io/Apktool/)
 
 	A command-line tool to extract all the resources from an APK file.
 

@@ -1,10 +1,13 @@
 Reversing binaries can be used to solve keygen (or crackme) challenges, or just to understand how a program works to [exploit it](../../Binary%20Exploitation/README.md).
 
-* [ltrace](http://man7.org/linux/man-pages/man1/ltrace.1.html) and [strace](https://strace.io)
+
+* `strace` - [Website](https://strace.io)
 
 	Repport library, system calls and signals.
 
-* [gdb](https://en.wikipedia.org/wiki/GNU_Debugger) :heart:
+* `ltrace` - [Manual](http://man7.org/linux/man-pages/man1/ltrace.1.html)
+
+* `gdb` :heart: - [Wikipedia](https://en.wikipedia.org/wiki/GNU_Debugger)
 
 	Most used debugger, can be impoved with [GEF](https://hugsy.github.io/gef/) :heart: or [PEDA](https://github.com/longld/peda). A lot of [cheatsheets](https://raw.githubusercontent.com/zxgio/gdb_gef-cheatsheet/master/gdb_gef-cheatsheet.pdf) exsists, here are a small one:
 
@@ -48,7 +51,7 @@ Reversing binaries can be used to solve keygen (or crackme) challenges, or just 
 	delete checkpoint <checkpoint id> # Delete a checkpoint
 	```
 
-* [Ghidra](https://ghidra-sre.org/) :heart:
+* `Ghidra` :heart: - [Website](https://ghidra-sre.org/)
 
 	Decompiler for binary files, usefull for **static** analysis.
 
@@ -57,25 +60,25 @@ Reversing binaries can be used to solve keygen (or crackme) challenges, or just 
 	ghidra.py <file>
 	```
 
-* [angr](https://angr.io/)
+* `angr` - [Website](https://angr.io/)
 
     Tool for **dynamic** analysis. Can be used to solve keygen challeges automatically using ssymbolic execution. 
     
     Requires some time to fully understand.
 
-* [Hopper](https://www.hopperapp.com)
+* `Hopper` - [Website](https://www.hopperapp.com)
 
 	Disassembler.
 
-* [Binary Ninja](https://binary.ninja)
+* `Binary Ninja` - [Website](https://binary.ninja)
 
 	Good for multithreaded analysis.
 
 
-* [IDA](https://www.hex-rays.com/products/ida/support/download.shtml) :heart:
+* `IDA` :heart: - [Website](https://www.hex-rays.com/products/ida/support/download.shtml)
 
 	Proprietary reverse engineering software, known to have the best disassembler. The free version can only disassemble 64-bit binaries.
 
-* [radare2](https://github.com/radareorg/radare2)
+* `radare2` - [GitHub](https://github.com/radareorg/radare2)
 
 	Binary analysis, disassembler, debugger. Identified as `r2`.

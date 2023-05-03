@@ -37,7 +37,7 @@ m is the deciphered message.
 
 Several attacks exist on RSA depending on the circumstances.
 
-* [RSA CTF Tool](https://github.com/RsaCtfTool/RsaCtfTool) :heart:
+* `RSA CTF Tool` :heart: - [GitHub](https://github.com/RsaCtfTool/RsaCtfTool)
 
     Performs several attacks on RSA keys. Very useful for CTFs.
 
@@ -47,7 +47,7 @@ Several attacks exist on RSA depending on the circumstances.
 	Services such as [FactorDB](http://factordb.com) or  [Alpertron's calculator](https://www.alpertron.com.ar/ECM.HTM) provide a database of known factors. If you can find a factor of $N$, you can compute $p$ and $q$ then $d$.
 
 
-* [Wiener's Attack](https://en.wikipedia.org/wiki/Wiener%27s_attack) with continued fractions
+* `Wiener's Attack` - [Wikipedia](https://en.wikipedia.org/wiki/Wiener%27s_attack) with continued fractions
 
    When $e$ is **very large**, that means $d$ is small and the system can be vulnerable to the Wiener's attack. See [this script](./Tools/wiener.py) for an implementation of the attack.
 
@@ -64,7 +64,7 @@ Several attacks exist on RSA depending on the circumstances.
    Using Bezout's algorithm, you can find $a$ and $b$ such that $a e_1 + b e_2 = 1$. Then you can compute $m$ with:
    > $c_1^a c_2^b = m^{a e_1} m^{b e_2} = m^{a e_1 + b e_2} = m^1 = m \mod N$
 
-* [RSA Fixed Point](https://crypto.stackexchange.com/questions/81128/fixed-point-in-rsa-encryption)
+* `RSA Fixed Point` - [StackExchange](https://crypto.stackexchange.com/questions/81128/fixed-point-in-rsa-encryption)
 
    These challenges can be spotted when the input is not changed with encrypted/decrypted.
 

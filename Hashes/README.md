@@ -1,4 +1,4 @@
-* [Hash types](https://hashcat.net/wiki/doku.php?id=example_hashes)
+* `Hash types` - [Website](https://hashcat.net/wiki/doku.php?id=example_hashes)
 
     Different hash types exists, and they are used in different contexts. This page lists the most common hash types and their respective hashcat modes.
 
@@ -11,19 +11,19 @@
 
 
 
-* [Haiti](https://github.com/noraj/haiti/)
+* `Haiti` - [GitHub](https://github.com/noraj/haiti/)
 
     CLI Hash type identifier
 
-* [Hashcat](https://hashcat.net/hashcat/)
+* `Hashcat` - [Website](https://hashcat.net/hashcat/)
 
     Crack hashes. Can use GPU.
 
 
-* [John the Ripper](https://www.openwall.com/john/)
+* `John the Ripper` - [Website](https://www.openwall.com/john/)
 
     Better compatibility and easier to use than hashcat, but lower number of hash types supported.
 
-* [dcipher](https://github.com/k4m4/dcipher-cli)
+* `dcipher` - [GitHub](https://github.com/k4m4/dcipher-cli)
 
     CLI tool to lookup hashes in online databases.

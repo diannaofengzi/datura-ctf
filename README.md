@@ -589,12 +589,12 @@ But some security mechanisms exists and can be bypassed:
 
 Tools that will help you to exploit a binary:
 
-* [gdb](https://en.wikipedia.org/wiki/GNU_Debugger)
+* `gdb` [Wikipedia](https://en.wikipedia.org/wiki/GNU_Debugger)
 
     Most popular debugger for **dynamic** analysis.
     See [Reverse Engineering](#reverse%20engineering) for more info.
 
-* [Ghidra](https://ghidra-sre.org/)
+* `Ghidra` [WebSite](https://ghidra-sre.org/)
 
 	Decompiler for binary files, usefull for **static** analysis.
 	See [Reverse Engineering](#reverse%20engineering) for more info.
@@ -1880,7 +1880,7 @@ DNS can be used to exfiltrate data, for example to bypass firewalls.
 
 
 
-* `jadx` <span style="color:red">❤️</span> [GitHub](https://github.com/skylot/jadx)
+* `jadx` <span style="color:red">❤️</span> - [GitHub](https://github.com/skylot/jadx)
 
     Decompiles Android APKs to Java source code. Comes with a GUI.
 
@@ -1888,7 +1888,7 @@ DNS can be used to exfiltrate data, for example to bypass firewalls.
 	jadx -d "$(pwd)/out" "$(pwd)/<app>" # Decompile the APK to a folder
 	```
 
-* `apktool` [WebSite](https://ibotpeaches.github.io/Apktool/)
+* `apktool` - [WebSite](https://ibotpeaches.github.io/Apktool/)
 
 	A command-line tool to extract all the resources from an APK file.
 
@@ -1897,12 +1897,12 @@ DNS can be used to exfiltrate data, for example to bypass firewalls.
 	```
 
 
-* `dex2jar` [GitHub](https://github.com/pxb1988/dex2jar)
+* `dex2jar` - [GitHub](https://github.com/pxb1988/dex2jar)
 
 	A command-line tool to convert a J.dex file to .class file and zip them as JAR files.
 
 
-* `jd-gui` [GitHub](https://github.com/java-decompiler/jd-gui)
+* `jd-gui` - [GitHub](https://github.com/java-decompiler/jd-gui)
 
 	A GUI tool to decompile Java code, and JAR files.
 

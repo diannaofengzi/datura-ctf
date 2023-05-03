@@ -33,11 +33,8 @@ This file is auto generated using [build.py](build.py). To update it, update the
 * [Jail Break](#jail-break)
 * [Android](#android)
 * [Web](#web)
-* [Esoteric Languages](#esoteric-languages)
-* [Data Science](#data-science)
-* [Signal processing](#signal-processing)
-* [Wireless](#wireless)
-* [Other CheatSheets](#other-cheatsheets)
+* [Miscellaneous](#miscellaneous)
+* [Other Resources](#other-resources)
 
 <br><br>
 
@@ -618,19 +615,19 @@ Tools that will help you to exploit a binary:
 
 
 
-* [`checksec`](https://docs.pwntools.com/en/stable/commandline.html)
+* `checksec` [Docs](https://docs.pwntools.com/en/stable/commandline.html)
 
     A command-line tool that will check the security mechanisms of a binary.
     
-* [`pwntools`](https://docs.pwntools.com/en/stable/about.html)
+* `pwntools` [Docs](https://docs.pwntools.com/en/stable/about.html)
 
     A python library that can be used to interact with a binary.
 
-* [`ROPgadget`](https://pypi.org/project/ROPGadget/)
+* `ROPgadget` [GitHub](https://github.com/JonathanSalwan/ROPgadget)  [Pypi](https://pypi.org/project/ROPGadget/)
 
     A command-line tool that can be used to find gadgets in a binary.
 
-* [`ropper`](https://github.com/sashs/Ropper)
+* `ropper` [GitHub](https://github.com/sashs/Ropper)
 
     A command-line tool that can be used to find gadgets in a binary.
 
@@ -756,9 +753,9 @@ Tools that will help you to exploit a binary:
 
 	`libssh0.8.1` (or others??) is vulnerable to an easy and immediate login. Metasploit module: `auxiliary/scanner/ssh/libssh_auth_bypass`. Be sure to `set spawn_pty true` to actually receive a shell! Then `sessions -i 1` to interact with the shell spawned (or whatever appropriate ID)
 
-* Default credentials
+* Default credentials [CheatSheet](https://github.com/ihebski/DefaultCreds-cheat-sheet/blob/main/DefaultCreds-Cheat-Sheet.csv)
 
-    Unconfigured system can use the default credentials to login. Some can be found here: [DefaultCreds-Cheat-Sheet.csv](https://github.com/ihebski/DefaultCreds-cheat-sheet/blob/main/DefaultCreds-Cheat-Sheet.csv)
+    Unconfigured system can use the default credentials to login.
 
 * Log4Shell
 
@@ -1003,7 +1000,10 @@ Memory dumps are captures of the state of the memory at a given time. It contain
 
 Memory dumps can be analyzed using the [Volatility Framework](https://www.volatilityfoundation.org/) <span style="color:red">❤️</span> .
 
-I recommand using **volatility 3** so you do not have to bother with profiles (finding it was sometiles a pain in vol2).
+Two versions of the framework are available:
+- [Volatility 2](https://github.com/volatilityfoundation/volatility) (Python 2)
+- [Volatility 3](https://github.com/volatilityfoundation/volatility3)
+Volatility 3 have currently less features but is easier to use. Volatility requires profiles which can sometimes be hard to find. Both versions are often used simultaneously.
 
 The documentation can be found [here](https://volatility3.readthedocs.io)
 
@@ -1862,7 +1862,7 @@ DNS can be used to exfiltrate data, for example to bypass firewalls.
 
 ⇨ [System Forensics](#system-forensics)<br>⇨ [APK Forensics](#apk-forensics)<br>
 
-* [Android Studio](https://developer.android.com/studio)
+* `Android Studio` [WebSite](https://developer.android.com/studio)
 
     Main IDE for Android development. Java and Kotlin can be used.
 
@@ -1870,7 +1870,7 @@ DNS can be used to exfiltrate data, for example to bypass firewalls.
 
 
 
-* [Gesture cracking]
+* `Gesture cracking`
 
     The gesture needed to unlock the phone is stored in `/data/system/gesture.key` as a SHA1 hash of the gesture. [This python script](Android/Tools/gesture_cracker.py) or [this C program](Android/Tools/gesture_cracker.c) can be used to crack the gesture, .
 
@@ -1880,7 +1880,7 @@ DNS can be used to exfiltrate data, for example to bypass firewalls.
 
 
 
-* [`jadx`](https://github.com/skylot/jadx) <span style="color:red">❤️</span>
+* `jadx` <span style="color:red">❤️</span> [GitHub](https://github.com/skylot/jadx)
 
     Decompiles Android APKs to Java source code. Comes with a GUI.
 
@@ -1888,7 +1888,7 @@ DNS can be used to exfiltrate data, for example to bypass firewalls.
 	jadx -d "$(pwd)/out" "$(pwd)/<app>" # Decompile the APK to a folder
 	```
 
-* [`apktool`](https://ibotpeaches.github.io/Apktool/)
+* `apktool` [WebSite](https://ibotpeaches.github.io/Apktool/)
 
 	A command-line tool to extract all the resources from an APK file.
 
@@ -1897,12 +1897,12 @@ DNS can be used to exfiltrate data, for example to bypass firewalls.
 	```
 
 
-* [`dex2jar`](https://github.com/pxb1988/dex2jar)
+* `dex2jar` [GitHub](https://github.com/pxb1988/dex2jar)
 
 	A command-line tool to convert a J.dex file to .class file and zip them as JAR files.
 
 
-* [`jd-gui`](https://github.com/java-decompiler/jd-gui)
+* `jd-gui` [GitHub](https://github.com/java-decompiler/jd-gui)
 
 	A GUI tool to decompile Java code, and JAR files.
 
@@ -2211,7 +2211,106 @@ These sites can be used to create hooks to catch HTTP requests:
 
 <br><br>
 
-# Esoteric Languages
+# Miscellaneous
+
+⇨ [Data Science](#data-science)<br>⇨ [Signal processing](#signal-processing)<br>⇨ [Esoteric Languages](#esoteric-languages)<br>⇨ [Wireless](#wireless)<br>
+
+
+
+## Data Science
+
+⇨ [Supervised Classification](#supervised-classification)<br>⇨ [Unsupervised Clasification](#unsupervised-clasification)<br>
+
+
+
+* [SciKit Lean](https://scikit-learn.org/)
+
+    Machine learning in Python.
+
+* [SciKit Mine](https://scikit-mine.github.io/scikit-mine/)
+
+    Data mining in Python.
+
+* [(Book) Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow, Aurélien Géron]()
+
+    Very useful book that was used to create this section.
+
+### Supervised Classification
+
+
+
+#### Models
+
+* [Logistic Regression]()
+
+    High explainablility, reasonable computation cost.
+
+* [Decision Tree]()
+
+    Performs classification, regression, and multi-output tasks. Good at finding **orthogonal** decision boundaries.
+
+    But very sensitive to small changes in the data, which make them hard to train.
+
+
+* [Random Forest]()
+
+    Very powerful model. Uses an ensemble method to combine multiple decision trees. 
+
+
+* [Support Vector Machine (SVM)]()
+
+    Popular model that performs linear and non-linear classification, regression, and outlier detection.
+
+    Works well with **small to medium** sized datasets.
+
+
+* [K-Nearest Neighbors (KNN)]()
+
+
+* [Naive Bayes]()
+
+* [Multi Layer Perceptron (MLP)]()
+
+    A neural network model that can learn non-linear decision boundaries.
+
+    Good for **large** datasets.
+
+
+
+### Unsupervised Clasification
+
+
+
+### Models
+
+* [K-Means Clustering]()
+
+    Simple clustering algorithm that groups data points into a specified number of clusters.
+
+* [Gaussian Mixture Model (GMM)]()
+
+    A probabilistic model that assumes that the data was generated from a finite sum of Gaussian distributions.
+
+
+
+
+
+
+
+
+## Signal processing
+
+
+
+* [Scipy](https://scipy.org/install/)
+
+    Can be used for signal processing.
+
+    Exemple is provided in [process_signal.ipynb](Miscellaneous/Signal%20processing/Tools/process_signal.ipynb)
+
+
+
+## Esoteric Languages
 
 
 
@@ -2313,109 +2412,27 @@ Languages
 
 	Whisper my world
 	```
-<br><br>
-
-# Data Science
-
-⇨ [Supervised Classification](#supervised-classification)<br>⇨ [Unsupervised Clasification](#unsupervised-clasification)<br>
 
 
 
-* [SciKit Lean](https://scikit-learn.org/)
-
-    Machine learning in Python.
-
-* [SciKit Mine](https://scikit-mine.github.io/scikit-mine/)
-
-    Data mining in Python.
-
-* [(Book) Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow, Aurélien Géron]()
-
-    Very useful book that was used to create this section.
-
-## Supervised Classification
-
-
-
-#### Models
-
-* [Logistic Regression]()
-
-    High explainablility, reasonable computation cost.
-
-* [Decision Tree]()
-
-    Performs classification, regression, and multi-output tasks. Good at finding **orthogonal** decision boundaries.
-
-    But very sensitive to small changes in the data, which make them hard to train.
-
-
-* [Random Forest]()
-
-    Very powerful model. Uses an ensemble method to combine multiple decision trees. 
-
-
-* [Support Vector Machine (SVM)]()
-
-    Popular model that performs linear and non-linear classification, regression, and outlier detection.
-
-    Works well with **small to medium** sized datasets.
-
-
-* [K-Nearest Neighbors (KNN)]()
-
-
-* [Naive Bayes]()
-
-* [Multi Layer Perceptron (MLP)]()
-
-    A neural network model that can learn non-linear decision boundaries.
-
-    Good for **large** datasets.
-
-
-
-## Unsupervised Clasification
-
-
-
-### Models
-
-* [K-Means Clustering]()
-
-    Simple clustering algorithm that groups data points into a specified number of clusters.
-
-* [Gaussian Mixture Model (GMM)]()
-
-    A probabilistic model that assumes that the data was generated from a finite sum of Gaussian distributions.
-
-
-
-
-
-<br><br>
-
-# Signal processing
-
-
-
-* [Scipy](https://scipy.org/install/)
-
-    Can be used for signal processing.
-
-    Exemple is provided in [process_signal.ipynb](Signal%20processing/Tools/process_signal.ipynb)
-<br><br>
-
-# Wireless
+## Wireless
 
 
 
 * [`gnuradio`](https://wiki.gnuradio.org/index.php/InstallingGR)
 
     `gnuradio` and it's GUI `gnuradio-companion` are used to create or analyse RF (Radio Frequency) signals.
+
+
 <br><br>
 
-# Other CheatSheets
+# Other Resources
+
+⇨ [Other CheatSheets](#other-cheatsheets)<br>
+
+
+
+## Other CheatSheets
 
 
 
@@ -2439,3 +2456,4 @@ Languages
 * [SecLists](https://github.com/danielmiessler/SecLists)
 
     A LOT of wordlists for different purposes.
+

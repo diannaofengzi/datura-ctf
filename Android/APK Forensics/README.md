@@ -1,4 +1,4 @@
-* [`jadx`](https://github.com/skylot/jadx) :heart:
+* `jadx` :heart: [GitHub](https://github.com/skylot/jadx)
 
     Decompiles Android APKs to Java source code. Comes with a GUI.
 
@@ -6,7 +6,7 @@
 	jadx -d "$(pwd)/out" "$(pwd)/<app>" # Decompile the APK to a folder
 	```
 
-* [`apktool`](https://ibotpeaches.github.io/Apktool/)
+* `apktool` [WebSite](https://ibotpeaches.github.io/Apktool/)
 
 	A command-line tool to extract all the resources from an APK file.
 
@@ -15,11 +15,11 @@
 	```
 
 
-* [`dex2jar`](https://github.com/pxb1988/dex2jar)
+* `dex2jar` [GitHub](https://github.com/pxb1988/dex2jar)
 
 	A command-line tool to convert a J.dex file to .class file and zip them as JAR files.
 
 
-* [`jd-gui`](https://github.com/java-decompiler/jd-gui)
+* `jd-gui` [GitHub](https://github.com/java-decompiler/jd-gui)
 
 	A GUI tool to decompile Java code, and JAR files.

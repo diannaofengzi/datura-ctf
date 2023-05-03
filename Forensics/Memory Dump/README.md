@@ -2,7 +2,10 @@ Memory dumps are captures of the state of the memory at a given time. It contain
 
 Memory dumps can be analyzed using the [Volatility Framework](https://www.volatilityfoundation.org/) :heart: .
 
-I recommand using **volatility 3** so you do not have to bother with profiles (finding it was sometiles a pain in vol2).
+Two versions of the framework are available:
+- [Volatility 2](https://github.com/volatilityfoundation/volatility) (Python 2)
+- [Volatility 3](https://github.com/volatilityfoundation/volatility3)
+Volatility 3 have currently less features but is easier to use. Volatility requires profiles which can sometimes be hard to find. Both versions are often used simultaneously.
 
 The documentation can be found [here](https://volatility3.readthedocs.io)
 

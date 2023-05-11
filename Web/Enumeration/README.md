@@ -1,6 +1,6 @@
 
 
-* `robots.txt` :heart:
+* `/robots.txt` :heart:
 
 	File to tell search engines not to index certain files or directories.
 

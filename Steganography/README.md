@@ -24,9 +24,9 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 
 	This is similar to `stegcracker`.
 
-* `Stegsolve.jar` :heart: - [Website](http://www.caesum.com/handbook/stego.htm)
+* `Stegsolve.jar` :heart: - [Website](http://www.caesum.com/handbook/stego.htm) 
 
-	View the image in different colorspaces and alpha channels.
+	View the image in different colorspaces and alpha channels. I recommand using [this patched version](https://github.com/Giotino/stegsolve) to be able to zoom out.
 
 
 * `stepic` - [Website](http://domnit.org/stepic/doc/)
@@ -36,6 +36,10 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 * [`APNG`]
 
 	Animated PNG. Use (apngdis)[https://sourceforge.net/projects/apngdis/] to extract the frames and delays.
+
+* `SVG Layers`
+
+	You can hide data in hidden layers in SVG files. `inkview` can be used to view and toggle the layers.
 
 * `Digital Invisible Ink Stego Tool` - [Website](http://diit.sourceforge.net/)
 

@@ -7,9 +7,9 @@ Reversing binaries can be used to solve keygen (or crackme) challenges, or just 
 
 * `ltrace` - [Manual](http://man7.org/linux/man-pages/man1/ltrace.1.html)
 
-* `gdb` :heart: - [Wikipedia](https://en.wikipedia.org/wiki/GNU_Debugger)
+* `gdb` :heart: - [Wikipedia](https://en.wikipedia.org/wiki/GNU_Debugger) [CheatSheet](https://raw.githubusercontent.com/zxgio/gdb_gef-cheatsheet/master/gdb_gef-cheatsheet.pdf)
 
-	Most used debugger, can be impoved with [GEF](https://hugsy.github.io/gef/) :heart: or [PEDA](https://github.com/longld/peda). A lot of [cheatsheets](https://raw.githubusercontent.com/zxgio/gdb_gef-cheatsheet/master/gdb_gef-cheatsheet.pdf) exsists, here are a small one:
+	Most used debugger, can be impoved with [GEF](https://hugsy.github.io/gef/) :heart: or [PEDA](https://github.com/longld/peda). Here are the most common commands:
 
 
 	```bash

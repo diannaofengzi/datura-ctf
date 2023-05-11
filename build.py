@@ -6,7 +6,7 @@ import re
 topics = ["Scanning", "Services and Ports", "Reverse Shell", "Reverse Engineering", "Binary Exploitation", "Privilege Escalation", "Classic Exploits", "Forensics", "Cryptography", "Steganography", "PDF Files", "ZIP Files", "Hashes", "OSINT", "Network", "Jail Break", "Android", "Web", "Miscellaneous", "Other Resources"]
 output_markdown_file = "./README.md"
 
-special_words = {":heart:":"<span style=\"color:red\">❤️</span>"}
+special_words = {":heart:": "<span style=\"color:red\">❤️</span>"}
 
 # Parse the makrdown content and update the links
 def update_links(content, topic_path):

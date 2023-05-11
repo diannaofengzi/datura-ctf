@@ -14,13 +14,13 @@ These sites can be used to create hooks to catch HTTP requests:
 | [`hookbin.com`](https://hookbin.com/) |
 
 
-* `XSS Cheat sheet` - [Website](https://portswigger.net/web-security/cross-site-scripting/cheat-sheet)
+* `XSS Cheat sheet` - [CheatSheet](https://portswigger.net/web-security/cross-site-scripting/cheat-sheet)
 
-* Filter Evasion
+* `Filter Evasion` - [CheatSheet](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet)
 
-	[XSS Filter Evasion Cheat Sheet](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet) can be used to bypass XSS filters.
+	Bypass XSS filters.
 
-* `HTTPOnly` cookie flag
+* `HTTPOnly cookie flag`
 
 	When the `HTTPOnly` flag is set, the cookie is not accessible by JavaScript. This can be bypassed by using the target's browser as a proxy to recieve the cookie when it is sent to the victim's browser:
 

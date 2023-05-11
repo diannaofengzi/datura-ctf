@@ -2,7 +2,7 @@
 
     Deduce the file type from the headers.
 
-* `binwalk`
+* `binwalk` :heart:
 
     Look for embedded files in other files.
 

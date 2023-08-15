@@ -1354,17 +1354,44 @@ Platforms with cryptanalysis challenges:
 
 ## AES
 
-⇨ [AES - ECB Mode](#aes---ecb-mode)<br>⇨ [AES - CBC Mode](#aes---cbc-mode)<br>⇨ [AES - CTR Mode](#aes---ctr-mode)<br>
+⇨ [AES - OFB Mode](#aes---ofb-mode)<br>⇨ [AES - ECB Mode](#aes---ecb-mode)<br>⇨ [AES - CBC Mode](#aes---cbc-mode)<br>⇨ [AES - CTR Mode](#aes---ctr-mode)<br>
 
 [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) A.K.A. Rijndael is a **symmetric** cryptographic algorithm. It uses the **same key** for encryption and decryption.
 
 [This tutorial](https://www.davidwong.fr/blockbreakers/index.html) is a good introduction to AES and explain the implementation of the 128-bit version. It also goes through the [Square Attack](https://en.wikipedia.org/wiki/Square_attack) for a 4 round AES.
 
+Different [modes of operations](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation) are used to encrypt data larger than 128 bits (16 bytes). Block operation modes are used to encrypt data in one go while stream operation modes are used to encrypt data bit by bit.
 
+The most common block operation modes are:
+
+| Mode | Type | Description |
+| ---- | ---- | ----------- |
+| ECB | Block | Electronic Codebook |
+| CBC | Block | Cipher Block Chaining |
+| PCBC | Block | Propagating Cipher Block Chaining |
+| CTR | Stream | Counter |
+| CFB | Stream | Cipher Feedback |
+| OFB | Stream | Output Feedback |
+
+**Stream ciphers** usually only use the encryption block to create an output called **keystream** from pre-defined values. Then, it xors this keystream with the plaintext. Consequenly, when a bit of plaintext is flipped, the corresponding bit of ciphertext is flipped as well. Stream ciphers are often vulnerable to **encryption oracles (CPA)** as their stream of bits is xored to the plaintext. An attacker only have to input null bytes to get this keystream.
 
 * 4-6 round AES
 
 	When a low number of rounds is used, the key can be recovered by using the [Square Attack](https://en.wikipedia.org/wiki/Square_attack). See [this tutorial](https://www.davidwong.fr/blockbreakers/square.html) for an example.
+
+### AES - OFB Mode
+
+
+
+[AES Output FeedBack](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Output_feedback_(OFB)) is an unusual stream cipher. It has no real benefits these days over CTR mode. Indeed CTR can be computed in parallel and allows random access in the ciphertext whereas OFB cannot.
+
+<!--image -->
+![CBC Encryption](Cryptography/AES/AES%20-%20OFB%20Mode/_img/CBC_encryption.png#gh-light-mode-only)
+![CBC Encryption](Cryptography/AES/AES%20-%20OFB%20Mode/_img/CBC_encryption-dark.png#gh-dark-mode-only)
+![CBC Decryption](Cryptography/AES/AES%20-%20OFB%20Mode/_img/CBC_decryption.png#gh-light-mode-only)
+![CBC Decryption](Cryptography/AES/AES%20-%20OFB%20Mode/_img/CBC_decryption-dark.png#gh-dark-mode-only)
+
+
 
 ### AES - ECB Mode
 
@@ -1420,7 +1447,7 @@ Platforms with cryptanalysis challenges:
 
 [AES Counter Mode](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Counter_(CTR)) is using the AES output as a xor key. To generate the output a nonce is used, modified by a counter (concatenated, summed ...) at each block.
 
-The main problem with this mode is that the nonce must be unique for each message, and the counter must be different for each block (it can be reset at each message). If this is not the case, the xor key will be the same for different blocks, which can compromise the encrypted message. (See the weaknesses of [XOR encryption]../README.md)
+The main problem with this mode is that the nonce must be unique for each message, and the counter must be different for each block (it can be reset at each message). If this is not the case, the xor key will be the same for different blocks, which can compromise the encrypted message. (See the weaknesses of [XOR encryption](#..)
 
 ![CTR Encryption](Cryptography/AES/AES%20-%20CTR%20Mode/_img/601px-CTR_encryption_2.png#gh-light-mode-only)
 ![CTR Encryption](Cryptography/AES/AES%20-%20CTR%20Mode/_img/601px-CTR_encryption_2-dark.png#gh-dark-mode-only)

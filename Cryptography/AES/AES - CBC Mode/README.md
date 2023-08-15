@@ -6,9 +6,12 @@
 ![CBC Decryption](./_img/CBC_decryption.png#gh-light-mode-only)
 ![CBC Decryption](./_img/CBC_decryption-dark.png#gh-dark-mode-only)
 
-* Bit flipping attack (CPA) - [Wikipedia](https://en.wikipedia.org/wiki/Bit-flipping_attack)
+* Bit flipping attack (CPA) - [Wikipedia](https://en.wikipedia.org/wiki/Bit-flipping_attack) [CryptoHack](https://cryptohack.org/courses/symmetric/flipping_cookie/)
 
-    If an attacker can change the ciphertext, they can also alter the plaintext because of the XOR operation in the decryption process.
+    If an attacker can change the ciphertext, they can also alter the plaintext because of the XOR operation in the decryption process. (Homomorphic property of XOR, used in the previous block)
+    
+    **If you want to change the first block of plaintext**, you need to be able to edit the IV, as the first block of plaintext is XORed with the IV. If you dont have access to it, you can try to make the target system ignore the first block and edit the remainder instead. (exemple: json cookie {admin=False;randomstuff=whatever} -> {admin=False;rando;admin=True} )
 
-    [Exploit script](https://gist.github.com/nil0x42/8bb48b337d64971fb296b8b9b6e89a0d) - 
+    [Custom exploit script](./Tools/bit-flipping-cbc.py) from this [Github gist](https://gist.github.com/nil0x42/8bb48b337d64971fb296b8b9b6e89a0d)
+
     [Video explanation](https://www.youtube.com/watch?v=QG-z0r9afIs)

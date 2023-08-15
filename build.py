@@ -26,12 +26,13 @@ def update_links(content, topic_path):
             if "/" in link[1]:
                 dir_name = link[1].split("/")[-2]
                 content = content.replace(link[1], "#" + dir_name.lower().replace(" ", "-").replace("%20", "-"))
-
+            continue
 
         # Link inside a directory
         if link[1].startswith("./"):
             topic_path = topic_path.replace(" ", "%20")
             content = content.replace(link[1], link[1].replace("./", topic_path + "/"))
+            continue
 
         # Link outside a directory : Replace the ../ by the topic name minus the last directory if exists
         if link[1].startswith("../"):
@@ -41,6 +42,7 @@ def update_links(content, topic_path):
                 dotdot_path = topic_path[:-i] + "/"
                 dotdot_path = dotdot_path.replace(" ", "%20")
                 content = content.replace(link[1], link[1].replace("../", dotdot_path))
+                continue
 
     return content
 

@@ -1370,7 +1370,7 @@ Platforms with cryptanalysis challenges:
 
 
 
-[AES Electronic CodeBook](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Electronic_codebook_(ECB)) is the most basic mode of operation. Each block is encrypted independently of the others. This means that the same plaintext block will always result in the same ciphertext block. This is considered **unsecure** for most applications.
+[AES Electronic CodeBook](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Electronic_codebook_(ECB)) is the most basic mode of operation. Each block is encrypted independently of the others.  This is considered **unsecure** for most applications.
 
 <!--image -->
 ![ECB Encryption](Cryptography/AES/AES%20-%20ECB%20Mode/_img/601px-ECB_encryption.png#gh-light-mode-only)
@@ -1379,9 +1379,14 @@ Platforms with cryptanalysis challenges:
 ![ECB Decryption](Cryptography/AES/AES%20-%20ECB%20Mode/_img/601px-ECB_decryption-dark.png#gh-dark-mode-only)
 
 
-* AES ECB
+* ECB Encryption Oracle padded with secret - [CryptoHack](https://cryptohack.org/courses/symmetric/ecb_oracle/)
 
-	The "blind SQL" of cryptography... leak the flag out by testing for characters just one byte away from the block length.
+	To leak the secret, we can use the fact that ECB mode is stateless. We can compare the output of a block containing one unknown byte of the secret with all 256 possible outputs. The block that encrypts to the correct output is the one that contains the unknown byte.
+
+* ECB Decryption Oracle - [CryptoHack](https://cryptohack.org/courses/symmetric/ecbcbcwtf/)
+
+	A ECB decryption oracle can simply be used as an AES block decrypter. Many modes can be compromised by this oracle.
+	
 
 
 
@@ -1397,11 +1402,14 @@ Platforms with cryptanalysis challenges:
 ![CBC Decryption](Cryptography/AES/AES%20-%20CBC%20Mode/_img/CBC_decryption.png#gh-light-mode-only)
 ![CBC Decryption](Cryptography/AES/AES%20-%20CBC%20Mode/_img/CBC_decryption-dark.png#gh-dark-mode-only)
 
-* Bit flipping attack (CPA) - [Wikipedia](https://en.wikipedia.org/wiki/Bit-flipping_attack)
+* Bit flipping attack (CPA) - [Wikipedia](https://en.wikipedia.org/wiki/Bit-flipping_attack) [CryptoHack](https://cryptohack.org/courses/symmetric/flipping_cookie/)
 
-    If an attacker can change the ciphertext, they can also alter the plaintext because of the XOR operation in the decryption process.
+    If an attacker can change the ciphertext, they can also alter the plaintext because of the XOR operation in the decryption process. (Homomorphic property of XOR, used in the previous block)
+    
+    **If you want to change the first block of plaintext**, you need to be able to edit the IV, as the first block of plaintext is XORed with the IV. If you dont have access to it, you can try to make the target system ignore the first block and edit the remainder instead. (exemple: json cookie {admin=False;randomstuff=whatever} -> {admin=False;rando;admin=True} )
 
-    [Exploit script](https://gist.github.com/nil0x42/8bb48b337d64971fb296b8b9b6e89a0d) - 
+    [Custom exploit script](Cryptography/AES/AES%20-%20CBC%20Mode/Tools/bit-flipping-cbc.py) from this [Github gist](https://gist.github.com/nil0x42/8bb48b337d64971fb296b8b9b6e89a0d)
+
     [Video explanation](https://www.youtube.com/watch?v=QG-z0r9afIs)
 
 
@@ -2112,6 +2120,9 @@ DNS can be used to exfiltrate data, for example to bypass firewalls.
     python jwt_tool.py -C -d <jwt>  # Crack the JWT's signature
     ```
 
+* AES CBC ciphered cookies
+
+    See [Bit flipping attack](#aes---cbc-mode) for more details.
 
 
 

@@ -106,6 +106,8 @@ This file is auto generated using [build.py](build.py). To update it, update the
     | `89 50 4E 47 0D 0A 1A 0A` (?PNG) | PNG | [PNG](https://en.wikipedia.org/wiki/Portable_Network_Graphics) image |
     | `50 4B` (PK) | ZIP | [ZIP](https://en.wikipedia.org/wiki/Zip_(file_format)) archive |
 
+    The first 16 bytes of PNG are usually b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR'
+
 
 
 ## Network Scanning
@@ -975,12 +977,22 @@ Looking at logs takes time but can lead to valuable information.
 	Correct the CRCs present in a **PNG** file.
 
 
-* `https://github.com/sherlly/PCRT` - [GitHub](https://github.com/sherlly/PCRT)
+* `PNG Check & Repair Tool` - [GitHub](https://github.com/sherlly/PCRT)
 
 	Correct a corrupted PNG file.
 
 	Utility to try and correct a **PNG** file. 
+
 	Need to press enter to show the file.
+
+* `Reading the specifications` <span style="color:red">❤️</span>
+
+	Reading the specification of image format are sometimes the only way to fix a corrupted image.
+
+	| File type | Summary | Full Specification |
+	| --- | --- | --- |
+	| PNG | [Summary](https://github.com/corkami/formats/blob/master/image/png.md) | [Full Specification](https://www.w3.org/TR/PNG/) |
+	| JPEG | [Summary](https://github.com/corkami/formats/blob/master/image/jpeg.md) | [Full Specification](https://www.w3.org/Graphics/JPEG/itu-t81.pdf) |
 
 * Repair image online tool
 
@@ -991,6 +1003,7 @@ Looking at logs takes time but can lead to valuable information.
 * [Analysis Image] ['https://29a.ch/photo-forensics/#forensic-magnifier']
 
 	Forensically is free online tool to analysis image this tool has many features like  Magnifier, Clone Detection, Error Level analysis, Noise Analusis, level Sweep, Meta Data, Geo tags, Thumbnail Analysis , JPEG Analysis, Strings Extraction.
+
 
 
 
@@ -1142,7 +1155,7 @@ The full documentation can be found [here](https://volatility3.readthedocs.io)
 
 # Cryptography
 
-⇨ [Misc Codes](#misc-codes)<br>⇨ [AES](#aes)<br>⇨ [RSA](#rsa)<br>
+⇨ [Misc Codes](#misc-codes)<br>⇨ [AES](#aes)<br>⇨ [DES](#des)<br>⇨ [RC4](#rc4)<br>⇨ [RSA](#rsa)<br>
 
 Cryptography and Cryptanalysis are the art of creating and breaking codes. 
 
@@ -1354,7 +1367,7 @@ Platforms with cryptanalysis challenges:
 
 ## AES
 
-⇨ [AES - OFB Mode](#aes---ofb-mode)<br>⇨ [AES - ECB Mode](#aes---ecb-mode)<br>⇨ [AES - CBC Mode](#aes---cbc-mode)<br>⇨ [AES - CTR Mode](#aes---ctr-mode)<br>
+⇨ [AES - OFB Mode](#aes---ofb-mode)<br>⇨ [AES - ECB Mode](#aes---ecb-mode)<br>⇨ [AES - CBC Mode](#aes---cbc-mode)<br>⇨ [AES - GCM Mode](#aes---gcm-mode)<br>⇨ [AES - CTR Mode](#aes---ctr-mode)<br>
 
 [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) A.K.A. Rijndael is a **symmetric** cryptographic algorithm. It uses the **same key** for encryption and decryption.
 
@@ -1379,6 +1392,19 @@ The most common block operation modes are:
 
 	When a low number of rounds is used, the key can be recovered by using the [Square Attack](https://en.wikipedia.org/wiki/Square_attack). See [this tutorial](https://www.davidwong.fr/blockbreakers/square.html) for an example.
 
+
+* Weak Sbox - [StackExchange](https://crypto.stackexchange.com/questions/89596/linear-aes-expression-of-k-in-aesp-apk?noredirect=1&lq=1) [CryptoHack](https://cryptohack.org/challenges/beatboxer/solutions/)
+
+	A weak S-box in the subBytes step makes AES an afine function : $AES(pt) = A * pt \oplus K$ where $A$ and $K$ are matrices of size 128 in $GF(2)$ and $A$ have a low dependence on the key. $A$ can be inverted and decipher any ciphertext using $pt = A^{-1} * (AES(ct) \oplus K)$.
+	
+	If there are no subBytes at all, the AES key can even be recovered. [See here](https://crypto.stackexchange.com/questions/89596/linear-aes-expression-of-k-in-aesp-apk?noredirect=1&lq=1).
+
+	To solve this types of challenges, you can either implement a symbolic version of your AES variation and solve for the key, or try to find $A$ using linear algebra.
+
+	[RootMe](https://www.root-me.org/en/Challenges/Cryptanalysis/AES-Weaker-variant) - RootMe challenge with no subBytes (identity sbox) and an encryption oracle.
+
+	[CryptoHack](https://cryptohack.org/challenges/beatboxer/solutions/) - CryptoHack challenge with an afine sbox and only one message.
+
 ### AES - OFB Mode
 
 
@@ -1386,10 +1412,10 @@ The most common block operation modes are:
 [AES Output FeedBack](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Output_feedback_(OFB)) is an unusual stream cipher. It has no real benefits these days over CTR mode. Indeed CTR can be computed in parallel and allows random access in the ciphertext whereas OFB cannot.
 
 <!--image -->
-![CBC Encryption](Cryptography/AES/AES%20-%20OFB%20Mode/_img/CBC_encryption.png#gh-light-mode-only)
-![CBC Encryption](Cryptography/AES/AES%20-%20OFB%20Mode/_img/CBC_encryption-dark.png#gh-dark-mode-only)
-![CBC Decryption](Cryptography/AES/AES%20-%20OFB%20Mode/_img/CBC_decryption.png#gh-light-mode-only)
-![CBC Decryption](Cryptography/AES/AES%20-%20OFB%20Mode/_img/CBC_decryption-dark.png#gh-dark-mode-only)
+![OFB Encryption](Cryptography/AES/AES%20-%20OFB%20Mode/_img/601px-OFB_encryption.png#gh-light-mode-only)
+![OFB Encryption](Cryptography/AES/AES%20-%20OFB%20Mode/_img/601px-OFB_encryption-dark.png#gh-dark-mode-only)
+![OFB Decryption](Cryptography/AES/AES%20-%20OFB%20Mode/_img/601px-OFB_decryption.png#gh-light-mode-only)
+![OFB Decryption](Cryptography/AES/AES%20-%20OFB%20Mode/_img/601px-OFB_decryption-dark.png#gh-dark-mode-only)
 
 
 
@@ -1440,6 +1466,37 @@ The most common block operation modes are:
     [Video explanation](https://www.youtube.com/watch?v=QG-z0r9afIs)
 
 
+* IV = Key - [StackExchange](https://crypto.stackexchange.com/questions/16161/problems-with-using-aes-key-as-iv-in-cbc-mode) [CryptoHack](https://aes.cryptohack.org/lazy_cbc/)
+
+    When the IV is chosen as the key, AES becomes insecure. The Key can be leaked if you have a decryption oracle (CCA).
+
+
+
+### AES - GCM Mode
+
+
+
+[AES Galois Counter Mode](https://en.wikipedia.org/wiki/Galois/Counter_Mode) is an authenticated encryption mode. For earch encryption it produces a tag that can be used to verify the integrity of the message. It is considered secure and is used in TLS.
+
+
+<!--image -->
+![AES GCM](Cryptography/AES/AES%20-%20GCM%20Mode/_img/GCM-Galois_Counter_Mode_with_IV-dark.png#gh-dark-mode-only)
+![AES GCM](Cryptography/AES/AES%20-%20GCM%20Mode/_img/GCM-Galois_Counter_Mode_with_IV.png#gh-light-mode-only)
+
+
+* Forbidden attack - [CryptoHack](https://aes.cryptohack.org/forbidden_fruit/)
+
+    When the nonce (IV) is reused in 2 different messages, an attacker can forge a tag for any ciphertext.
+
+    [Cryptopals](https://toadstyle.org/cryptopals/63.txt) - Detailed explanation of the attack.
+
+    [GitHub](https://github.com/jvdsn/crypto-attacks/blob/master/attacks/gcm/forbidden_attack.py) - Implementation of the attack.
+
+    [GitHub (Crypton)](https://github.com/ashutosh1206/Crypton/tree/master/Authenticated-Encryption/AES-GCM/Attack-Forbidden) - Summary of the attack.
+
+    [This custom python script](Cryptography/AES/AES%20-%20GCM%20Mode/Tools/forbidden_attack.py) gives an example implementation of the attack.
+
+
 
 ### AES - CTR Mode
 
@@ -1454,6 +1511,49 @@ The main problem with this mode is that the nonce must be unique for each messag
 ![CTR Decryption](Cryptography/AES/AES%20-%20CTR%20Mode/_img/601px-CTR_decryption_2.png#gh-light-mode-only)
 ![CTR Decryption](Cryptography/AES/AES%20-%20CTR%20Mode/_img/601px-CTR_decryption_2-dark.png#gh-dark-mode-only)
 
+
+
+
+
+
+## DES
+
+
+
+[DES](https://en.wikipedia.org/wiki/Data_Encryption_Standard) A.K.A. Data Encryption Standard is a **symmetric** cryptographic algorithm. It uses the **same key** for encryption and decryption. It is a block cipher that encrypts data 64 bits at a time using a 56-bit key. The key is sometimes completed with an aditional byte for parity check. DES is now considered insecure and has been replaced by AES.
+
+Variations such as [Triple DES](https://en.wikipedia.org/wiki/Triple_DES) (3DES) and [DES-X](https://en.wikipedia.org/wiki/DES-X) have been created to improve the security of DES.
+
+
+
+* Weak keys - [Wikipedia](https://en.wikipedia.org/wiki/Weak_key#Weak_keys_in_DES) [CryptoHack](https://aes.cryptohack.org/triple_des/)
+
+    DES allows for weak keys which are keys that produce the same ciphertext when used for encryption and decryption.
+
+    Some weak keys with valid parity check are:
+
+    * 0x0101010101010101
+    * 0xFEFEFEFEFEFEFEFE
+    * 0xE0E0E0E0F1F1F1F1
+    * 0x1F1F1F1F0E0E0E0E
+
+    Using multiple of these keys in [2 or 3 keys triple DES](https://en.wikipedia.org/wiki/Triple_DES#Keying_options) can also produce a symetric 3DES block cipher.
+
+
+
+## RC4
+
+
+
+[RC4](https://en.wikipedia.org/wiki/RC4) is a fast stream cipher know to be very insecure.
+
+
+
+* FMS Attack - [Wikipedia](https://en.wikipedia.org/wiki/Fluhrer,_Mantin_and_Shamir_attack) [CryptoHack](https://aes.cryptohack.org/oh_snap)
+
+    Allows to recover the key from the keystream when RC4's key is in the form (nonce || unkown_key). Mostly used to recover WEP from WEP SNAP headers. An implementation and description of this attack can be found on [GitHub](https://github.com/jackieden26/FMS-Attack/blob/master/keyRecover.py).
+
+    If you have an encryption (or decryption, it's the same) oracle, I recommend reading the writups from this [CryptoHack challenge](https://aes.cryptohack.org/oh_snap).
 
 
 
@@ -1761,6 +1861,10 @@ WHEN GIVEN A FILE TO WORK WITH, DO NOT FORGET TO RUN THIS STEGHIDE WITH AN EMPTY
 * `bkcrack` - [GitHub](https://github\.com/kimci86/bkcrack)
 
     Crack ZipCrypto Store files. Need some plaintext to work.
+
+* `Reading the specifications`
+
+	Reading the specification of image format are sometimes the only way to fix a corrupted ZIP. A summary of this specification can be found on [GitHub](https://github.com/corkami/formats/blob/master/archive/ZIP.md)
 
 
 <br><br>

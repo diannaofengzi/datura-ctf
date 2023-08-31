@@ -397,7 +397,7 @@ snmp-check 10.10.10.125
 
 # Reverse Engineering
 
-⇨ [Binaries](#binaries)<br>⇨ [Virtualisation](#virtualisation)<br>⇨ [Python](#python)<br>
+⇨ [Binaries](#binaries)<br>⇨ [Python](#python)<br>⇨ [Virtualisation](#virtualisation)<br>
 
 Reverse engeenering is the process of analyzing a system, device or program in order to extract knowledge about it. It is a broad field that can be divided into two main categories: **static** and **dynamic** analysis.
 
@@ -522,14 +522,6 @@ When the binary is stripped, the function's informations are stored in the `.gop
 
 
 
-## Virtualisation
-
-
-
-In order to run some system, it is nessesary to use virtualisation.
-
-
-
 ## Python
 
 
@@ -556,6 +548,14 @@ In order to run some system, it is nessesary to use virtualisation.
 	```bash
 	python3 pyinstxtractor.py <filename>
 	```
+
+
+
+## Virtualisation
+
+
+
+In order to run some system, it is nessesary to use virtualisation.
 
 
 <br><br>
@@ -777,7 +777,7 @@ Tools that will help you to exploit a binary:
 
 # Forensics
 
-⇨ [Disk Image](#disk-image)<br>⇨ [Browser Forensics](#browser-forensics)<br>⇨ [Logs](#logs)<br>⇨ [Images](#images)<br>⇨ [Memory Dump](#memory-dump)<br>⇨ [Docker](#docker)<br>
+⇨ [Browser Forensics](#browser-forensics)<br>⇨ [Disk Image](#disk-image)<br>⇨ [Docker](#docker)<br>⇨ [Images](#images)<br>⇨ [Logs](#logs)<br>⇨ [Memory Dump](#memory-dump)<br>
 
 
 * `File scanning`
@@ -793,33 +793,6 @@ Tools that will help you to exploit a binary:
 * `VS Code Hex editor` - [Website](https://marketplace.visualstudio.com/items?itemName=ms-vscode.hexeditor)
 
 	An extension for VS Code that allows you to view and edit files in hexadecimal format.
-
-## Disk Image
-
-
-
-* `Autopsy` <span style="color:red">❤️</span> - [Website](https://www.autopsy.com/download/)
-
-    GUI for analyzing disk images with Sleuthkit. It can be used to extract files, search for keywords, etc...
-
-* [`mount`]
-
-    Mount a disk image to a filesystem.
-    
-    I recommand to use a virtual machine to mount the disk image. This way you can browse the filesystem and extract files without risking to damage your system.
-
-* `TestDisk` - [Website](https://www.cgsecurity.org/Download_and_donate.php/testdisk-7.1-WIP.linux26.tar.bz2) 
-	
-    CLI tool to recover lost partitions and/or make non-booting disks bootable again.
-
-* `photorec` - [Website](https://www.cgsecurity.org/wiki/PhotoRec) 
-	
-    CLI tool to recover deleted files. Works with raw data, so the disk do not need to have a partition system working.
-
-
-
-
-
 
 ## Browser Forensics
 
@@ -894,6 +867,91 @@ Firefox based browsers (and Thunderbird) store their profiles in the following f
 
 
 
+## Disk Image
+
+
+
+* `Autopsy` <span style="color:red">❤️</span> - [Website](https://www.autopsy.com/download/)
+
+    GUI for analyzing disk images with Sleuthkit. It can be used to extract files, search for keywords, etc...
+
+* [`mount`]
+
+    Mount a disk image to a filesystem.
+    
+    I recommand to use a virtual machine to mount the disk image. This way you can browse the filesystem and extract files without risking to damage your system.
+
+* `TestDisk` - [Website](https://www.cgsecurity.org/Download_and_donate.php/testdisk-7.1-WIP.linux26.tar.bz2) 
+	
+    CLI tool to recover lost partitions and/or make non-booting disks bootable again.
+
+* `photorec` - [Website](https://www.cgsecurity.org/wiki/PhotoRec) 
+	
+    CLI tool to recover deleted files. Works with raw data, so the disk do not need to have a partition system working.
+
+
+
+
+
+
+## Docker
+
+
+
+* `Dive` - [GitHub](https://github.com/wagoodman/dive)
+
+    Explore layers of a docker image.
+
+    If a interesting file modification is found, it can be extracted from the image with an archive editing software (or with `dive export <image> <layer> <file> <output>` ?).
+
+
+
+## Images
+
+
+
+
+* `pngcheck`
+
+	Check if a **PNG** file is valid. If it is not, displays the error.
+
+
+* `pngcsum` - [Website](http://www.schaik.com/png/pngcsum/pngcsum-v01.tar.gz)
+
+	Correct the CRCs present in a **PNG** file.
+
+
+* `PNG Check & Repair Tool` - [GitHub](https://github.com/sherlly/PCRT)
+
+	Correct a corrupted PNG file.
+
+	Utility to try and correct a **PNG** file. 
+
+	Need to press enter to show the file.
+
+* `Reading the specifications` <span style="color:red">❤️</span>
+
+	Reading the specification of image format are sometimes the only way to fix a corrupted image.
+
+	| File type | Summary | Full Specification |
+	| --- | --- | --- |
+	| PNG | [Summary](https://github.com/corkami/formats/blob/master/image/png.md) | [Full Specification](https://www.w3.org/TR/PNG/) |
+	| JPEG | [Summary](https://github.com/corkami/formats/blob/master/image/jpeg.md) | [Full Specification](https://www.w3.org/Graphics/JPEG/itu-t81.pdf) |
+
+* Repair image online tool
+
+    Good low-hanging fruit to throw any image at: [https://online.officerecovery.com/pixrecovery/](https://online.officerecovery.com/pixrecovery/)
+
+
+
+* [Analysis Image] ['https://29a.ch/photo-forensics/#forensic-magnifier']
+
+	Forensically is free online tool to analysis image this tool has many features like  Magnifier, Clone Detection, Error Level analysis, Noise Analusis, level Sweep, Meta Data, Geo tags, Thumbnail Analysis , JPEG Analysis, Strings Extraction.
+
+
+
+
+
 ## Logs
 
 
@@ -958,52 +1016,6 @@ Looking at logs takes time but can lead to valuable information.
     # Extract the time from the datetime column
     df['time'] = df['datetime'].str.extract(r':(.*?)\s', expand=True)
     ```
-
-
-
-
-## Images
-
-
-
-
-* `pngcheck`
-
-	Check if a **PNG** file is valid. If it is not, displays the error.
-
-
-* `pngcsum` - [Website](http://www.schaik.com/png/pngcsum/pngcsum-v01.tar.gz)
-
-	Correct the CRCs present in a **PNG** file.
-
-
-* `PNG Check & Repair Tool` - [GitHub](https://github.com/sherlly/PCRT)
-
-	Correct a corrupted PNG file.
-
-	Utility to try and correct a **PNG** file. 
-
-	Need to press enter to show the file.
-
-* `Reading the specifications` <span style="color:red">❤️</span>
-
-	Reading the specification of image format are sometimes the only way to fix a corrupted image.
-
-	| File type | Summary | Full Specification |
-	| --- | --- | --- |
-	| PNG | [Summary](https://github.com/corkami/formats/blob/master/image/png.md) | [Full Specification](https://www.w3.org/TR/PNG/) |
-	| JPEG | [Summary](https://github.com/corkami/formats/blob/master/image/jpeg.md) | [Full Specification](https://www.w3.org/Graphics/JPEG/itu-t81.pdf) |
-
-* Repair image online tool
-
-    Good low-hanging fruit to throw any image at: [https://online.officerecovery.com/pixrecovery/](https://online.officerecovery.com/pixrecovery/)
-
-
-
-* [Analysis Image] ['https://29a.ch/photo-forensics/#forensic-magnifier']
-
-	Forensically is free online tool to analysis image this tool has many features like  Magnifier, Clone Detection, Error Level analysis, Noise Analusis, level Sweep, Meta Data, Geo tags, Thumbnail Analysis , JPEG Analysis, Strings Extraction.
-
 
 
 
@@ -1139,23 +1151,11 @@ The full documentation can be found [here](https://volatility3.readthedocs.io)
 
 
 
-
-## Docker
-
-
-
-* `Dive` - [GitHub](https://github.com/wagoodman/dive)
-
-    Explore layers of a docker image.
-
-    If a interesting file modification is found, it can be extracted from the image with an archive editing software (or with `dive export <image> <layer> <file> <output>` ?).
-
-
 <br><br>
 
 # Cryptography
 
-⇨ [Misc Codes](#misc-codes)<br>⇨ [AES](#aes)<br>⇨ [DES](#des)<br>⇨ [RC4](#rc4)<br>⇨ [RSA](#rsa)<br>
+⇨ [AES](#aes)<br>⇨ [DES](#des)<br>⇨ [Misc Codes](#misc-codes)<br>⇨ [RC4](#rc4)<br>⇨ [RSA](#rsa)<br>
 
 Cryptography and Cryptanalysis are the art of creating and breaking codes. 
 
@@ -1182,6 +1182,182 @@ Platforms with cryptanalysis challenges:
     For performance reasons, most of random number generators are **predictable**. Generating a cryptographic key requires a secure PRNG.
     
     For exemple, python's `random` module uses the Mersenne Twister algorithm, which is not cryptographically secure. [`randcrack`](https://github.com/tna0y/Python-random-module-cracker) is a tool that can predict the next random number generated by the Mersenne Twister algorithm when you know the 624 previously generated integers (4 bytes each).
+
+
+
+## AES
+
+⇨ [AES - CBC Mode](#aes---cbc-mode)<br>⇨ [AES - CTR Mode](#aes---ctr-mode)<br>⇨ [AES - ECB Mode](#aes---ecb-mode)<br>⇨ [AES - GCM Mode](#aes---gcm-mode)<br>⇨ [AES - OFB Mode](#aes---ofb-mode)<br>
+
+[AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) A.K.A. Rijndael is a **symmetric** cryptographic algorithm. It uses the **same key** for encryption and decryption.
+
+[This tutorial](https://www.davidwong.fr/blockbreakers/index.html) is a good introduction to AES and explain the implementation of the 128-bit version. It also goes through the [Square Attack](https://en.wikipedia.org/wiki/Square_attack) for a 4 round AES.
+
+Different [modes of operations](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation) are used to encrypt data larger than 128 bits (16 bytes). Block operation modes are used to encrypt data in one go while stream operation modes are used to encrypt data bit by bit.
+
+The most common block operation modes are:
+
+| Mode | Type | Description |
+| ---- | ---- | ----------- |
+| ECB | Block | Electronic Codebook |
+| CBC | Block | Cipher Block Chaining |
+| PCBC | Block | Propagating Cipher Block Chaining |
+| CTR | Stream | Counter |
+| CFB | Stream | Cipher Feedback |
+| OFB | Stream | Output Feedback |
+
+**Stream ciphers** usually only use the encryption block to create an output called **keystream** from pre-defined values. Then, it xors this keystream with the plaintext. Consequenly, when a bit of plaintext is flipped, the corresponding bit of ciphertext is flipped as well. Stream ciphers are often vulnerable to **encryption oracles (CPA)** as their stream of bits is xored to the plaintext. An attacker only have to input null bytes to get this keystream.
+
+* 4-6 round AES
+
+	When a low number of rounds is used, the key can be recovered by using the [Square Attack](https://en.wikipedia.org/wiki/Square_attack). See [this tutorial](https://www.davidwong.fr/blockbreakers/square.html) for an example.
+
+
+* Weak Sbox - [StackExchange](https://crypto.stackexchange.com/questions/89596/linear-aes-expression-of-k-in-aesp-apk?noredirect=1&lq=1) [CryptoHack](https://cryptohack.org/challenges/beatboxer/solutions/)
+
+	A weak S-box in the subBytes step makes AES an afine function : $AES(pt) = A * pt \oplus K$ where $A$ and $K$ are matrices of size 128 in $GF(2)$ and $A$ have a low dependence on the key. $A$ can be inverted and decipher any ciphertext using $pt = A^{-1} * (AES(ct) \oplus K)$.
+	
+	If there are no subBytes at all, the AES key can even be recovered. [See here](https://crypto.stackexchange.com/questions/89596/linear-aes-expression-of-k-in-aesp-apk?noredirect=1&lq=1).
+
+	To solve this types of challenges, you can either implement a symbolic version of your AES variation and solve for the key, or try to find $A$ using linear algebra.
+
+	[RootMe](https://www.root-me.org/en/Challenges/Cryptanalysis/AES-Weaker-variant) - RootMe challenge with no subBytes (identity sbox) and an encryption oracle.
+
+	[CryptoHack](https://cryptohack.org/challenges/beatboxer/solutions/) - CryptoHack challenge with an afine sbox and only one message.
+
+### AES - CBC Mode
+
+
+
+[AES Cipher Block Chaining](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Cipher_block_chaining_(CBC)) is the most commonly used mode of operation. It uses the previous output to xor the next input.
+
+<!--image -->
+![CBC Encryption](Cryptography/AES/AES%20-%20CBC%20Mode/_img/CBC_encryption.png#gh-light-mode-only)
+![CBC Encryption](Cryptography/AES/AES%20-%20CBC%20Mode/_img/CBC_encryption-dark.png#gh-dark-mode-only)
+![CBC Decryption](Cryptography/AES/AES%20-%20CBC%20Mode/_img/CBC_decryption.png#gh-light-mode-only)
+![CBC Decryption](Cryptography/AES/AES%20-%20CBC%20Mode/_img/CBC_decryption-dark.png#gh-dark-mode-only)
+
+* Bit flipping attack (CPA) - [Wikipedia](https://en.wikipedia.org/wiki/Bit-flipping_attack) [CryptoHack](https://cryptohack.org/courses/symmetric/flipping_cookie/)
+
+    If an attacker can change the ciphertext, they can also alter the plaintext because of the XOR operation in the decryption process. (Homomorphic property of XOR, used in the previous block)
+    
+    **If you want to change the first block of plaintext**, you need to be able to edit the IV, as the first block of plaintext is XORed with the IV. If you dont have access to it, you can try to make the target system ignore the first block and edit the remainder instead. (exemple: json cookie {admin=False;randomstuff=whatever} -> {admin=False;rando;admin=True} )
+
+    [Custom exploit script](Cryptography/AES/AES%20-%20CBC%20Mode/Tools/bit-flipping-cbc.py) from this [Github gist](https://gist.github.com/nil0x42/8bb48b337d64971fb296b8b9b6e89a0d)
+
+    [Video explanation](https://www.youtube.com/watch?v=QG-z0r9afIs)
+
+
+* IV = Key - [StackExchange](https://crypto.stackexchange.com/questions/16161/problems-with-using-aes-key-as-iv-in-cbc-mode) [CryptoHack](https://aes.cryptohack.org/lazy_cbc/)
+
+    When the IV is chosen as the key, AES becomes insecure. The Key can be leaked if you have a decryption oracle (CCA).
+
+
+
+### AES - CTR Mode
+
+
+
+[AES Counter Mode](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Counter_(CTR)) is using the AES output as a xor key. To generate the output a nonce is used, modified by a counter (concatenated, summed ...) at each block.
+
+The main problem with this mode is that the nonce must be unique for each message, and the counter must be different for each block (it can be reset at each message). If this is not the case, the xor key will be the same for different blocks, which can compromise the encrypted message. (See the weaknesses of [XOR encryption](#..)
+
+![CTR Encryption](Cryptography/AES/AES%20-%20CTR%20Mode/_img/601px-CTR_encryption_2.png#gh-light-mode-only)
+![CTR Encryption](Cryptography/AES/AES%20-%20CTR%20Mode/_img/601px-CTR_encryption_2-dark.png#gh-dark-mode-only)
+![CTR Decryption](Cryptography/AES/AES%20-%20CTR%20Mode/_img/601px-CTR_decryption_2.png#gh-light-mode-only)
+![CTR Decryption](Cryptography/AES/AES%20-%20CTR%20Mode/_img/601px-CTR_decryption_2-dark.png#gh-dark-mode-only)
+
+
+
+
+### AES - ECB Mode
+
+
+
+[AES Electronic CodeBook](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Electronic_codebook_(ECB)) is the most basic mode of operation. Each block is encrypted independently of the others.  This is considered **unsecure** for most applications.
+
+<!--image -->
+![ECB Encryption](Cryptography/AES/AES%20-%20ECB%20Mode/_img/601px-ECB_encryption.png#gh-light-mode-only)
+![ECB Encryption](Cryptography/AES/AES%20-%20ECB%20Mode/_img/601px-ECB_encryption-dark.png#gh-dark-mode-only)
+![ECB Decryption](Cryptography/AES/AES%20-%20ECB%20Mode/_img/601px-ECB_decryption.png#gh-light-mode-only)
+![ECB Decryption](Cryptography/AES/AES%20-%20ECB%20Mode/_img/601px-ECB_decryption-dark.png#gh-dark-mode-only)
+
+
+* ECB Encryption Oracle padded with secret - [CryptoHack](https://cryptohack.org/courses/symmetric/ecb_oracle/)
+
+	To leak the secret, we can use the fact that ECB mode is stateless. We can compare the output of a block containing one unknown byte of the secret with all 256 possible outputs. The block that encrypts to the correct output is the one that contains the unknown byte.
+
+* ECB Decryption Oracle - [CryptoHack](https://cryptohack.org/courses/symmetric/ecbcbcwtf/)
+
+	A ECB decryption oracle can simply be used as an AES block decrypter. Many modes can be compromised by this oracle.
+	
+
+
+
+### AES - GCM Mode
+
+
+
+[AES Galois Counter Mode](https://en.wikipedia.org/wiki/Galois/Counter_Mode) is an authenticated encryption mode. For earch encryption it produces a tag that can be used to verify the integrity of the message. It is considered secure and is used in TLS.
+
+
+<!--image -->
+![AES GCM](Cryptography/AES/AES%20-%20GCM%20Mode/_img/GCM-Galois_Counter_Mode_with_IV-dark.png#gh-dark-mode-only)
+![AES GCM](Cryptography/AES/AES%20-%20GCM%20Mode/_img/GCM-Galois_Counter_Mode_with_IV.png#gh-light-mode-only)
+
+
+* Forbidden attack - [CryptoHack](https://aes.cryptohack.org/forbidden_fruit/)
+
+    When the nonce (IV) is reused in 2 different messages, an attacker can forge a tag for any ciphertext.
+
+    [Cryptopals](https://toadstyle.org/cryptopals/63.txt) - Detailed explanation of the attack.
+
+    [GitHub](https://github.com/jvdsn/crypto-attacks/blob/master/attacks/gcm/forbidden_attack.py) - Implementation of the attack.
+
+    [GitHub (Crypton)](https://github.com/ashutosh1206/Crypton/tree/master/Authenticated-Encryption/AES-GCM/Attack-Forbidden) - Summary of the attack.
+
+    [This custom python script](Cryptography/AES/AES%20-%20GCM%20Mode/Tools/forbidden_attack.py) gives an example implementation of the attack.
+
+
+
+### AES - OFB Mode
+
+
+
+[AES Output FeedBack](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Output_feedback_(OFB)) is an unusual stream cipher. It has no real benefits these days over CTR mode. Indeed CTR can be computed in parallel and allows random access in the ciphertext whereas OFB cannot.
+
+<!--image -->
+![OFB Encryption](Cryptography/AES/AES%20-%20OFB%20Mode/_img/601px-OFB_encryption.png#gh-light-mode-only)
+![OFB Encryption](Cryptography/AES/AES%20-%20OFB%20Mode/_img/601px-OFB_encryption-dark.png#gh-dark-mode-only)
+![OFB Decryption](Cryptography/AES/AES%20-%20OFB%20Mode/_img/601px-OFB_decryption.png#gh-light-mode-only)
+![OFB Decryption](Cryptography/AES/AES%20-%20OFB%20Mode/_img/601px-OFB_decryption-dark.png#gh-dark-mode-only)
+
+
+
+
+
+## DES
+
+
+
+[DES](https://en.wikipedia.org/wiki/Data_Encryption_Standard) A.K.A. Data Encryption Standard is a **symmetric** cryptographic algorithm. It uses the **same key** for encryption and decryption. It is a block cipher that encrypts data 64 bits at a time using a 56-bit key. The key is sometimes completed with an aditional byte for parity check. DES is now considered insecure and has been replaced by AES.
+
+Variations such as [Triple DES](https://en.wikipedia.org/wiki/Triple_DES) (3DES) and [DES-X](https://en.wikipedia.org/wiki/DES-X) have been created to improve the security of DES.
+
+
+
+* Weak keys - [Wikipedia](https://en.wikipedia.org/wiki/Weak_key#Weak_keys_in_DES) [CryptoHack](https://aes.cryptohack.org/triple_des/)
+
+    DES allows for weak keys which are keys that produce the same ciphertext when used for encryption and decryption.
+
+    Some weak keys with valid parity check are:
+
+    * 0x0101010101010101
+    * 0xFEFEFEFEFEFEFEFE
+    * 0xE0E0E0E0F1F1F1F1
+    * 0x1F1F1F1F0E0E0E0E
+
+    Using multiple of these keys in [2 or 3 keys triple DES](https://en.wikipedia.org/wiki/Triple_DES#Keying_options) can also produce a symetric 3DES block cipher.
 
 
 
@@ -1365,182 +1541,6 @@ Platforms with cryptanalysis challenges:
 
 
 
-## AES
-
-⇨ [AES - OFB Mode](#aes---ofb-mode)<br>⇨ [AES - ECB Mode](#aes---ecb-mode)<br>⇨ [AES - CBC Mode](#aes---cbc-mode)<br>⇨ [AES - GCM Mode](#aes---gcm-mode)<br>⇨ [AES - CTR Mode](#aes---ctr-mode)<br>
-
-[AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) A.K.A. Rijndael is a **symmetric** cryptographic algorithm. It uses the **same key** for encryption and decryption.
-
-[This tutorial](https://www.davidwong.fr/blockbreakers/index.html) is a good introduction to AES and explain the implementation of the 128-bit version. It also goes through the [Square Attack](https://en.wikipedia.org/wiki/Square_attack) for a 4 round AES.
-
-Different [modes of operations](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation) are used to encrypt data larger than 128 bits (16 bytes). Block operation modes are used to encrypt data in one go while stream operation modes are used to encrypt data bit by bit.
-
-The most common block operation modes are:
-
-| Mode | Type | Description |
-| ---- | ---- | ----------- |
-| ECB | Block | Electronic Codebook |
-| CBC | Block | Cipher Block Chaining |
-| PCBC | Block | Propagating Cipher Block Chaining |
-| CTR | Stream | Counter |
-| CFB | Stream | Cipher Feedback |
-| OFB | Stream | Output Feedback |
-
-**Stream ciphers** usually only use the encryption block to create an output called **keystream** from pre-defined values. Then, it xors this keystream with the plaintext. Consequenly, when a bit of plaintext is flipped, the corresponding bit of ciphertext is flipped as well. Stream ciphers are often vulnerable to **encryption oracles (CPA)** as their stream of bits is xored to the plaintext. An attacker only have to input null bytes to get this keystream.
-
-* 4-6 round AES
-
-	When a low number of rounds is used, the key can be recovered by using the [Square Attack](https://en.wikipedia.org/wiki/Square_attack). See [this tutorial](https://www.davidwong.fr/blockbreakers/square.html) for an example.
-
-
-* Weak Sbox - [StackExchange](https://crypto.stackexchange.com/questions/89596/linear-aes-expression-of-k-in-aesp-apk?noredirect=1&lq=1) [CryptoHack](https://cryptohack.org/challenges/beatboxer/solutions/)
-
-	A weak S-box in the subBytes step makes AES an afine function : $AES(pt) = A * pt \oplus K$ where $A$ and $K$ are matrices of size 128 in $GF(2)$ and $A$ have a low dependence on the key. $A$ can be inverted and decipher any ciphertext using $pt = A^{-1} * (AES(ct) \oplus K)$.
-	
-	If there are no subBytes at all, the AES key can even be recovered. [See here](https://crypto.stackexchange.com/questions/89596/linear-aes-expression-of-k-in-aesp-apk?noredirect=1&lq=1).
-
-	To solve this types of challenges, you can either implement a symbolic version of your AES variation and solve for the key, or try to find $A$ using linear algebra.
-
-	[RootMe](https://www.root-me.org/en/Challenges/Cryptanalysis/AES-Weaker-variant) - RootMe challenge with no subBytes (identity sbox) and an encryption oracle.
-
-	[CryptoHack](https://cryptohack.org/challenges/beatboxer/solutions/) - CryptoHack challenge with an afine sbox and only one message.
-
-### AES - OFB Mode
-
-
-
-[AES Output FeedBack](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Output_feedback_(OFB)) is an unusual stream cipher. It has no real benefits these days over CTR mode. Indeed CTR can be computed in parallel and allows random access in the ciphertext whereas OFB cannot.
-
-<!--image -->
-![OFB Encryption](Cryptography/AES/AES%20-%20OFB%20Mode/_img/601px-OFB_encryption.png#gh-light-mode-only)
-![OFB Encryption](Cryptography/AES/AES%20-%20OFB%20Mode/_img/601px-OFB_encryption-dark.png#gh-dark-mode-only)
-![OFB Decryption](Cryptography/AES/AES%20-%20OFB%20Mode/_img/601px-OFB_decryption.png#gh-light-mode-only)
-![OFB Decryption](Cryptography/AES/AES%20-%20OFB%20Mode/_img/601px-OFB_decryption-dark.png#gh-dark-mode-only)
-
-
-
-### AES - ECB Mode
-
-
-
-[AES Electronic CodeBook](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Electronic_codebook_(ECB)) is the most basic mode of operation. Each block is encrypted independently of the others.  This is considered **unsecure** for most applications.
-
-<!--image -->
-![ECB Encryption](Cryptography/AES/AES%20-%20ECB%20Mode/_img/601px-ECB_encryption.png#gh-light-mode-only)
-![ECB Encryption](Cryptography/AES/AES%20-%20ECB%20Mode/_img/601px-ECB_encryption-dark.png#gh-dark-mode-only)
-![ECB Decryption](Cryptography/AES/AES%20-%20ECB%20Mode/_img/601px-ECB_decryption.png#gh-light-mode-only)
-![ECB Decryption](Cryptography/AES/AES%20-%20ECB%20Mode/_img/601px-ECB_decryption-dark.png#gh-dark-mode-only)
-
-
-* ECB Encryption Oracle padded with secret - [CryptoHack](https://cryptohack.org/courses/symmetric/ecb_oracle/)
-
-	To leak the secret, we can use the fact that ECB mode is stateless. We can compare the output of a block containing one unknown byte of the secret with all 256 possible outputs. The block that encrypts to the correct output is the one that contains the unknown byte.
-
-* ECB Decryption Oracle - [CryptoHack](https://cryptohack.org/courses/symmetric/ecbcbcwtf/)
-
-	A ECB decryption oracle can simply be used as an AES block decrypter. Many modes can be compromised by this oracle.
-	
-
-
-
-### AES - CBC Mode
-
-
-
-[AES Cipher Block Chaining](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Cipher_block_chaining_(CBC)) is the most commonly used mode of operation. It uses the previous output to xor the next input.
-
-<!--image -->
-![CBC Encryption](Cryptography/AES/AES%20-%20CBC%20Mode/_img/CBC_encryption.png#gh-light-mode-only)
-![CBC Encryption](Cryptography/AES/AES%20-%20CBC%20Mode/_img/CBC_encryption-dark.png#gh-dark-mode-only)
-![CBC Decryption](Cryptography/AES/AES%20-%20CBC%20Mode/_img/CBC_decryption.png#gh-light-mode-only)
-![CBC Decryption](Cryptography/AES/AES%20-%20CBC%20Mode/_img/CBC_decryption-dark.png#gh-dark-mode-only)
-
-* Bit flipping attack (CPA) - [Wikipedia](https://en.wikipedia.org/wiki/Bit-flipping_attack) [CryptoHack](https://cryptohack.org/courses/symmetric/flipping_cookie/)
-
-    If an attacker can change the ciphertext, they can also alter the plaintext because of the XOR operation in the decryption process. (Homomorphic property of XOR, used in the previous block)
-    
-    **If you want to change the first block of plaintext**, you need to be able to edit the IV, as the first block of plaintext is XORed with the IV. If you dont have access to it, you can try to make the target system ignore the first block and edit the remainder instead. (exemple: json cookie {admin=False;randomstuff=whatever} -> {admin=False;rando;admin=True} )
-
-    [Custom exploit script](Cryptography/AES/AES%20-%20CBC%20Mode/Tools/bit-flipping-cbc.py) from this [Github gist](https://gist.github.com/nil0x42/8bb48b337d64971fb296b8b9b6e89a0d)
-
-    [Video explanation](https://www.youtube.com/watch?v=QG-z0r9afIs)
-
-
-* IV = Key - [StackExchange](https://crypto.stackexchange.com/questions/16161/problems-with-using-aes-key-as-iv-in-cbc-mode) [CryptoHack](https://aes.cryptohack.org/lazy_cbc/)
-
-    When the IV is chosen as the key, AES becomes insecure. The Key can be leaked if you have a decryption oracle (CCA).
-
-
-
-### AES - GCM Mode
-
-
-
-[AES Galois Counter Mode](https://en.wikipedia.org/wiki/Galois/Counter_Mode) is an authenticated encryption mode. For earch encryption it produces a tag that can be used to verify the integrity of the message. It is considered secure and is used in TLS.
-
-
-<!--image -->
-![AES GCM](Cryptography/AES/AES%20-%20GCM%20Mode/_img/GCM-Galois_Counter_Mode_with_IV-dark.png#gh-dark-mode-only)
-![AES GCM](Cryptography/AES/AES%20-%20GCM%20Mode/_img/GCM-Galois_Counter_Mode_with_IV.png#gh-light-mode-only)
-
-
-* Forbidden attack - [CryptoHack](https://aes.cryptohack.org/forbidden_fruit/)
-
-    When the nonce (IV) is reused in 2 different messages, an attacker can forge a tag for any ciphertext.
-
-    [Cryptopals](https://toadstyle.org/cryptopals/63.txt) - Detailed explanation of the attack.
-
-    [GitHub](https://github.com/jvdsn/crypto-attacks/blob/master/attacks/gcm/forbidden_attack.py) - Implementation of the attack.
-
-    [GitHub (Crypton)](https://github.com/ashutosh1206/Crypton/tree/master/Authenticated-Encryption/AES-GCM/Attack-Forbidden) - Summary of the attack.
-
-    [This custom python script](Cryptography/AES/AES%20-%20GCM%20Mode/Tools/forbidden_attack.py) gives an example implementation of the attack.
-
-
-
-### AES - CTR Mode
-
-
-
-[AES Counter Mode](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Counter_(CTR)) is using the AES output as a xor key. To generate the output a nonce is used, modified by a counter (concatenated, summed ...) at each block.
-
-The main problem with this mode is that the nonce must be unique for each message, and the counter must be different for each block (it can be reset at each message). If this is not the case, the xor key will be the same for different blocks, which can compromise the encrypted message. (See the weaknesses of [XOR encryption](#..)
-
-![CTR Encryption](Cryptography/AES/AES%20-%20CTR%20Mode/_img/601px-CTR_encryption_2.png#gh-light-mode-only)
-![CTR Encryption](Cryptography/AES/AES%20-%20CTR%20Mode/_img/601px-CTR_encryption_2-dark.png#gh-dark-mode-only)
-![CTR Decryption](Cryptography/AES/AES%20-%20CTR%20Mode/_img/601px-CTR_decryption_2.png#gh-light-mode-only)
-![CTR Decryption](Cryptography/AES/AES%20-%20CTR%20Mode/_img/601px-CTR_decryption_2-dark.png#gh-dark-mode-only)
-
-
-
-
-
-
-## DES
-
-
-
-[DES](https://en.wikipedia.org/wiki/Data_Encryption_Standard) A.K.A. Data Encryption Standard is a **symmetric** cryptographic algorithm. It uses the **same key** for encryption and decryption. It is a block cipher that encrypts data 64 bits at a time using a 56-bit key. The key is sometimes completed with an aditional byte for parity check. DES is now considered insecure and has been replaced by AES.
-
-Variations such as [Triple DES](https://en.wikipedia.org/wiki/Triple_DES) (3DES) and [DES-X](https://en.wikipedia.org/wiki/DES-X) have been created to improve the security of DES.
-
-
-
-* Weak keys - [Wikipedia](https://en.wikipedia.org/wiki/Weak_key#Weak_keys_in_DES) [CryptoHack](https://aes.cryptohack.org/triple_des/)
-
-    DES allows for weak keys which are keys that produce the same ciphertext when used for encryption and decryption.
-
-    Some weak keys with valid parity check are:
-
-    * 0x0101010101010101
-    * 0xFEFEFEFEFEFEFEFE
-    * 0xE0E0E0E0F1F1F1F1
-    * 0x1F1F1F1F0E0E0E0E
-
-    Using multiple of these keys in [2 or 3 keys triple DES](https://en.wikipedia.org/wiki/Triple_DES#Keying_options) can also produce a symetric 3DES block cipher.
-
-
-
 ## RC4
 
 
@@ -1590,12 +1590,12 @@ The public key is (N, e) and the private key is (N, d).
    
    (for exemple with the [Extended Euclidean algorithm](https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm))
 
-## Encryption
+## Encryption (Textbook RSA)
 To encrypt a message $m$ with the **public** key $(N, e)$, compute the ciphertext $c$ with:
 
 >$c = m^e \mod N$
 
-## Decryption
+## Decryption (Textbook RSA)
 To decrypt a ciphertext $c$ with the private key $(N, d)$, compute $m = c^d \mod N$.
 
 m is the deciphered message.
@@ -1617,6 +1617,21 @@ Several attacks exist on RSA depending on the circumstances.
    When $e$ is **very large**, that means $d$ is small and the system can be vulnerable to the Wiener's attack. See [this script](Cryptography/RSA/Tools/wiener.py) for an implementation of the attack.
 
 	This type of attack on small private exponents was improved by Boneh and Durfee. See [this repository](https://github.com/mimoo/RSA-and-LLL-attacks/blob/master/boneh_durfee.sage) for an implementation of the attack.
+
+
+* Small $e$, usually 3 in textbook RSA - [StackExchange](https://crypto.stackexchange.com/questions/33561/cube-root-attack-rsa-with-low-exponent)
+
+   When $e$ is so small that $c = m^e < N$, you can compute $m$ with a regular root: $m = \sqrt[e]{c}$.
+
+   If $e$ is a bit larger, but still so small that $c = m^e < kN$ for some small $k$, you can compute $m$ with a $k$-th root: $m = \sqrt[e]{c + kN}$.
+
+   See [this script](Cryptography/RSA/Tools/small_e.py) for an implementation of the attack.
+
+* Many primes in the public modulus - [CryptoHack](https://cryptohack.org/courses/public-key/manyprime/)
+
+   When $N$ is the product of many primes (~30), it can be easily factored with the [Elliptic Curve Method](https://en.wikipedia.org/wiki/Lenstra_elliptic_curve_factorization).
+
+   See [this script](Cryptography/RSA/Tools/many_primes.py) for an implementation of the attack.
 
 * Chinese Remainder Attack
 
@@ -2049,21 +2064,11 @@ DNS can be used to exfiltrate data, for example to bypass firewalls.
 
 # Android
 
-⇨ [System Forensics](#system-forensics)<br>⇨ [APK Forensics](#apk-forensics)<br>
+⇨ [APK Forensics](#apk-forensics)<br>⇨ [System Forensics](#system-forensics)<br>
 
 * `Android Studio` - [Website](https://developer.android.com/studio)
 
     Main IDE for Android development. Java and Kotlin can be used.
-
-## System Forensics
-
-
-
-* `Gesture cracking`
-
-    The gesture needed to unlock the phone is stored in `/data/system/gesture.key` as a SHA1 hash of the gesture. [This python script](Android/Tools/gesture_cracker.py) or [this C program](Android/Tools/gesture_cracker.c) can be used to crack the gesture, .
-
-
 
 ## APK Forensics
 
@@ -2097,11 +2102,21 @@ DNS can be used to exfiltrate data, for example to bypass firewalls.
 
 
 
+
+## System Forensics
+
+
+
+* `Gesture cracking`
+
+    The gesture needed to unlock the phone is stored in `/data/system/gesture.key` as a SHA1 hash of the gesture. [This python script](Android/Tools/gesture_cracker.py) or [this C program](Android/Tools/gesture_cracker.c) can be used to crack the gesture, .
+
+
 <br><br>
 
 # Web
 
-⇨ [GraphQL](#graphql)<br>⇨ [PHP](#php)<br>⇨ [Request and Cookie Forgery](#request-and-cookie-forgery)<br>⇨ [SQL Injection](#sql-injection)<br>⇨ [Enumeration](#enumeration)<br>⇨ [XSS](#xss)<br>
+⇨ [Enumeration](#enumeration)<br>⇨ [GraphQL](#graphql)<br>⇨ [PHP](#php)<br>⇨ [Request and Cookie Forgery](#request-and-cookie-forgery)<br>⇨ [SQL Injection](#sql-injection)<br>⇨ [XSS](#xss)<br>
 
 * `wpscan` - [Website](https://wpscan.org/)
 
@@ -2142,6 +2157,64 @@ DNS can be used to exfiltrate data, for example to bypass firewalls.
 	``` bash
 	aws s3 cp --recursive --no-sign-request s3://<bucket_name> .
 	```
+
+## Enumeration
+
+
+
+
+
+* `/robots.txt` <span style="color:red">❤️</span>
+
+	File to tell search engines not to index certain files or directories.
+
+
+* Mac / Macintosh / Apple Hidden Files `.DS_Store` [DS_Store_crawler](https://github.com/anantshri/DS_Store_crawler_parser)
+
+	On Mac, there is a hidden index file `.DS_Store` listing the content of the directory. Useful if you have a **LFI** vulnerability.
+
+    ```bash
+    python3 dsstore_crawler.py -i <url>
+    ```
+
+* Bazaar `.bzr` directory
+
+	Contains the history of the project. Can be used to find old versions of the project. Can be fetched with [https://github.com/kost/dvcs-ripper](https://github.com/kost/dvcs-ripper)
+
+    Download the bzr repository:
+    ```bash
+    bzr branch <url> <out-dir>
+    ```
+
+
+* `GitDumper` <span style="color:red">❤️</span> - [GitHub](https://github\.com/arthaud/git-dumper)
+
+	A command-line tool that will automatically scrape and download a [git](https://git-scm.com/) repository hosted online with a given URL.
+
+    When `/.git` is reachable, there is a [git](https://git-scm.com/) repo that contains the history of the project. Can be used to find old versions of the project and to maybe find **credentials** in sources. Use git commands (from your favorite git cheatsheet) to navigate the history.
+
+    ```bash
+    gitdumper <url>/.git/ <out-dir>
+    ```
+
+* Mac AutoLogin Password Cracking with `/etc/kcpassword`
+
+	`/etc/kcpassword` is a file that contains the password for the Mac OS X auto-login user. It is encrypted with a key that is stored in the kernel, but sometimes it can be decrypted with the following python script:
+
+    ``` python
+    def kcpasswd(ciphertext):
+        key = '7d895223d2bcddeaa3b91f'
+        while len(key) < (len(ciphertext)*2):
+            key = key + key
+        key = binasciiunhexlify(key)
+        result = ''
+        for i in range(len(ciphertext)):
+            result += chr(ord(ciphertext[i]) ^ (key[i]))
+        return result
+    ```
+
+
+
 
 ## GraphQL
 
@@ -2292,64 +2365,6 @@ SELECT * FROM users WHERE username = 'admin' AND password = "" OR 1=1--"
 
 
 
-## Enumeration
-
-
-
-
-
-* `/robots.txt` <span style="color:red">❤️</span>
-
-	File to tell search engines not to index certain files or directories.
-
-
-* Mac / Macintosh / Apple Hidden Files `.DS_Store` [DS_Store_crawler](https://github.com/anantshri/DS_Store_crawler_parser)
-
-	On Mac, there is a hidden index file `.DS_Store` listing the content of the directory. Useful if you have a **LFI** vulnerability.
-
-    ```bash
-    python3 dsstore_crawler.py -i <url>
-    ```
-
-* Bazaar `.bzr` directory
-
-	Contains the history of the project. Can be used to find old versions of the project. Can be fetched with [https://github.com/kost/dvcs-ripper](https://github.com/kost/dvcs-ripper)
-
-    Download the bzr repository:
-    ```bash
-    bzr branch <url> <out-dir>
-    ```
-
-
-* `GitDumper` <span style="color:red">❤️</span> - [GitHub](https://github\.com/arthaud/git-dumper)
-
-	A command-line tool that will automatically scrape and download a [git](https://git-scm.com/) repository hosted online with a given URL.
-
-    When `/.git` is reachable, there is a [git](https://git-scm.com/) repo that contains the history of the project. Can be used to find old versions of the project and to maybe find **credentials** in sources. Use git commands (from your favorite git cheatsheet) to navigate the history.
-
-    ```bash
-    gitdumper <url>/.git/ <out-dir>
-    ```
-
-* Mac AutoLogin Password Cracking with `/etc/kcpassword`
-
-	`/etc/kcpassword` is a file that contains the password for the Mac OS X auto-login user. It is encrypted with a key that is stored in the kernel, but sometimes it can be decrypted with the following python script:
-
-    ``` python
-    def kcpasswd(ciphertext):
-        key = '7d895223d2bcddeaa3b91f'
-        while len(key) < (len(ciphertext)*2):
-            key = key + key
-        key = binasciiunhexlify(key)
-        result = ''
-        for i in range(len(ciphertext)):
-            result += chr(ord(ciphertext[i]) ^ (key[i]))
-        return result
-    ```
-
-
-
-
 ## XSS
 
 
@@ -2403,7 +2418,7 @@ These sites can be used to create hooks to catch HTTP requests:
 
 # Miscellaneous
 
-⇨ [Data Science](#data-science)<br>⇨ [Signal processing](#signal-processing)<br>⇨ [Esoteric Languages](#esoteric-languages)<br>⇨ [Wireless](#wireless)<br>
+⇨ [Data Science](#data-science)<br>⇨ [Esoteric Languages](#esoteric-languages)<br>⇨ [Signal processing](#signal-processing)<br>⇨ [Wireless](#wireless)<br>
 
 
 
@@ -2485,18 +2500,6 @@ These sites can be used to create hooks to catch HTTP requests:
 
 
 
-
-
-
-## Signal processing
-
-
-
-* `Scipy` - [Website](https://scipy.org/install/)
-
-    Can be used for signal processing.
-
-    Exemple is provided in [process_signal.ipynb](Miscellaneous/Signal%20processing/Tools/process_signal.ipynb)
 
 
 
@@ -2602,6 +2605,18 @@ Languages
 
 	Whisper my world
 	```
+
+
+
+## Signal processing
+
+
+
+* `Scipy` - [Website](https://scipy.org/install/)
+
+    Can be used for signal processing.
+
+    Exemple is provided in [process_signal.ipynb](Miscellaneous/Signal%20processing/Tools/process_signal.ipynb)
 
 
 

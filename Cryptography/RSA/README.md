@@ -62,6 +62,12 @@ Several attacks exist on RSA depending on the circumstances.
 
    See [this script](./Tools/small_e.py) for an implementation of the attack.
 
+* Many primes in the public modulus - [CryptoHack](https://cryptohack.org/courses/public-key/manyprime/)
+
+   When $N$ is the product of many primes (~30), it can be easily factored with the [Elliptic Curve Method](https://en.wikipedia.org/wiki/Lenstra_elliptic_curve_factorization).
+
+   See [this script](./Tools/many_primes.py) for an implementation of the attack.
+
 * Chinese Remainder Attack
 
    When there are **multiple moduli** $N_1, N_2, \dots, N_k$ for multiple $c_1, c_2, \dots, c_k$ of the same message and the **same public exponent** $e$, you can use the Chinese Remainder Theorem to compute $m$.

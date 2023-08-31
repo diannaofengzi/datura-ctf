@@ -10,6 +10,4 @@ windows iso forensics
 magic hashes
 imhex
 image reverse search with multile engines
-https://doc.sagemath.org/html/en/reference/interfaces/sage/interfaces/ecm.html to factor many (~30) primes ecm = ECM(); factors = ecm.factor(n)
-RSA when e = 3
 DH with weak prime, https://en.wikipedia.org/wiki/Pohlig%E2%80%93Hellman_algorithm

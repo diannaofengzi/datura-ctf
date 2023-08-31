@@ -25,12 +25,12 @@ The public key is (N, e) and the private key is (N, d).
    
    (for exemple with the [Extended Euclidean algorithm](https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm))
 
-## Encryption
+## Encryption (Textbook RSA)
 To encrypt a message $m$ with the **public** key $(N, e)$, compute the ciphertext $c$ with:
 
 >$c = m^e \mod N$
 
-## Decryption
+## Decryption (Textbook RSA)
 To decrypt a ciphertext $c$ with the private key $(N, d)$, compute $m = c^d \mod N$.
 
 m is the deciphered message.
@@ -52,6 +52,15 @@ Several attacks exist on RSA depending on the circumstances.
    When $e$ is **very large**, that means $d$ is small and the system can be vulnerable to the Wiener's attack. See [this script](./Tools/wiener.py) for an implementation of the attack.
 
 	This type of attack on small private exponents was improved by Boneh and Durfee. See [this repository](https://github.com/mimoo/RSA-and-LLL-attacks/blob/master/boneh_durfee.sage) for an implementation of the attack.
+
+
+* Small $e$, usually 3 in textbook RSA - [StackExchange](https://crypto.stackexchange.com/questions/33561/cube-root-attack-rsa-with-low-exponent)
+
+   When $e$ is so small that $c = m^e < N$, you can compute $m$ with a regular root: $m = \sqrt[e]{c}$.
+
+   If $e$ is a bit larger, but still so small that $c = m^e < kN$ for some small $k$, you can compute $m$ with a $k$-th root: $m = \sqrt[e]{c + kN}$.
+
+   See [this script](./Tools/small_e.py) for an implementation of the attack.
 
 * Chinese Remainder Attack
 

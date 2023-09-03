@@ -100,5 +100,9 @@ Several attacks exist on RSA depending on the circumstances.
 
    This attack is also known as the million message attack, as it require a lot of oracle queries.
 
+* Finding primes $p$ and $q$ from d
+
+   [This algorithm](./Tools/primes_from_d.py) can be used to find $p$ and $q$ from $(N, e)$ and the private key $d$
+
 
 * Coppersmith's attack 

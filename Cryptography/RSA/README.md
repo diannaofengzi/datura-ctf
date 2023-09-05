@@ -109,4 +109,14 @@ Several attacks exist on RSA depending on the circumstances.
 
    If the primes $p$ and $q$ are close to each other, it is possible to find them with Fermat's factorisation method. See [this script](./Tools/fermat_factor.py) for an implementation of the attack.
 
+* ROCA vulnerability - [Wikipedia](https://en.wikipedia.org/wiki/ROCA_vulnerability)
+
+   The "Return of Coppersmith's attack" vulnerability occurs when generated primes are in the form <br>
+   >$p = k * M * + (65537^a \mod M)$
+   where $M$ is the product of $n$ successive primes and $n$.
+
+   See this [GitHub gist](https://gist.github.com/zademn/6becc979f65230f70c03e82e4873e3ec) for an explaination of the attack.
+
+   See this [Gitlab repository](https://gitlab.com/jix/neca) for an implementation of the attack.
+
 * Coppersmith's attack 

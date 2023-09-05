@@ -2,7 +2,7 @@ from sage.all import *
 import argparse
 
 def fermat_factor(n): 
-    tmin = floor(sqrt(n))+1; 
+    tmin = floor(sqrt(n))+1
 
     for a in range(tmin,n):
        b = sqrt(a*a - n)

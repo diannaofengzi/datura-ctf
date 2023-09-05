@@ -10,6 +10,5 @@ windows iso forensics
 magic hashes
 imhex
 image reverse search with multile engines
-DH with weak prime, https://en.wikipedia.org/wiki/Pohlig%E2%80%93Hellman_algorithm
-DH with small prime sage.all discrete_log(Mod(A, p), Mod(g, p))
+code for DH with weak prime, https://en.wikipedia.org/wiki/Pohlig%E2%80%93Hellman_algorithm
 Coppersmith's attack 

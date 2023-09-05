@@ -70,7 +70,7 @@ Several attacks exist on RSA depending on the circumstances.
 
 * Chinese Remainder Attack
 
-   When there are **multiple moduli** $N_1, N_2, \dots, N_k$ for multiple $c_1, c_2, \dots, c_k$ of the same message and the **same public exponent** $e$, you can use the Chinese Remainder Theorem to compute $m$.
+   When there are **multiple moduli** $N_1, N_2, \dots, N_k$ for multiple $c_1, c_2, \dots, c_k$ of the same message and the **same public exponent** $e$, you can use the [Chinese Remainder Theorem](https://en.wikipedia.org/wiki/Chinese_remainder_theorem) to compute $m$.
 
 * Multiple Recipients
 
@@ -104,5 +104,9 @@ Several attacks exist on RSA depending on the circumstances.
 
    [This algorithm](./Tools/primes_from_d.py) can be used to find $p$ and $q$ from $(N, e)$ and the private key $d$
 
+
+* Fermat's factorisation method - [Wikipedia](https://en.wikipedia.org/wiki/Fermat%27s_factorization_method)
+
+   If the primes $p$ and $q$ are close to each other, it is possible to find them with Fermat's factorisation method. See [this script](./Tools/fermat_factor.py) for an implementation of the attack.
 
 * Coppersmith's attack 

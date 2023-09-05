@@ -16,4 +16,8 @@
 	
     CLI tool to recover deleted files. Works with raw data, so the disk do not need to have a partition system working.
 
+* Extract windows hashes from filesystem (SAM file).
+
+    This can be done with `samdump2`. See this [GitHub repository](https://github.com/noraj/the-hacking-trove/blob/master/docs/Tools/extract_windows_hashes.md) for more information.
+
 

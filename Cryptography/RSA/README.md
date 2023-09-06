@@ -72,7 +72,7 @@ Several attacks exist on RSA depending on the circumstances.
 
    When there are **multiple moduli** $N_1, N_2, \dots, N_k$ for multiple $c_1, c_2, \dots, c_k$ of the same message and the **same public exponent** $e$, you can use the [Chinese Remainder Theorem](https://en.wikipedia.org/wiki/Chinese_remainder_theorem) to compute $m$.
 
-* Multiple Recipients
+* Multiple Recipients of the same message
 
    When there are **multiple public exponents** $e_1, e_2$ for multiple $c_1, c_2$ and the **same moduli** $N$, you can use Bezout's identity to compute $m$.
 
@@ -119,4 +119,27 @@ Several attacks exist on RSA depending on the circumstances.
 
    See this [Gitlab repository](https://gitlab.com/jix/neca) for an implementation of the attack.
 
-* Coppersmith's attack 
+* Square-free 4p - 1 factorization and it's RSA backdoor viability - [Paper](https://crocs.fi.muni.cz/_media/public/papers/2019-secrypt-sedlacek.pdf)
+
+   If we have<br>
+   >$N = p * q$<br>
+   >$T = 4 * p - 1$<br>
+   >$T = D * s^2$<br>
+   >$D = 3 \mod 8$ (D is a square-free number)<br>
+
+   then $N$ can be factored.
+
+   See [this GitHub repository](https://github.com/jvdsn/crypto-attacks/blob/master/attacks/factorization/complex_multiplication.py) for an implementation of the attack.
+  
+* Franklin-Reiter related-message attack
+
+   When two messages are encrypted using the same key $(e, N)$ and one is a polynomial function of the other, it is possible to decipher the messages.
+
+   A special case of this is when a message is encrypted two times with linear padding : $c = (a*m +b)^e \mod N$.
+
+   See this [GitHub repository](https://github.com/ashutosh1206/Crypton/blob/master/RSA-encryption/Attack-Franklin-Reiter/README.md) for an explaination of the attack.
+
+   See [this script](./Tools/franklin_reiter.py) for an implementation of the attack.
+
+
+* Coppersmith's attack - [Wikipedia](https://en.wikipedia.org/wiki/Coppersmith%27s_attack)

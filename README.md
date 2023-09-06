@@ -889,6 +889,10 @@ Firefox based browsers (and Thunderbird) store their profiles in the following f
 	
     CLI tool to recover deleted files. Works with raw data, so the disk do not need to have a partition system working.
 
+* Extract windows hashes from filesystem (SAM file).
+
+    This can be done with `samdump2`. See this [GitHub repository](https://github.com/noraj/the-hacking-trove/blob/master/docs/Tools/extract_windows_hashes.md) for more information.
+
 
 
 
@@ -1155,7 +1159,7 @@ The full documentation can be found [here](https://volatility3.readthedocs.io)
 
 # Cryptography
 
-⇨ [AES](#aes)<br>⇨ [DES](#des)<br>⇨ [Misc Codes](#misc-codes)<br>⇨ [RC4](#rc4)<br>⇨ [RSA](#rsa)<br>
+⇨ [AES](#aes)<br>⇨ [DES](#des)<br>⇨ [Diffie-Hellman](#diffie-hellman)<br>⇨ [Misc Codes](#misc-codes)<br>⇨ [RC4](#rc4)<br>⇨ [RSA](#rsa)<br>
 
 Cryptography and Cryptanalysis are the art of creating and breaking codes. 
 
@@ -1358,6 +1362,43 @@ Variations such as [Triple DES](https://en.wikipedia.org/wiki/Triple_DES) (3DES)
     * 0x1F1F1F1F0E0E0E0E
 
     Using multiple of these keys in [2 or 3 keys triple DES](https://en.wikipedia.org/wiki/Triple_DES#Keying_options) can also produce a symetric 3DES block cipher.
+
+
+
+## Diffie-Hellman
+
+
+
+[The Diffie–Hellman key exchange](https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange) is a method that generates a shared secret over a public channel. This method is based on the [discrete logarithm problem](https://en.wikipedia.org/wiki/Discrete_logarithm) which is believed to be hard to solve.
+
+## Key generation (Textbook DH)
+
+Suppose a situation where Alice and Bob want to create a shared secret key. They will use a public channel to do so.
+
+1. They chose a standard prime number $p$ and a generator $g$. $g$ is usually 2 or 5 to make computations easier. $p$ and $g$ are public and $GF(p) = {0, 1, ..., p-1} = {g^0 \mod p, g^1 \mod p, ..., g^{p-1} \mod p}$ is a finite field.
+2. They create private keys $a$ and $b$ respectively. $a, b \in GF(p)$.
+3. They compute the public keys $A$ and $B$ and send them over the public channel.
+    >$A = g^a \mod p$<br>
+    >$B = g^b \mod p$
+4. They can now both compute the shared secret key $s$: Alice computes $s = B^a \mod p$ and Bob computes $s = A^b \mod p$.<br> 
+    >$s = B^a \mod p = A^b \mod p = g^{ab} \mod p$
+
+They can now use the shared secret $s$ to derive a symmetric key for [AES](#aes) for example, and use it to encrypt their messages.
+
+
+* DH with weak prime using Pohlig–Hellman - [Wikipedia](https://en.wikipedia.org/wiki/Pohlig%E2%80%93Hellman_algorithm)
+
+    The public prime modulus $p$ must be chosen such that $p = 2*q + 1$ where $q$ is also a prime. In this case, the discrete logarithm problem can be soluve quickly with the Pohlig–Hellman algorithm.
+
+
+* DH with small prime 
+
+    The security of Diffie-Hellman is lower than the number of bits in $p$. Consequently, is p is too small (for exemple 64bits), it is possible to compute the discrete logarithm in a reasonable amount of time.
+
+    ```python
+    from sage.all import *
+    a = discrete_log(Mod(A, p), Mod(g, p))
+    ```
 
 
 
@@ -1635,7 +1676,7 @@ Several attacks exist on RSA depending on the circumstances.
 
 * Chinese Remainder Attack
 
-   When there are **multiple moduli** $N_1, N_2, \dots, N_k$ for multiple $c_1, c_2, \dots, c_k$ of the same message and the **same public exponent** $e$, you can use the Chinese Remainder Theorem to compute $m$.
+   When there are **multiple moduli** $N_1, N_2, \dots, N_k$ for multiple $c_1, c_2, \dots, c_k$ of the same message and the **same public exponent** $e$, you can use the [Chinese Remainder Theorem](https://en.wikipedia.org/wiki/Chinese_remainder_theorem) to compute $m$.
 
 * Multiple Recipients
 
@@ -1665,8 +1706,40 @@ Several attacks exist on RSA depending on the circumstances.
 
    This attack is also known as the million message attack, as it require a lot of oracle queries.
 
+* Finding primes $p$ and $q$ from d
 
-* Coppersmith's attack 
+   [This algorithm](Cryptography/RSA/Tools/primes_from_d.py) can be used to find $p$ and $q$ from $(N, e)$ and the private key $d$
+
+
+* Fermat's factorisation method - [Wikipedia](https://en.wikipedia.org/wiki/Fermat%27s_factorization_method)
+
+   If the primes $p$ and $q$ are close to each other, it is possible to find them with Fermat's factorisation method. See [this script](Cryptography/RSA/Tools/fermat_factor.py) for an implementation of the attack.
+
+* ROCA vulnerability - [Wikipedia](https://en.wikipedia.org/wiki/ROCA_vulnerability)
+
+   The "Return of Coppersmith's attack" vulnerability occurs when generated primes are in the form <br>
+   >$p = k * M * + (65537^a \mod M)$
+   where $M$ is the product of $n$ successive primes and $n$.
+
+   See this [GitHub gist](https://gist.github.com/zademn/6becc979f65230f70c03e82e4873e3ec) for an explaination of the attack.
+
+   See this [Gitlab repository](https://gitlab.com/jix/neca) for an implementation of the attack.
+
+* Square-free 4p - 1 factorization and it's RSA backdoor viability - [Paper](https://crocs.fi.muni.cz/_media/public/papers/2019-secrypt-sedlacek.pdf)
+
+   If we have<br>
+   >$N = p * q$<br>
+   >$T = 4 * p - 1$<br>
+   >$T = D * s^2$<br>
+   >$D = 3 \mod 8$ (D is a square-free number)<br>
+
+   then $N$ can be factored.
+
+   See [this GitHub repository](https://github.com/jvdsn/crypto-attacks/blob/master/attacks/factorization/complex_multiplication.py) for an implementation of the attack.
+  
+
+
+* Coppersmith's attack - [Wikipedia](https://en.wikipedia.org/wiki/Coppersmith%27s_attack)
 
 
 

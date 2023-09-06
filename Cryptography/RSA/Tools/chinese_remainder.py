@@ -1,6 +1,6 @@
 from sage.all import *
 
-# Chinese Remainder Theorem
+# Chinese Remainder Theorem, you can also use the function crt() in sage
 def crt(a_list, m_list):
     M = 1
     for m in m_list:

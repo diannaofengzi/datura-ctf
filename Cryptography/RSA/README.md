@@ -87,12 +87,14 @@ Several attacks exist on RSA depending on the circumstances.
 
    It is possible to deduce one of the prime factors of $n$ from the fixed point, since $\text{gcd}(m−1,n),\ \text{gcd}(m,n),\ \text{gcd}(m+1,n)$ are $1, p, q$ in a different order depending on the values of $m$ mod $p$ and $m$ mod $q$.
    
-* Decipher oracle with blacklist 
+* Decipher or signing oracle with blacklist 
 
    A decipher oracle can not control the message that it decrypts. If it blocks the decryption of cipher $c$, you can pass it $c * r^e \mod n$ where $r$ is any number. It will then return 
    >$(c * r^e)^d = c^d * r = m * r \mod n$
     
    You can then compute $m = c^d$ by dividing by $r$.
+
+   This also applies to a signing oracle with a blacklist.
 
 * Bleichenbacher's attack on PKCS#1 v1.5
 
@@ -140,6 +142,11 @@ Several attacks exist on RSA depending on the circumstances.
    See this [GitHub repository](https://github.com/ashutosh1206/Crypton/blob/master/RSA-encryption/Attack-Franklin-Reiter/README.md) for an explaination of the attack.
 
    See [this script](./Tools/franklin_reiter.py) for an implementation of the attack.
+
+
+* Signature that only check for the last few bytes - [CryptoHack](https://cryptohack.org/challenges/pedro/solutions/)
+
+   When a signature is only checking the last few bytes, you can add $2^{8 * n}$ to the message and the signature will still be valid, where $n$ is the number of bytes checked. Consequently, finding the $e$-th root of the signature will be easier. Check writeups of the cryptohack challenge for more details.
 
 
 * Coppersmith's attack - [Wikipedia](https://en.wikipedia.org/wiki/Coppersmith%27s_attack)

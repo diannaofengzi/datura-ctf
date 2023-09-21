@@ -1388,7 +1388,9 @@ They can now use the shared secret $s$ to derive a symmetric key for [AES](#aes)
 
 * DH with weak prime using Pohlig–Hellman - [Wikipedia](https://en.wikipedia.org/wiki/Pohlig%E2%80%93Hellman_algorithm)
 
-    The public prime modulus $p$ must be chosen such that $p = 2*q + 1$ where $q$ is also a prime. In this case, the discrete logarithm problem can be soluve quickly with the Pohlig–Hellman algorithm.
+    The public prime modulus $p$ must be chosen such that $p = 2*q + 1$ where $q$ is also a prime. If $p-1$ is smooth (i.e have a lot of small, under 1000, factors), the Pohlig–Hellman algorithm can be used to compute the discrete logarithm very quickly. Sagemath's discrete_log function can be used to compute the discrete logarithm for such primes.
+
+    Use [this script](Cryptography/Diffie-Hellman/Tools/smooth_number_generator.py) to generate smooth numbers of selected size.
 
 
 * DH with small prime 
@@ -1678,7 +1680,7 @@ Several attacks exist on RSA depending on the circumstances.
 
    When there are **multiple moduli** $N_1, N_2, \dots, N_k$ for multiple $c_1, c_2, \dots, c_k$ of the same message and the **same public exponent** $e$, you can use the [Chinese Remainder Theorem](https://en.wikipedia.org/wiki/Chinese_remainder_theorem) to compute $m$.
 
-* Multiple Recipients
+* Multiple Recipients of the same message
 
    When there are **multiple public exponents** $e_1, e_2$ for multiple $c_1, c_2$ and the **same moduli** $N$, you can use Bezout's identity to compute $m$.
 
@@ -1693,12 +1695,14 @@ Several attacks exist on RSA depending on the circumstances.
 
    It is possible to deduce one of the prime factors of $n$ from the fixed point, since $\text{gcd}(m−1,n),\ \text{gcd}(m,n),\ \text{gcd}(m+1,n)$ are $1, p, q$ in a different order depending on the values of $m$ mod $p$ and $m$ mod $q$.
    
-* Decipher oracle with blacklist 
+* Decipher or signing oracle with blacklist 
 
    A decipher oracle can not control the message that it decrypts. If it blocks the decryption of cipher $c$, you can pass it $c * r^e \mod n$ where $r$ is any number. It will then return 
    >$(c * r^e)^d = c^d * r = m * r \mod n$
     
    You can then compute $m = c^d$ by dividing by $r$.
+
+   This also applies to a signing oracle with a blacklist.
 
 * Bleichenbacher's attack on PKCS#1 v1.5
 
@@ -1737,6 +1741,20 @@ Several attacks exist on RSA depending on the circumstances.
 
    See [this GitHub repository](https://github.com/jvdsn/crypto-attacks/blob/master/attacks/factorization/complex_multiplication.py) for an implementation of the attack.
   
+* Franklin-Reiter related-message attack
+
+   When two messages are encrypted using the same key $(e, N)$ and one is a polynomial function of the other, it is possible to decipher the messages.
+
+   A special case of this is when a message is encrypted two times with linear padding : $c = (a*m +b)^e \mod N$.
+
+   See this [GitHub repository](https://github.com/ashutosh1206/Crypton/blob/master/RSA-encryption/Attack-Franklin-Reiter/README.md) for an explaination of the attack.
+
+   See [this script](Cryptography/RSA/Tools/franklin_reiter.py) for an implementation of the attack.
+
+
+* Signature that only check for the last few bytes - [CryptoHack](https://cryptohack.org/challenges/pedro/solutions/)
+
+   When a signature is only checking the last few bytes, you can add $2^{8 * n}$ to the message and the signature will still be valid, where $n$ is the number of bytes checked. Consequently, finding the $e$-th root of the signature will be easier. Check writeups of the cryptohack challenge for more details.
 
 
 * Coppersmith's attack - [Wikipedia](https://en.wikipedia.org/wiki/Coppersmith%27s_attack)

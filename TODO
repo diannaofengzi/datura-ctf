@@ -12,3 +12,4 @@ imhex
 image reverse search with multile engines
 code for DH with weak prime, https://en.wikipedia.org/wiki/Pohlig%E2%80%93Hellman_algorithm
 Coppersmith's attack 
+https://crypto.stackexchange.com/questions/99523/how-can-we-prevent-duplicate-key-attacks-on-digital-signatures

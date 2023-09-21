@@ -17,7 +17,9 @@ They can now use the shared secret $s$ to derive a symmetric key for [AES](../AE
 
 * DH with weak prime using Pohlig–Hellman - [Wikipedia](https://en.wikipedia.org/wiki/Pohlig%E2%80%93Hellman_algorithm)
 
-    The public prime modulus $p$ must be chosen such that $p = 2*q + 1$ where $q$ is also a prime. In this case, the discrete logarithm problem can be soluve quickly with the Pohlig–Hellman algorithm.
+    The public prime modulus $p$ must be chosen such that $p = 2*q + 1$ where $q$ is also a prime. If $p-1$ is smooth (i.e have a lot of small, under 1000, factors), the Pohlig–Hellman algorithm can be used to compute the discrete logarithm very quickly. Sagemath's discrete_log function can be used to compute the discrete logarithm for such primes.
+
+    Use [this script](./Tools/smooth_number_generator.py) to generate smooth numbers of selected size.
 
 
 * DH with small prime 
